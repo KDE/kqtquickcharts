@@ -1,6 +1,5 @@
 project(kqmlgraphplugin)
 
-find_package(KDE4 4.10 REQUIRED)
 include(KDE4Defaults)
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
