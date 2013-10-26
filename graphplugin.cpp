@@ -31,7 +31,7 @@
 
 void GraphPlugin::registerTypes(const char *uri)
 {
-    Q_ASSERT(uri == QLatin1String("org.kde.ktouch.graph"));
+    Q_ASSERT(uri == QLatin1String("org.kde.graphs"));
 
     qmlRegisterType<Dimension>(uri, 0, 1, "Dimension");
     qmlRegisterType<GraphCore>(uri, 0, 1, "GraphCore");

@@ -1,4 +1,4 @@
-plugin graphplugin
+plugin kqmlgraphplugin
 
 BarGraph 0.1 BarGraph.qml
 LineGraph 0.1 LineGraph.qml

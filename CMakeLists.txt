@@ -1,6 +1,12 @@
-project(graph)
+project(kqmlgraphplugin)
 
-set(graph_SRCS
+find_package(KDE4 4.10 REQUIRED)
+include(KDE4Defaults)
+add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+
+include_directories(${QT_INCLUDE} ${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
+
+set(kqmlgraphplugin_SRCS
     dimension.cpp
     graphplugin.cpp
     graphcore.cpp
@@ -13,12 +19,12 @@ set(graph_SRCS
     graphforegroundpainter.cpp
     )
 
-automoc4_add_library(graphplugin SHARED ${graph_SRCS})
-target_link_libraries(graphplugin ${KDE4_PLASMA_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTDECLARATIVE_LIBRARY} ${KDECLARATIVE_LIBRARIES})
+automoc4_add_library(kqmlgraphplugin SHARED ${kqmlgraphplugin_SRCS})
+target_link_libraries(kqmlgraphplugin ${KDE4_PLASMA_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTDECLARATIVE_LIBRARY} ${KDECLARATIVE_LIBRARIES})
 
-install(TARGETS graphplugin DESTINATION ${IMPORTS_INSTALL_DIR}/org/kde/ktouch/graph)
+install(TARGETS kqmlgraphplugin DESTINATION ${IMPORTS_INSTALL_DIR}/org/kde/graphs)
 
-set(ktouch_graphplugin_files
+set(kqmlgraphplugin_files
     qml/qmldir
 
     qml/BarGraph.qml
@@ -28,4 +34,4 @@ set(ktouch_graphplugin_files
     qml/Label.qml
 )
 
-install(FILES ${ktouch_graphplugin_files} DESTINATION ${IMPORTS_INSTALL_DIR}/org/kde/ktouch/graph)
+install(FILES ${kqmlgraphplugin_files} DESTINATION ${IMPORTS_INSTALL_DIR}/org/kde/graphs)
