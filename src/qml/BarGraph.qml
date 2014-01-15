@@ -28,6 +28,7 @@ Item {
 
     property alias backgroundColor: bg.color
     property color textColor: theme.textColor
+    property real padding: 0.0
 
     signal barClicked(int row, variant bar)
     signal barEntered(int row, variant bar)
@@ -41,7 +42,11 @@ Item {
 
     BarGraphCore {
         id: core
-        anchors.fill: parent
+
+        anchors {
+            fill: parent
+            margins: root.padding
+        }
 
         ListView {
             id: list
@@ -114,54 +119,53 @@ Item {
             graphCore: core
             backgroundColor: bg.color
         }
-    }
 
-    LineLabel {
-        anchors {
-            top: parent.top
-            left: parent.left
-            topMargin: 2
+        LineLabel {
+            anchors {
+                top: parent.top
+                left: parent.left
+                topMargin: 2
+            }
+            backgroundItem: bg
+            color: root.textColor
+            dimension: core.dimensions.length > 0? core.dimensions[0]: null
+            valueFactor: 1
         }
-        backgroundItem: bg
-        color: root.textColor
-        dimension: core.dimensions.length > 0? core.dimensions[0]: null
-        valueFactor: 1
-    }
 
-    LineLabel {
-        anchors {
-            top: parent.top
-            left: parent.left
-            topMargin: (core.height - 4) / 2 + 2
+        LineLabel {
+            anchors {
+                top: parent.top
+                left: parent.left
+                topMargin: (core.height - 4) / 2 + 2
+            }
+            backgroundItem: bg
+            color: root.textColor
+            dimension: core.dimensions.length > 0? core.dimensions[0]: null
+            valueFactor: 0.5
         }
-        backgroundItem: bg
-        color: root.textColor
-        dimension: core.dimensions.length > 0? core.dimensions[0]: null
-        valueFactor: 0.5
-    }
 
-    LineLabel {
-        anchors {
-            top: parent.top
-            right: parent.right
-            topMargin: 2
+        LineLabel {
+            anchors {
+                top: parent.top
+                right: parent.right
+                topMargin: 2
+            }
+            backgroundItem: bg
+            color: root.textColor
+            dimension: core.dimensions.length > 1? core.dimensions[1]: null
+            valueFactor: 1
         }
-        backgroundItem: bg
-        color: root.textColor
-        dimension: core.dimensions.length > 1? core.dimensions[1]: null
-        valueFactor: 1
-    }
 
-    LineLabel {
-        anchors {
-            top: parent.top
-            right: parent.right
-            topMargin: (core.height - 4) / 2 + 2
+        LineLabel {
+            anchors {
+                top: parent.top
+                right: parent.right
+                topMargin: (core.height - 4) / 2 + 2
+            }
+            backgroundItem: bg
+            color: root.textColor
+            dimension: core.dimensions.length > 1? core.dimensions[1]: null
+            valueFactor: 0.5
         }
-        backgroundItem: bg
-        color: root.textColor
-        dimension: core.dimensions.length > 1? core.dimensions[1]: null
-        valueFactor: 0.5
     }
-
 }

@@ -95,7 +95,7 @@ void GraphCore::paintAxisAndLines(QPainter* painter, qreal offset)
     const int minY = qRound(offset);
     const int maxY = height() - offset;
     const int distance = (maxY - minY) / 4;
-    const qreal x1 = x();
+    const qreal x1 = 0.0;
     const qreal x2 = x1 + width();
     int y = minY;
 
