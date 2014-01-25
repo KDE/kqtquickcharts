@@ -30,9 +30,9 @@ Item {
     property color textColor: theme.textColor
     property real padding: 0.0
 
-    signal barClicked(int row, variant bar)
-    signal barEntered(int row, variant bar)
-    signal barExited(int row, variant bar)
+    signal elemClicked(int row, variant elem)
+    signal elemEntered(int row, variant elem)
+    signal elemExited(int row, variant elem)
 
     Rectangle {
         id: bg
@@ -104,9 +104,9 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 hoverEnabled: true
-                                onClicked: root.barClicked(segment.row, parent)
-                                onEntered: root.barEntered(segment.row, parent)
-                                onExited: root.barExited(segment.row, parent)
+                                onClicked: root.elemClicked(segment.row, parent)
+                                onEntered: root.elemEntered(segment.row, parent)
+                                onExited: root.elemExited(segment.row, parent)
                             }
                         }
                     }
