@@ -25,6 +25,7 @@ Item {
     property alias dimensions: core.dimensions
     property alias pitch: core.pitch
     property alias pointRadius: core.pointRadius
+    property alias textRole: core.textRole
 
     property alias backgroundColor: bg.color
     property color textColor: theme.textColor
@@ -95,10 +96,18 @@ Item {
                     Repeater {
                         model: core.model
                         delegate: LineGraphPoint {
+                            id: point
                             lineGraphCore: core
                             backgroundPainter: lineBg
                             dimension: line.dimension
                             row: index
+
+                            Label {
+                                anchors.top: parent.bottom
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                backgroundItem: bg
+                                text: parent.text
+                            }
 
                             MouseArea {
                                 anchors.fill: parent

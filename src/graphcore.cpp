@@ -24,7 +24,8 @@
 GraphCore::GraphCore(QDeclarativeItem *parent) :
     QDeclarativeItem(parent),
     m_model(0),
-    m_pitch(50.0)
+    m_pitch(50.0),
+    m_textRole(-1)
 {
     setFlag(QGraphicsItem::ItemHasNoContents, false);
 }
@@ -81,6 +82,23 @@ void GraphCore::setPitch(qreal pitch)
         m_pitch = pitch;
         triggerUpdate();
         emit pitchChanged();
+    }
+}
+
+int GraphCore::textRole() const
+{
+    return m_textRole;
+}
+
+void GraphCore::setTextRole(int textRole)
+{
+    if (textRole != m_textRole)
+    {
+        m_textRole = textRole;
+
+        triggerUpdate();
+
+        emit textRoleChanged();
     }
 }
 

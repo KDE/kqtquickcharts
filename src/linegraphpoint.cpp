@@ -116,6 +116,20 @@ void LineGraphPoint::setRow(int row)
     }
 }
 
+QString LineGraphPoint::text() const
+{
+    const int role = m_lineGraphCore->textRole();
+
+    if (role == -1)
+        return QString();
+
+    QAbstractTableModel* model = m_lineGraphCore->model();
+    Dimension* dimension = m_lineGraphCore->dimensionsList().at(m_dimension);
+    const int column = dimension->dataColumn();
+
+    return model->data(model->index(m_row, column), role).toString();
+}
+
 void LineGraphPoint::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     if (!valid())

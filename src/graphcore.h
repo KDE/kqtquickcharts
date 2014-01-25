@@ -31,6 +31,7 @@ class GraphCore : public QDeclarativeItem
     Q_PROPERTY(QAbstractTableModel* model READ model WRITE setModel NOTIFY modelChanged)
     Q_PROPERTY(QDeclarativeListProperty<Dimension> dimensions READ dimensions CONSTANT)
     Q_PROPERTY(qreal pitch READ pitch WRITE setPitch NOTIFY pitchChanged)
+    Q_PROPERTY(int textRole READ textRole WRITE setTextRole NOTIFY textRoleChanged)
 public:
     explicit GraphCore(QDeclarativeItem *parent = 0);
     QAbstractTableModel* model() const;
@@ -39,11 +40,13 @@ public:
     QList<Dimension*> dimensionsList() const;
     qreal pitch() const;
     void setPitch(qreal pitch);
-
+    int textRole() const;
+    void setTextRole(int textRole);
 signals:
     void modelChanged();
     void graphStyleChanged();
     void pitchChanged();
+    void textRoleChanged();
     void updated();
 protected slots:
     void triggerUpdate();
@@ -57,6 +60,7 @@ private:
     QAbstractTableModel* m_model;
     QList<Dimension*> m_dimensions;
     qreal m_pitch;
+    int m_textRole;
 };
 
 #endif // GRAPHCORE_H

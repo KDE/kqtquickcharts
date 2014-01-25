@@ -31,6 +31,7 @@ class LineGraphPoint : public QDeclarativeItem
     Q_PROPERTY(LineGraphBackgroundPainter* backgroundPainter READ backgroundPainter WRITE setBackgroundPainter NOTIFY backgroundPainterChanged)
     Q_PROPERTY(int dimension READ dimension WRITE setDimension NOTIFY dimensionChanged)
     Q_PROPERTY(int row READ row WRITE setRow NOTIFY rowChanged)
+    Q_PROPERTY(QString text READ text NOTIFY textChanged)
 public:
     explicit LineGraphPoint(QDeclarativeItem* parent = 0);
     LineGraphCore* lineGraphCore() const;
@@ -41,12 +42,14 @@ public:
     void setDimension(int dimension);
     int row() const;
     void setRow(int row);
+    QString text() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 signals:
     void lineGraphCoreChanged();
     void backgroundPainterChanged();
     void dimensionChanged();
     void rowChanged();
+    void textChanged();
     void maxYChanged();
 private slots:
     void triggerUpdate();
