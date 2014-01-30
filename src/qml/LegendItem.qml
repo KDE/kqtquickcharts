@@ -21,8 +21,22 @@ import QtQuick 1.1
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
 
+/**
+ * An item to compose the legend for a chart of.
+ *
+ * Displays the color and the label of one associated dimension.
+ */
 Item {
+    /**
+    * The dimension the legend item is associated to.
+    */
     property Dimension dimension
+
+    /**
+    * The text color for the legend label.
+    *
+    * Default value is the theme's text color
+    */
     property alias textColor: label.color
 
     height: label.height

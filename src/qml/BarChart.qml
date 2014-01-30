@@ -20,20 +20,107 @@
 import QtQuick 1.1
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
+/**
+ * An interactive bar chart.
+ *
+ * At the minimum, set the 'model' and 'dimensions' properties to use
+ * this component.
+ */
 Item {
     id: root
 
+    /**
+     * type:QAbstractTableModel
+     * The source model the data for the chart is taken from.
+     *
+     * One row represents a record in the chart. Use the 'dimensions'
+     * property to define which columns carry the relevant data.
+     */
     property alias model: core.model
+
+    /**
+     * type:list<Dimension>
+     * The list of dimensions for the graph.
+     *
+     * Each dimension defines the appearance of the data from one
+     * column in the source model. See the documentation for Dimension
+     * for details.
+     */
     property alias dimensions: core.dimensions
+
+    /**
+     * type:real
+     * The horizontal space used for each record in pixels.
+     *
+     * Default value is 50.0.
+     */
     property alias pitch: core.pitch
+
+    /**
+     * type:int
+     * The role to query text from the model for data indices
+     *
+     * If set there will be text labels with the data fetched with the
+     * specified role next to the bar elements.
+     *
+     * Default value is -1 (unset).
+     */
     property alias textRole: core.textRole
 
+    /**
+     * type:color
+     * The background color used for the chart.
+     *
+     * @warn colors with an non-zero alpha component aren't supported yet
+     * and result in an visual defiencies.
+     *
+     * Default value is the theme's background color.
+     */
     property alias backgroundColor: bg.color
+
+    /**
+     * type:color
+     * The text color used for the chart
+     *
+     * Used for pitch line and date element labels.
+     *
+     * Default value is the theme's text color.
+     */
     property color textColor: theme.textColor
+
+    /**
+     * The amount of space between the outline of the chart background
+     * and the chart contents.
+     *
+     * Default value 0.0.
+     */
     property real padding: 0.0
 
+    /**
+     * Fires when the user has clicked on a data element.
+     *
+     * @param dimension The dimension the data element belongs to.
+     * @param row The row in the source model the data element represents.
+     * @param elem The QML item for data element itself.
+     */
     signal elemClicked(variant dimension, int row, variant elem)
+
+    /**
+     * Fires when the mouse cursor touches a data element.
+     *
+     * @param dimension The dimension the data element belongs to.
+     * @param row The row in the source model the data element represents.
+     * @param elem The QML item for data element itself.
+     */
     signal elemEntered(variant dimension, int row, variant elem)
+
+    /**
+     * Fires when the mouse cursor leaves a data element.
+     *
+     * @param dimension The dimension the data element belongs to.
+     * @param row The row in the source model the data element represents.
+     * @param elem The QML item for data element itself.
+     */
     signal elemExited(variant dimension, int row, variant elem)
 
     Rectangle {
