@@ -17,12 +17,12 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#include "graphcore.h"
+#include "chartcore.h"
 
 #include <QAbstractTableModel>
 #include <QPainter>
 
-GraphCore::GraphCore(QDeclarativeItem *parent) :
+ChartCore::ChartCore(QDeclarativeItem *parent) :
     QDeclarativeItem(parent),
     m_model(0),
     m_pitch(50.0),
@@ -31,12 +31,12 @@ GraphCore::GraphCore(QDeclarativeItem *parent) :
     setFlag(QGraphicsItem::ItemHasNoContents, false);
 }
 
-QAbstractTableModel* GraphCore::model() const
+QAbstractTableModel* ChartCore::model() const
 {
     return m_model;
 }
 
-void GraphCore::setModel(QAbstractTableModel* model)
+void ChartCore::setModel(QAbstractTableModel* model)
 {
     if (model != m_model)
     {
@@ -62,21 +62,21 @@ void GraphCore::setModel(QAbstractTableModel* model)
     }
 }
 
-QDeclarativeListProperty<Dimension> GraphCore::dimensions() {
-    return QDeclarativeListProperty<Dimension>(this, 0, &GraphCore::appendDimension, &GraphCore::countDimensions, &GraphCore::dimensionAt, &GraphCore::clearDimensions);
+QDeclarativeListProperty<Dimension> ChartCore::dimensions() {
+    return QDeclarativeListProperty<Dimension>(this, 0, &ChartCore::appendDimension, &ChartCore::countDimensions, &ChartCore::dimensionAt, &ChartCore::clearDimensions);
 }
 
-QList<Dimension*> GraphCore::dimensionsList() const
+QList<Dimension*> ChartCore::dimensionsList() const
 {
     return m_dimensions;
 }
 
-qreal GraphCore::pitch() const
+qreal ChartCore::pitch() const
 {
     return m_pitch;
 }
 
-void GraphCore::setPitch(qreal pitch)
+void ChartCore::setPitch(qreal pitch)
 {
     if (pitch != m_pitch)
     {
@@ -86,12 +86,12 @@ void GraphCore::setPitch(qreal pitch)
     }
 }
 
-int GraphCore::textRole() const
+int ChartCore::textRole() const
 {
     return m_textRole;
 }
 
-void GraphCore::setTextRole(int textRole)
+void ChartCore::setTextRole(int textRole)
 {
     if (textRole != m_textRole)
     {
@@ -103,13 +103,13 @@ void GraphCore::setTextRole(int textRole)
     }
 }
 
-void GraphCore::triggerUpdate()
+void ChartCore::triggerUpdate()
 {
     emit updated();
     update();
 }
 
-void GraphCore::paintAxisAndLines(QPainter* painter, qreal offset)
+void ChartCore::paintAxisAndLines(QPainter* painter, qreal offset)
 {
     const int minY = qRound(offset);
     const int maxY = height() - offset;
@@ -130,40 +130,40 @@ void GraphCore::paintAxisAndLines(QPainter* painter, qreal offset)
     painter->drawRect(QRectF(QPointF(x1, maxY), QPointF(x2, maxY + 1)));
 }
 
-void GraphCore::appendDimension(QDeclarativeListProperty<Dimension>* list, Dimension *dimension) {
-    GraphCore* graphCore = qobject_cast<GraphCore*>(list->object);
-    if (graphCore) {
-        dimension->setParent(graphCore);
-        graphCore->m_dimensions.append(dimension);
-        connect(dimension, SIGNAL(updated()), graphCore, SLOT(triggerUpdate()));
-        graphCore->triggerUpdate();
+void ChartCore::appendDimension(QDeclarativeListProperty<Dimension>* list, Dimension *dimension) {
+    ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
+    if (chartCore) {
+        dimension->setParent(chartCore);
+        chartCore->m_dimensions.append(dimension);
+        connect(dimension, SIGNAL(updated()), chartCore, SLOT(triggerUpdate()));
+        chartCore->triggerUpdate();
     }
 }
 
-int GraphCore::countDimensions(QDeclarativeListProperty<Dimension>* list) {
-    GraphCore* graphCore = qobject_cast<GraphCore*>(list->object);
-    if (graphCore) {
-        return graphCore->m_dimensions.count();
+int ChartCore::countDimensions(QDeclarativeListProperty<Dimension>* list) {
+    ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
+    if (chartCore) {
+        return chartCore->m_dimensions.count();
     }
     return -1;
 }
 
-Dimension* GraphCore::dimensionAt(QDeclarativeListProperty<Dimension>* list, int index) {
-    GraphCore* graphCore = qobject_cast<GraphCore*>(list->object);
-    if (graphCore) {
-        return graphCore->m_dimensions.at(index);
+Dimension* ChartCore::dimensionAt(QDeclarativeListProperty<Dimension>* list, int index) {
+    ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
+    if (chartCore) {
+        return chartCore->m_dimensions.at(index);
     }
     return 0;
 }
 
-void GraphCore::clearDimensions(QDeclarativeListProperty<Dimension>* list) {
-    GraphCore* graphCore = qobject_cast<GraphCore*>(list->object);
-    if (graphCore) {
-        foreach (Dimension* dimension, graphCore->m_dimensions)
+void ChartCore::clearDimensions(QDeclarativeListProperty<Dimension>* list) {
+    ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
+    if (chartCore) {
+        foreach (Dimension* dimension, chartCore->m_dimensions)
         {
-            dimension->disconnect(graphCore);
+            dimension->disconnect(chartCore);
         }
-        graphCore->m_dimensions.clear();
-        graphCore->triggerUpdate();
+        chartCore->m_dimensions.clear();
+        chartCore->triggerUpdate();
     }
 }

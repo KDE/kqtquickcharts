@@ -17,33 +17,33 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHBACKGROUNDPAINTER_H
-#define LINEGRAPHBACKGROUNDPAINTER_H
+#ifndef LINEGRAPHFOREGROUNDPAINTER_H
+#define LINEGRAPHFOREGROUNDPAINTER_H
 
 #include <QDeclarativeItem>
 
-class LineGraphCore;
+class ChartCore;
 
-class LineGraphBackgroundPainter : public QDeclarativeItem
+class ChartForegroundPainter : public QDeclarativeItem
 {
     Q_OBJECT
-    Q_PROPERTY(LineGraphCore* lineGraphCore READ lineGraphCore WRITE setLineGraphCore NOTIFY lineGraphCoreChanged)
+    Q_PROPERTY(ChartCore* chartCore READ chartCore WRITE setChartCore NOTIFY chartCoreChanged)
+    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
 public:
-    explicit LineGraphBackgroundPainter(QDeclarativeItem* parent = 0);
-    LineGraphCore* lineGraphCore() const;
-    void setLineGraphCore(LineGraphCore* lineGraphCore);
+    explicit ChartForegroundPainter(QDeclarativeItem* parent = 0);
+    ChartCore* chartCore() const;
+    void setChartCore(ChartCore* chartCore);
+    QColor backgroundColor() const;
+    void setBackgroundColor(const QColor& backgroundColor);
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
-    const QList<QPolygonF>& linePolygons() const;
 signals:
-    void lineGraphCoreChanged();
-    void linePolygonsUpdated();
+    void chartCoreChanged();
+    void backgroundColorChanged();
 private slots:
     void triggerUpdate();
 private:
-    void updateWidth();
-    void updateLinePolygons();
-    LineGraphCore* m_lineGraphCore;
-    QList<QPolygonF> m_linePolygons;
+    ChartCore* m_chartCore;
+    QColor m_backgroundColor;
 };
 
-#endif // LINEGRAPHBACKGROUNDPAINTER_H
+#endif // LINEGRAPHFOREGROUNDPAINTER_H

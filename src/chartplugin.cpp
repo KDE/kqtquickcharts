@@ -17,35 +17,35 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#include "graphplugin.h"
+#include "chartplugin.h"
 
 #include <qdeclarative.h>
 #include <QAbstractTableModel>
 
 #include "dimension.h"
-#include "bargraphcore.h"
-#include "bargraphsegment.h"
-#include "linegraphcore.h"
-#include "linegraphbackgroundpainter.h"
-#include "linegraphpainter.h"
-#include "linegraphpoint.h"
-#include "graphforegroundpainter.h"
+#include "barchartcore.h"
+#include "barchartsegment.h"
+#include "linechartcore.h"
+#include "linechartbackgroundpainter.h"
+#include "linechartpainter.h"
+#include "linechartpoint.h"
+#include "chartforegroundpainter.h"
 
-void GraphPlugin::registerTypes(const char *uri)
+void ChartPlugin::registerTypes(const char *uri)
 {
-    Q_ASSERT(uri == QLatin1String("org.kde.graphs"));
+    Q_ASSERT(uri == QLatin1String("org.kde.charts"));
 
     qmlRegisterType<Dimension>(uri, 0, 1, "Dimension");
-    qmlRegisterType<GraphCore>(uri, 0, 1, "GraphCore");
-    qmlRegisterType<BarGraphCore>(uri, 0, 1, "BarGraphCore");
-    qmlRegisterType<BarGraphSegment>(uri, 0, 1, "BarGraphSegment");
-    qmlRegisterType<LineGraphCore>(uri, 0, 1, "LineGraphCore");
-    qmlRegisterType<LineGraphBackgroundPainter>(uri, 0, 1, "LineGraphBackgroundPainter");
-    qmlRegisterType<LineGraphPainter>(uri, 0, 1, "LineGraphPainter");
-    qmlRegisterType<LineGraphPoint>(uri, 0, 1, "LineGraphPoint");
-    qmlRegisterType<GraphForegroundPainter>(uri, 0, 1, "GraphForegroundPainter");
+    qmlRegisterType<ChartCore>(uri, 0, 1, "ChartCore");
+    qmlRegisterType<BarChartCore>(uri, 0, 1, "BarChartCore");
+    qmlRegisterType<BarChartSegment>(uri, 0, 1, "BarChartSegment");
+    qmlRegisterType<LineChartCore>(uri, 0, 1, "LineChartCore");
+    qmlRegisterType<LineChartBackgroundPainter>(uri, 0, 1, "LineChartBackgroundPainter");
+    qmlRegisterType<LineChartPainter>(uri, 0, 1, "LineChartPainter");
+    qmlRegisterType<LineChartPoint>(uri, 0, 1, "LineChartPoint");
+    qmlRegisterType<ChartForegroundPainter>(uri, 0, 1, "ChartForegroundPainter");
 
     qmlRegisterUncreatableType<QAbstractTableModel>(uri, 0, 1, "QAbstractTableModel", "abstract class");
 }
 
-Q_EXPORT_PLUGIN2(graphplugin, GraphPlugin)
+Q_EXPORT_PLUGIN2(chartplugin, ChartPlugin)

@@ -17,63 +17,63 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#include "linegraphbackgroundpainter.h"
+#include "linechartbackgroundpainter.h"
 
 #include <QAbstractTableModel>
 #include <QPainter>
 
-#include "linegraphcore.h"
+#include "linechartcore.h"
 #include "dimension.h"
 
 #include <KDebug>
 
-LineGraphBackgroundPainter::LineGraphBackgroundPainter(QDeclarativeItem* parent) :
+LineChartBackgroundPainter::LineChartBackgroundPainter(QDeclarativeItem* parent) :
     QDeclarativeItem(parent),
-    m_lineGraphCore(0)
+    m_lineChartCore(0)
 {
     setFlag(QGraphicsItem::ItemHasNoContents, false);
 
     connect(this, SIGNAL(heightChanged()), SLOT(triggerUpdate()));
 }
 
-LineGraphCore* LineGraphBackgroundPainter::lineGraphCore() const
+LineChartCore* LineChartBackgroundPainter::lineChartCore() const
 {
-    return m_lineGraphCore;
+    return m_lineChartCore;
 }
 
-void LineGraphBackgroundPainter::setLineGraphCore(LineGraphCore* lineGraphCore)
+void LineChartBackgroundPainter::setLineChartCore(LineChartCore* lineChartCore)
 {
-    if (lineGraphCore != m_lineGraphCore)
+    if (lineChartCore != m_lineChartCore)
     {
-        if (m_lineGraphCore)
+        if (m_lineChartCore)
         {
-            m_lineGraphCore->disconnect(this);
+            m_lineChartCore->disconnect(this);
         }
 
-        m_lineGraphCore = lineGraphCore;
+        m_lineChartCore = lineChartCore;
 
-        if (m_lineGraphCore)
+        if (m_lineChartCore)
         {
-            connect(m_lineGraphCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_lineChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
         }
 
         update();
-        emit lineGraphCoreChanged();
+        emit lineChartCoreChanged();
     }
 }
 
-const QList<QPolygonF>& LineGraphBackgroundPainter::linePolygons() const
+const QList<QPolygonF>& LineChartBackgroundPainter::linePolygons() const
 {
     return m_linePolygons;
 }
 
-void LineGraphBackgroundPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void LineChartBackgroundPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    if (m_lineGraphCore->model()->rowCount() == 0)
+    if (m_lineChartCore->model()->rowCount() == 0)
         return;
 
-    QList<Dimension*> dimensions = m_lineGraphCore->dimensionsList();
-    const qreal radius = m_lineGraphCore->pointRadius();
+    QList<Dimension*> dimensions = m_lineChartCore->dimensionsList();
+    const qreal radius = m_lineChartCore->pointRadius();
     const qreal maxY = height();
 
     for (int i = 0; i < dimensions.length(); i++)
@@ -93,9 +93,9 @@ void LineGraphBackgroundPainter::paint(QPainter* painter, const QStyleOptionGrap
     }
 }
 
-void LineGraphBackgroundPainter::triggerUpdate()
+void LineChartBackgroundPainter::triggerUpdate()
 {
-    if (!m_lineGraphCore->model())
+    if (!m_lineChartCore->model())
         return;
 
     updateLinePolygons();
@@ -103,9 +103,9 @@ void LineGraphBackgroundPainter::triggerUpdate()
     update();
 }
 
-void LineGraphBackgroundPainter::updateWidth()
+void LineChartBackgroundPainter::updateWidth()
 {
-    QAbstractTableModel* model = m_lineGraphCore->model();
+    QAbstractTableModel* model = m_lineChartCore->model();
 
     if (!model)
     {
@@ -113,17 +113,17 @@ void LineGraphBackgroundPainter::updateWidth()
         return;
     }
 
-    setWidth(model->rowCount() * m_lineGraphCore->pitch());
+    setWidth(model->rowCount() * m_lineChartCore->pitch());
 }
 
-void LineGraphBackgroundPainter::updateLinePolygons()
+void LineChartBackgroundPainter::updateLinePolygons()
 {
     m_linePolygons.clear();
 
-    QList<Dimension*> dimensions = m_lineGraphCore->dimensionsList();
-    QAbstractTableModel* model = m_lineGraphCore->model();
-    const qreal pitch = m_lineGraphCore->pitch();
-    const qreal radius = m_lineGraphCore->pointRadius();
+    QList<Dimension*> dimensions = m_lineChartCore->dimensionsList();
+    QAbstractTableModel* model = m_lineChartCore->model();
+    const qreal pitch = m_lineChartCore->pitch();
+    const qreal radius = m_lineChartCore->pointRadius();
 
     foreach(Dimension* dimension, dimensions)
     {

@@ -26,11 +26,13 @@ Item {
     property alias model: core.model
     property alias dimensions: core.dimensions
     property alias pitch: core.pitch
+    property alias pointRadius: core.pointRadius
     property alias textRole: core.textRole
 
     property alias backgroundColor: bg.color
     property color textColor: theme.textColor
     property real padding: 0.0
+
 
     signal elemClicked(int row, variant elem)
     signal elemEntered(int row, variant elem)
@@ -42,7 +44,7 @@ Item {
         color: theme.backgroundColor
     }
 
-    BarGraphCore {
+    LineChartCore {
         id: core
 
         anchors {
@@ -50,65 +52,71 @@ Item {
             margins: root.padding
         }
 
-        ListView {
-            id: list
+        Flickable {
+            id: flickable
             anchors.fill: parent
+
             clip: true
 
-            model: core.model
-            orientation: ListView.Horizontal
+            contentHeight: height
+            contentWidth: lineBg.width
 
-            header: Item {
-                width: Math.floor(core.pitch / 2)
-                height: list.height
+            property real lastWidth: -1
+
+            onContentWidthChanged: {
+                if (contentWidth > width) {
+                    contentX = contentWidth - width
+                }
             }
 
-            footer: Item {
-                width: Math.ceil(core.pitch / 2)
-                height: list.height
+            onWidthChanged: {
+                if (lastWidth != -1 && contentWidth > width) {
+                    contentX = contentX + lastWidth - width
+
+                }
+                lastWidth = width
             }
 
-            delegate: Item {
-                id: segmentContainer
-                property int row: index
-
-                width: core.pitch
+            LineChartBackgroundPainter {
+                id: lineBg
+                lineChartCore: core
                 height: parent.height
+            }
 
-                Repeater {
-                    anchors.fill: parent
-                    model: core.dimensions.length
+            Repeater {
+                id: dimensionsRepeater
 
-                    delegate: BarGraphSegment {
-                        id: segment
-                        barGraphCore: core
-                        dimension: index
-                        row: segmentContainer.row
+                model: core.dimensions.length
 
-                        width: core.barWidth
-                        height: parent.height
-                        x: (dimension + 0.5) * width
+                delegate: LineChartPainter {
+                    id: line
+                    lineChartCore: core
+                    backgroundPainter: lineBg
+                    dimension: index
+                    height: parent.height
 
-                        Rectangle {
-                            property Dimension dimension: core.dimensions[segment.dimension]
-                            anchors.bottom: parent.bottom
-                            color: dimension.color
-                            width: core.barWidth
-                            height: segment.barHeight
+                    Repeater {
+                        model: core.model
+                        delegate: LineChartPoint {
+                            id: point
+                            lineChartCore: core
+                            backgroundPainter: lineBg
+                            dimension: line.dimension
+                            row: index
 
                             Label {
-                                anchors.bottom: parent.bottom
+                                anchors.top: parent.bottom
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 backgroundItem: bg
-                                text: segment.text
+                                text: parent.text
                             }
 
                             MouseArea {
                                 anchors.fill: parent
                                 hoverEnabled: true
-                                onClicked: root.elemClicked(segment.row, parent)
-                                onEntered: root.elemEntered(segment.row, parent)
-                                onExited: root.elemExited(segment.row, parent)
+                                onClicked: root.elemClicked(parent.row, parent)
+                                onEntered: root.elemEntered(parent.row, parent)
+                                onExited: root.elemExited(parent.row, parent)
                             }
                         }
                     }
@@ -116,17 +124,16 @@ Item {
             }
         }
 
-        GraphForegroundPainter {
+        ChartForegroundPainter {
             anchors.fill: parent
-            graphCore: core
+            chartCore: core
             backgroundColor: bg.color
         }
-
         LineLabel {
             anchors {
                 top: parent.top
                 left: parent.left
-                topMargin: 2
+                topMargin: core.pointRadius + 2
             }
             backgroundItem: bg
             color: root.textColor
@@ -138,7 +145,7 @@ Item {
             anchors {
                 top: parent.top
                 left: parent.left
-                topMargin: (core.height - 4) / 2 + 2
+                topMargin: core.pointRadius + (core.height - 2 * core.pointRadius - 4) / 2 + 2
             }
             backgroundItem: bg
             color: root.textColor
@@ -150,7 +157,7 @@ Item {
             anchors {
                 top: parent.top
                 right: parent.right
-                topMargin: 2
+                topMargin: core.pointRadius + 2
             }
             backgroundItem: bg
             color: root.textColor
@@ -162,7 +169,7 @@ Item {
             anchors {
                 top: parent.top
                 right: parent.right
-                topMargin: (core.height - 4) / 2 + 2
+                topMargin: core.pointRadius + (core.height - 2 * core.pointRadius) / 2 + 2
             }
             backgroundItem: bg
             color: root.textColor

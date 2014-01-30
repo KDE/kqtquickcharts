@@ -16,40 +16,51 @@
  *
  *  You should have received a copy of the GNU Lesser General Public
  */
-#ifndef LINEGRAPHPAINTER_H
-#define LINEGRAPHPAINTER_H
+
+#ifndef LINEGRAPHPOINT_H
+#define LINEGRAPHPOINT_H
 
 #include <QDeclarativeItem>
 
-class LineGraphCore;
-class LineGraphBackgroundPainter;
+class LineChartCore;
+class LineChartBackgroundPainter;
 
-class LineGraphPainter : public QDeclarativeItem
+class LineChartPoint : public QDeclarativeItem
 {
     Q_OBJECT
-    Q_PROPERTY(LineGraphCore* lineGraphCore READ lineGraphCore WRITE setLineGraphCore NOTIFY lineGraphCoreChanged)
-    Q_PROPERTY(LineGraphBackgroundPainter* backgroundPainter READ backgroundPainter WRITE setBackgroundPainter NOTIFY backgroundPainterChanged)
+    Q_PROPERTY(LineChartCore* lineChartCore READ lineChartCore WRITE setLineChartCore NOTIFY lineChartCoreChanged)
+    Q_PROPERTY(LineChartBackgroundPainter* backgroundPainter READ backgroundPainter WRITE setBackgroundPainter NOTIFY backgroundPainterChanged)
     Q_PROPERTY(int dimension READ dimension WRITE setDimension NOTIFY dimensionChanged)
+    Q_PROPERTY(int row READ row WRITE setRow NOTIFY rowChanged)
+    Q_PROPERTY(QString text READ text NOTIFY textChanged)
 public:
-    explicit LineGraphPainter(QDeclarativeItem* parent = 0);
-    LineGraphCore* lineGraphCore() const;
-    void setLineGraphCore(LineGraphCore* lineGraphCore);
-    LineGraphBackgroundPainter* backgroundPainter() const;
-    void setBackgroundPainter(LineGraphBackgroundPainter* backgroundPainter);
+    explicit LineChartPoint(QDeclarativeItem* parent = 0);
+    LineChartCore* lineChartCore() const;
+    void setLineChartCore(LineChartCore* lineChartCore);
+    LineChartBackgroundPainter* backgroundPainter() const;
+    void setBackgroundPainter(LineChartBackgroundPainter* backgroundPainter);
     int dimension() const;
     void setDimension(int dimension);
+    int row() const;
+    void setRow(int row);
+    QString text() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 signals:
-    void lineGraphCoreChanged();
+    void lineChartCoreChanged();
     void backgroundPainterChanged();
     void dimensionChanged();
+    void rowChanged();
+    void textChanged();
+    void maxYChanged();
 private slots:
     void triggerUpdate();
 private:
-    void updateWidth();
-    LineGraphCore* m_lineGraphCore;
-    LineGraphBackgroundPainter* m_backgroundPainter;
+    void updateGeometry();
+    bool valid() const;
+    LineChartCore* m_lineChartCore;
+    LineChartBackgroundPainter* m_backgroundPainter;
     int m_dimension;
+    int m_row;
 };
 
-#endif // LINEGRAPHPAINTER_H
+#endif // LINEGRAPHPOINT_H

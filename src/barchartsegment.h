@@ -17,50 +17,44 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHPOINT_H
-#define LINEGRAPHPOINT_H
+#ifndef BARGRAPHSEGMENT_H
+#define BARGRAPHSEGMENT_H
 
 #include <QDeclarativeItem>
 
-class LineGraphCore;
-class LineGraphBackgroundPainter;
+class BarChartCore;
 
-class LineGraphPoint : public QDeclarativeItem
+class BarChartSegment : public QDeclarativeItem
 {
     Q_OBJECT
-    Q_PROPERTY(LineGraphCore* lineGraphCore READ lineGraphCore WRITE setLineGraphCore NOTIFY lineGraphCoreChanged)
-    Q_PROPERTY(LineGraphBackgroundPainter* backgroundPainter READ backgroundPainter WRITE setBackgroundPainter NOTIFY backgroundPainterChanged)
+    Q_PROPERTY(BarChartCore* barChartCore READ barChartCore WRITE setBarChartCore NOTIFY barChartCoreChanged)
     Q_PROPERTY(int dimension READ dimension WRITE setDimension NOTIFY dimensionChanged)
     Q_PROPERTY(int row READ row WRITE setRow NOTIFY rowChanged)
+    Q_PROPERTY(qreal barHeight READ barHeight NOTIFY barHeightChanged)
     Q_PROPERTY(QString text READ text NOTIFY textChanged)
 public:
-    explicit LineGraphPoint(QDeclarativeItem* parent = 0);
-    LineGraphCore* lineGraphCore() const;
-    void setLineGraphCore(LineGraphCore* lineGraphCore);
-    LineGraphBackgroundPainter* backgroundPainter() const;
-    void setBackgroundPainter(LineGraphBackgroundPainter* backgroundPainter);
+    explicit BarChartSegment(QDeclarativeItem* parent = 0);
+    BarChartCore* barChartCore() const;
+    void setBarChartCore(BarChartCore* barChartCore);
     int dimension() const;
     void setDimension(int dimension);
     int row() const;
     void setRow(int row);
+    qreal barHeight() const;
     QString text() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 signals:
-    void lineGraphCoreChanged();
-    void backgroundPainterChanged();
+    void barChartCoreChanged();
     void dimensionChanged();
     void rowChanged();
+    void barHeightChanged();
     void textChanged();
-    void maxYChanged();
 private slots:
     void triggerUpdate();
 private:
-    void updateGeometry();
     bool valid() const;
-    LineGraphCore* m_lineGraphCore;
-    LineGraphBackgroundPainter* m_backgroundPainter;
+    BarChartCore* m_barChartCore;
     int m_dimension;
     int m_row;
 };
 
-#endif // LINEGRAPHPOINT_H
+#endif // BARGRAPHSEGMENT_H

@@ -17,51 +17,51 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#include "graphforegroundpainter.h"
+#include "chartforegroundpainter.h"
 
 #include <QPainter>
 
-#include "graphcore.h"
+#include "chartcore.h"
 
-GraphForegroundPainter::GraphForegroundPainter(QDeclarativeItem *parent) :
+ChartForegroundPainter::ChartForegroundPainter(QDeclarativeItem *parent) :
     QDeclarativeItem(parent),
-    m_graphCore(0)
+    m_chartCore(0)
 {
     setFlag(QGraphicsItem::ItemHasNoContents, false);
 }
 
-GraphCore* GraphForegroundPainter::graphCore() const
+ChartCore* ChartForegroundPainter::chartCore() const
 {
-    return m_graphCore;
+    return m_chartCore;
 }
 
-void GraphForegroundPainter::setGraphCore(GraphCore* graphCore)
+void ChartForegroundPainter::setChartCore(ChartCore* chartCore)
 {
-    if (graphCore != m_graphCore)
+    if (chartCore != m_chartCore)
     {
-        if (m_graphCore)
+        if (m_chartCore)
         {
-            m_graphCore->disconnect(this);
+            m_chartCore->disconnect(this);
         }
 
-        m_graphCore = graphCore;
+        m_chartCore = chartCore;
 
-        if (m_graphCore)
+        if (m_chartCore)
         {
-            connect(m_graphCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_chartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
         }
 
         triggerUpdate();
-        emit graphCoreChanged();
+        emit chartCoreChanged();
     }
 }
 
-QColor GraphForegroundPainter::backgroundColor() const
+QColor ChartForegroundPainter::backgroundColor() const
 {
     return m_backgroundColor;
 }
 
-void GraphForegroundPainter::setBackgroundColor(const QColor& backgroundColor)
+void ChartForegroundPainter::setBackgroundColor(const QColor& backgroundColor)
 {
     if (backgroundColor != m_backgroundColor)
     {
@@ -71,12 +71,12 @@ void GraphForegroundPainter::setBackgroundColor(const QColor& backgroundColor)
     }
 }
 
-void GraphForegroundPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void ChartForegroundPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    if (!m_graphCore)
+    if (!m_chartCore)
         return;
 
-    const qreal overlapWidth = m_graphCore->pitch() / 2;
+    const qreal overlapWidth = m_chartCore->pitch() / 2;
 
     QColor startColor = m_backgroundColor;
     QColor stopColor = startColor;
@@ -94,9 +94,9 @@ void GraphForegroundPainter::paint(QPainter* painter, const QStyleOptionGraphics
 
 }
 
-void GraphForegroundPainter::triggerUpdate()
+void ChartForegroundPainter::triggerUpdate()
 {
-    if (!m_graphCore)
+    if (!m_chartCore)
         return;
 
     update();

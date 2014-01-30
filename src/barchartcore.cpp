@@ -17,16 +17,20 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef GRAPHPLUGIN_H
-#define GRAPHPLUGIN_H
+#include "barchartcore.h"
 
-#include <QDeclarativeExtensionPlugin>
-
-class GraphPlugin : public QDeclarativeExtensionPlugin
+BarChartCore::BarChartCore(QDeclarativeItem* parent) :
+    ChartCore(parent)
 {
-    Q_OBJECT
-public:
-    void registerTypes(const char *uri);
-};
+    connect(this, SIGNAL(pitchChanged()), SIGNAL(barWidthChanged()));
+}
 
-#endif // GRAPHPLUGIN_H
+qreal BarChartCore::barWidth() const
+{
+    return qRound(pitch() / (dimensionsList().length() + 1));
+}
+
+void BarChartCore::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+{
+    paintAxisAndLines(painter, 0.0);
+}

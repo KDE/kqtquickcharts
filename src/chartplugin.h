@@ -17,21 +17,16 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef BARGRAPHCORE_H
-#define BARGRAPHCORE_H
+#ifndef GRAPHPLUGIN_H
+#define GRAPHPLUGIN_H
 
-#include "graphcore.h"
+#include <QDeclarativeExtensionPlugin>
 
-class BarGraphCore : public GraphCore
+class ChartPlugin : public QDeclarativeExtensionPlugin
 {
     Q_OBJECT
-    Q_PROPERTY(qreal barWidth READ barWidth NOTIFY barWidthChanged)
 public:
-    explicit BarGraphCore(QDeclarativeItem* parent = 0);
-    qreal barWidth() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
-signals:
-    void barWidthChanged();
+    void registerTypes(const char *uri);
 };
 
-#endif // BARGRAPHCORE_H
+#endif // GRAPHPLUGIN_H

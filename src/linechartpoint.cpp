@@ -17,18 +17,18 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#include "linegraphpoint.h"
+#include "linechartpoint.h"
 
 #include <QAbstractTableModel>
 #include <QPainter>
 
-#include "linegraphcore.h"
+#include "linechartcore.h"
 #include "dimension.h"
-#include "linegraphbackgroundpainter.h"
+#include "linechartbackgroundpainter.h"
 
-LineGraphPoint::LineGraphPoint(QDeclarativeItem* parent) :
+LineChartPoint::LineChartPoint(QDeclarativeItem* parent) :
     QDeclarativeItem(parent),
-    m_lineGraphCore(0),
+    m_lineChartCore(0),
     m_backgroundPainter(0),
     m_dimension(-1),
     m_row(-1)
@@ -36,38 +36,38 @@ LineGraphPoint::LineGraphPoint(QDeclarativeItem* parent) :
     setFlag(QGraphicsItem::ItemHasNoContents, false);
 }
 
-LineGraphCore* LineGraphPoint::lineGraphCore() const
+LineChartCore* LineChartPoint::lineChartCore() const
 {
-    return m_lineGraphCore;
+    return m_lineChartCore;
 }
 
-void LineGraphPoint::setLineGraphCore(LineGraphCore* lineGraphCore)
+void LineChartPoint::setLineChartCore(LineChartCore* lineChartCore)
 {
-    if (lineGraphCore != m_lineGraphCore)
+    if (lineChartCore != m_lineChartCore)
     {
-        if (m_lineGraphCore)
+        if (m_lineChartCore)
         {
-            m_lineGraphCore->disconnect(this);
+            m_lineChartCore->disconnect(this);
         }
 
-        m_lineGraphCore = lineGraphCore;
+        m_lineChartCore = lineChartCore;
 
-        if (m_lineGraphCore)
+        if (m_lineChartCore)
         {
-            connect(m_lineGraphCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_lineChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
         }
 
         triggerUpdate();
-        emit lineGraphCoreChanged();
+        emit lineChartCoreChanged();
     }
 }
 
-LineGraphBackgroundPainter* LineGraphPoint::backgroundPainter() const
+LineChartBackgroundPainter* LineChartPoint::backgroundPainter() const
 {
     return m_backgroundPainter;
 }
 
-void LineGraphPoint::setBackgroundPainter(LineGraphBackgroundPainter* backgroundPainter)
+void LineChartPoint::setBackgroundPainter(LineChartBackgroundPainter* backgroundPainter)
 {
     if (backgroundPainter != m_backgroundPainter)
     {
@@ -88,12 +88,12 @@ void LineGraphPoint::setBackgroundPainter(LineGraphBackgroundPainter* background
     }
 }
 
-int LineGraphPoint::dimension() const
+int LineChartPoint::dimension() const
 {
     return m_dimension;
 }
 
-void LineGraphPoint::setDimension(int dimension)
+void LineChartPoint::setDimension(int dimension)
 {
     if (dimension != m_dimension)
     {
@@ -103,12 +103,12 @@ void LineGraphPoint::setDimension(int dimension)
     }
 }
 
-int LineGraphPoint::row() const
+int LineChartPoint::row() const
 {
     return m_row;
 }
 
-void LineGraphPoint::setRow(int row)
+void LineChartPoint::setRow(int row)
 {
     if (row != m_row)
     {
@@ -118,35 +118,35 @@ void LineGraphPoint::setRow(int row)
     }
 }
 
-QString LineGraphPoint::text() const
+QString LineChartPoint::text() const
 {
-    const int role = m_lineGraphCore->textRole();
+    const int role = m_lineChartCore->textRole();
 
     if (role == -1)
         return QString();
 
-    QAbstractTableModel* model = m_lineGraphCore->model();
-    Dimension* dimension = m_lineGraphCore->dimensionsList().at(m_dimension);
+    QAbstractTableModel* model = m_lineChartCore->model();
+    Dimension* dimension = m_lineChartCore->dimensionsList().at(m_dimension);
     const int column = dimension->dataColumn();
 
     return model->data(model->index(m_row, column), role).toString();
 }
 
-void LineGraphPoint::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void LineChartPoint::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     if (!valid())
         return;
 
-    Dimension* dimension = m_lineGraphCore->dimensionsList().at(m_dimension);
+    Dimension* dimension = m_lineChartCore->dimensionsList().at(m_dimension);
 
     painter->setRenderHints(QPainter::Antialiasing, true);
     painter->setBrush(QBrush(dimension->color()));
     painter->setPen(Qt::NoPen);
-    const qreal radius = m_lineGraphCore->pointRadius();
+    const qreal radius = m_lineChartCore->pointRadius();
     painter->drawEllipse(QPointF(radius, radius), radius, radius);
 }
 
-void LineGraphPoint::triggerUpdate()
+void LineChartPoint::triggerUpdate()
 {
     if (!valid())
         return;
@@ -154,9 +154,9 @@ void LineGraphPoint::triggerUpdate()
     update();
 }
 
-void LineGraphPoint::updateGeometry()
+void LineChartPoint::updateGeometry()
 {
-    const qreal radius = m_lineGraphCore->pointRadius();
+    const qreal radius = m_lineChartCore->pointRadius();
     setWidth(2 * radius);
     setHeight(2 * radius);
     QPointF center = m_backgroundPainter->linePolygons().at(m_dimension).at(m_row);
@@ -164,9 +164,9 @@ void LineGraphPoint::updateGeometry()
     setPos(center - QPointF(radius, radius));
 }
 
-bool LineGraphPoint::valid() const
+bool LineChartPoint::valid() const
 {
-    if (!m_lineGraphCore || !m_backgroundPainter || m_row == -1 || m_dimension == -1)
+    if (!m_lineChartCore || !m_backgroundPainter || m_row == -1 || m_dimension == -1)
         return false;
     if (m_dimension >= m_backgroundPainter->linePolygons().count())
         return false;

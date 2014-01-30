@@ -17,33 +17,21 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHFOREGROUNDPAINTER_H
-#define LINEGRAPHFOREGROUNDPAINTER_H
+#ifndef BARGRAPHCORE_H
+#define BARGRAPHCORE_H
 
-#include <QDeclarativeItem>
+#include "chartcore.h"
 
-class GraphCore;
-
-class GraphForegroundPainter : public QDeclarativeItem
+class BarChartCore : public ChartCore
 {
     Q_OBJECT
-    Q_PROPERTY(GraphCore* graphCore READ graphCore WRITE setGraphCore NOTIFY graphCoreChanged)
-    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+    Q_PROPERTY(qreal barWidth READ barWidth NOTIFY barWidthChanged)
 public:
-    explicit GraphForegroundPainter(QDeclarativeItem* parent = 0);
-    GraphCore* graphCore() const;
-    void setGraphCore(GraphCore* graphCore);
-    QColor backgroundColor() const;
-    void setBackgroundColor(const QColor& backgroundColor);
+    explicit BarChartCore(QDeclarativeItem* parent = 0);
+    qreal barWidth() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
 signals:
-    void graphCoreChanged();
-    void backgroundColorChanged();
-private slots:
-    void triggerUpdate();
-private:
-    GraphCore* m_graphCore;
-    QColor m_backgroundColor;
+    void barWidthChanged();
 };
 
-#endif // LINEGRAPHFOREGROUNDPAINTER_H
+#endif // BARGRAPHCORE_H

@@ -16,58 +16,58 @@
  *
  *  You should have received a copy of the GNU Lesser General Public
  */
-#include "linegraphpainter.h"
+#include "linechartpainter.h"
 
 #include <QAbstractTableModel>
 #include <QPainter>
 
-#include "linegraphcore.h"
+#include "linechartcore.h"
 #include "dimension.h"
-#include "linegraphbackgroundpainter.h"
+#include "linechartbackgroundpainter.h"
 
 #include <KDebug>
 
-LineGraphPainter::LineGraphPainter(QDeclarativeItem* parent) :
+LineChartPainter::LineChartPainter(QDeclarativeItem* parent) :
     QDeclarativeItem(parent),
-    m_lineGraphCore(0),
+    m_lineChartCore(0),
     m_backgroundPainter(0),
     m_dimension(-1)
 {
     setFlag(QGraphicsItem::ItemHasNoContents, false);
 }
 
-LineGraphCore* LineGraphPainter::lineGraphCore() const
+LineChartCore* LineChartPainter::lineChartCore() const
 {
-    return m_lineGraphCore;
+    return m_lineChartCore;
 }
 
-void LineGraphPainter::setLineGraphCore(LineGraphCore* lineGraphCore)
+void LineChartPainter::setLineChartCore(LineChartCore* lineChartCore)
 {
-    if (lineGraphCore != m_lineGraphCore)
+    if (lineChartCore != m_lineChartCore)
     {
-        if (m_lineGraphCore)
+        if (m_lineChartCore)
         {
-            m_lineGraphCore->disconnect(this);
+            m_lineChartCore->disconnect(this);
         }
 
-        m_lineGraphCore = lineGraphCore;
+        m_lineChartCore = lineChartCore;
 
-        if (m_lineGraphCore)
+        if (m_lineChartCore)
         {
-            connect(m_lineGraphCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_lineChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
         }
 
         update();
-        emit lineGraphCoreChanged();
+        emit lineChartCoreChanged();
     }
 }
 
-LineGraphBackgroundPainter* LineGraphPainter::backgroundPainter() const
+LineChartBackgroundPainter* LineChartPainter::backgroundPainter() const
 {
     return m_backgroundPainter;
 }
 
-void LineGraphPainter::setBackgroundPainter(LineGraphBackgroundPainter* backgroundPainter)
+void LineChartPainter::setBackgroundPainter(LineChartBackgroundPainter* backgroundPainter)
 {
     if (backgroundPainter != m_backgroundPainter)
     {
@@ -77,12 +77,12 @@ void LineGraphPainter::setBackgroundPainter(LineGraphBackgroundPainter* backgrou
     }
 }
 
-int LineGraphPainter::dimension() const
+int LineChartPainter::dimension() const
 {
     return m_dimension;
 }
 
-void LineGraphPainter::setDimension(int dimension)
+void LineChartPainter::setDimension(int dimension)
 {
     if (dimension != m_dimension)
     {
@@ -92,14 +92,14 @@ void LineGraphPainter::setDimension(int dimension)
     }
 }
 
-void LineGraphPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void LineChartPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    if (!m_lineGraphCore || !m_backgroundPainter || m_dimension == -1)
+    if (!m_lineChartCore || !m_backgroundPainter || m_dimension == -1)
         return;
 
     painter->setRenderHints(QPainter::Antialiasing, true);
 
-    Dimension* dimension = m_lineGraphCore->dimensionsList().at(m_dimension);
+    Dimension* dimension = m_lineChartCore->dimensionsList().at(m_dimension);
 
     QPolygonF line = m_backgroundPainter->linePolygons().at(m_dimension);
 
@@ -107,16 +107,16 @@ void LineGraphPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
     painter->drawPolyline(line);
 }
 
-void LineGraphPainter::triggerUpdate()
+void LineChartPainter::triggerUpdate()
 {
-    if (!m_lineGraphCore || !m_backgroundPainter || m_dimension == -1)
+    if (!m_lineChartCore || !m_backgroundPainter || m_dimension == -1)
         return;
 
     updateWidth();
     update();
 }
 
-void LineGraphPainter::updateWidth()
+void LineChartPainter::updateWidth()
 {
     setWidth(backgroundPainter()->width());
 }

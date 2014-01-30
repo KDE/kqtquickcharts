@@ -17,24 +17,33 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHCORE_H
-#define LINEGRAPHCORE_H
+#ifndef LINEGRAPHBACKGROUNDPAINTER_H
+#define LINEGRAPHBACKGROUNDPAINTER_H
 
-#include "graphcore.h"
+#include <QDeclarativeItem>
 
-class LineGraphCore : public GraphCore
+class LineChartCore;
+
+class LineChartBackgroundPainter : public QDeclarativeItem
 {
     Q_OBJECT
-    Q_PROPERTY(qreal pointRadius READ pointRadius WRITE setPointRadius NOTIFY pointRadiusChanged)
+    Q_PROPERTY(LineChartCore* lineChartCore READ lineChartCore WRITE setLineChartCore NOTIFY lineChartCoreChanged)
 public:
-    explicit LineGraphCore(QDeclarativeItem* parent = 0);
-    qreal pointRadius() const;
-    void setPointRadius(qreal pointRadius);
+    explicit LineChartBackgroundPainter(QDeclarativeItem* parent = 0);
+    LineChartCore* lineChartCore() const;
+    void setLineChartCore(LineChartCore* lineChartCore);
     void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    const QList<QPolygonF>& linePolygons() const;
 signals:
-    void pointRadiusChanged();
+    void lineChartCoreChanged();
+    void linePolygonsUpdated();
+private slots:
+    void triggerUpdate();
 private:
-    qreal m_pointRadius;
+    void updateWidth();
+    void updateLinePolygons();
+    LineChartCore* m_lineChartCore;
+    QList<QPolygonF> m_linePolygons;
 };
 
-#endif // LINEGRAPHCORE_H
+#endif // LINEGRAPHBACKGROUNDPAINTER_H

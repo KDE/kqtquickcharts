@@ -17,56 +17,56 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#include "bargraphsegment.h"
+#include "barchartsegment.h"
 
 #include <QAbstractTableModel>
 
 #include "dimension.h"
-#include "bargraphcore.h"
+#include "barchartcore.h"
 
 #include <KDebug>
 
-BarGraphSegment::BarGraphSegment(QDeclarativeItem* parent) :
+BarChartSegment::BarChartSegment(QDeclarativeItem* parent) :
     QDeclarativeItem(parent),
-    m_barGraphCore(0),
+    m_barChartCore(0),
     m_dimension(-1),
     m_row(-1)
 {
     connect(this, SIGNAL(heightChanged()), SLOT(triggerUpdate()));
 }
 
-BarGraphCore* BarGraphSegment::barGraphCore() const
+BarChartCore* BarChartSegment::barChartCore() const
 {
-    return m_barGraphCore;
+    return m_barChartCore;
 }
 
-void BarGraphSegment::setBarGraphCore(BarGraphCore* barGraphCore)
+void BarChartSegment::setBarChartCore(BarChartCore* barChartCore)
 {
-    if (barGraphCore != m_barGraphCore)
+    if (barChartCore != m_barChartCore)
     {
-        if (m_barGraphCore)
+        if (m_barChartCore)
         {
-            m_barGraphCore->disconnect(this);
+            m_barChartCore->disconnect(this);
         }
 
-        m_barGraphCore = barGraphCore;
+        m_barChartCore = barChartCore;
 
-        if (m_barGraphCore)
+        if (m_barChartCore)
         {
-            connect(m_barGraphCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_barChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
         }
 
         triggerUpdate();
-        emit barGraphCoreChanged();
+        emit barChartCoreChanged();
     }
 }
 
-int BarGraphSegment::dimension() const
+int BarChartSegment::dimension() const
 {
     return m_dimension;
 }
 
-void BarGraphSegment::setDimension(int dimension)
+void BarChartSegment::setDimension(int dimension)
 {
     if (dimension != m_dimension)
     {
@@ -76,12 +76,12 @@ void BarGraphSegment::setDimension(int dimension)
     }
 }
 
-int BarGraphSegment::row() const
+int BarChartSegment::row() const
 {
     return m_row;
 }
 
-void BarGraphSegment::setRow(int row)
+void BarChartSegment::setRow(int row)
 {
     if (row != m_row)
     {
@@ -91,13 +91,13 @@ void BarGraphSegment::setRow(int row)
     }
 }
 
-qreal BarGraphSegment::barHeight() const
+qreal BarChartSegment::barHeight() const
 {
     if (!valid())
         return 0.0;
 
-    QAbstractTableModel* model = m_barGraphCore->model();
-    Dimension* dimension = m_barGraphCore->dimensionsList().at(m_dimension);
+    QAbstractTableModel* model = m_barChartCore->model();
+    Dimension* dimension = m_barChartCore->dimensionsList().at(m_dimension);
     const qreal minValue = dimension->minimumValue();
     const qreal maxValue = dimension->maximumValue();
     const int column = dimension->dataColumn();
@@ -106,21 +106,21 @@ qreal BarGraphSegment::barHeight() const
     return height() * (value - minValue) / (maxValue - minValue);
 }
 
-QString BarGraphSegment::text() const
+QString BarChartSegment::text() const
 {
-    const int role = m_barGraphCore->textRole();
+    const int role = m_barChartCore->textRole();
 
     if (role == -1)
         return QString();
 
-    QAbstractTableModel* model = m_barGraphCore->model();
-    Dimension* dimension = m_barGraphCore->dimensionsList().at(m_dimension);
+    QAbstractTableModel* model = m_barChartCore->model();
+    Dimension* dimension = m_barChartCore->dimensionsList().at(m_dimension);
     const int column = dimension->dataColumn();
 
     return model->data(model->index(m_row, column), role).toString();
 }
 
-void BarGraphSegment::triggerUpdate()
+void BarChartSegment::triggerUpdate()
 {
     if (!valid())
         return;
@@ -128,15 +128,15 @@ void BarGraphSegment::triggerUpdate()
     emit barHeightChanged();
 }
 
-bool BarGraphSegment::valid() const
+bool BarChartSegment::valid() const
 {
-    if (!m_barGraphCore)
+    if (!m_barChartCore)
         return false;
     if (m_dimension == -1)
         return false;
     if (m_row == -1)
         return false;
-    if (m_row >= m_barGraphCore->model()->rowCount())
+    if (m_row >= m_barChartCore->model()->rowCount())
         return false;
     return true;
 }

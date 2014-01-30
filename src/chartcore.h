@@ -26,7 +26,7 @@
 
 class QAbstractTableModel;
 
-class GraphCore : public QDeclarativeItem
+class ChartCore : public QDeclarativeItem
 {
     Q_OBJECT
     Q_PROPERTY(QAbstractTableModel* model READ model WRITE setModel NOTIFY modelChanged)
@@ -34,7 +34,7 @@ class GraphCore : public QDeclarativeItem
     Q_PROPERTY(qreal pitch READ pitch WRITE setPitch NOTIFY pitchChanged)
     Q_PROPERTY(int textRole READ textRole WRITE setTextRole NOTIFY textRoleChanged)
 public:
-    explicit GraphCore(QDeclarativeItem *parent = 0);
+    explicit ChartCore(QDeclarativeItem *parent = 0);
     QAbstractTableModel* model() const;
     void setModel(QAbstractTableModel* model);
     QDeclarativeListProperty<Dimension> dimensions();
@@ -45,7 +45,7 @@ public:
     void setTextRole(int textRole);
 signals:
     void modelChanged();
-    void graphStyleChanged();
+    void chartStyleChanged();
     void pitchChanged();
     void textRoleChanged();
     void updated();

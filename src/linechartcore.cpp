@@ -17,20 +17,20 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#include "linegraphcore.h"
+#include "linechartcore.h"
 
-LineGraphCore::LineGraphCore(QDeclarativeItem* parent) :
-    GraphCore(parent),
+LineChartCore::LineChartCore(QDeclarativeItem* parent) :
+    ChartCore(parent),
     m_pointRadius(5.0)
 {
 }
 
-qreal LineGraphCore::pointRadius() const
+qreal LineChartCore::pointRadius() const
 {
     return m_pointRadius;
 }
 
-void LineGraphCore::setPointRadius(qreal pointRadius)
+void LineChartCore::setPointRadius(qreal pointRadius)
 {
     if (pointRadius != m_pointRadius)
     {
@@ -40,7 +40,7 @@ void LineGraphCore::setPointRadius(qreal pointRadius)
     }
 }
 
-void LineGraphCore::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void LineChartCore::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
     paintAxisAndLines(painter, m_pointRadius);
 }

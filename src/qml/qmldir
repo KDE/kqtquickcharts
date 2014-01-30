@@ -1,6 +1,6 @@
-plugin kqmlgraphplugin
+plugin kqtquickcharts
 
-BarGraph 0.1 BarGraph.qml
-LineGraph 0.1 LineGraph.qml
+BarChart 0.1 BarChart.qml
+LineChart 0.1 LineChart.qml
 LegendItem 0.1 LegendItem.qml
 

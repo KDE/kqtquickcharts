@@ -17,20 +17,24 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#include "bargraphcore.h"
+#ifndef LINEGRAPHCORE_H
+#define LINEGRAPHCORE_H
 
-BarGraphCore::BarGraphCore(QDeclarativeItem* parent) :
-    GraphCore(parent)
-{
-    connect(this, SIGNAL(pitchChanged()), SIGNAL(barWidthChanged()));
-}
+#include "chartcore.h"
 
-qreal BarGraphCore::barWidth() const
+class LineChartCore : public ChartCore
 {
-    return qRound(pitch() / (dimensionsList().length() + 1));
-}
+    Q_OBJECT
+    Q_PROPERTY(qreal pointRadius READ pointRadius WRITE setPointRadius NOTIFY pointRadiusChanged)
+public:
+    explicit LineChartCore(QDeclarativeItem* parent = 0);
+    qreal pointRadius() const;
+    void setPointRadius(qreal pointRadius);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+signals:
+    void pointRadiusChanged();
+private:
+    qreal m_pointRadius;
+};
 
-void BarGraphCore::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
-{
-    paintAxisAndLines(painter, 0.0);
-}
+#endif // LINEGRAPHCORE_H
