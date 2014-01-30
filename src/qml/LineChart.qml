@@ -34,9 +34,9 @@ Item {
     property real padding: 0.0
 
 
-    signal elemClicked(int row, variant elem)
-    signal elemEntered(int row, variant elem)
-    signal elemExited(int row, variant elem)
+    signal elemClicked(variant dimension, int row, variant elem)
+    signal elemEntered(variant dimension, int row, variant elem)
+    signal elemExited(variant dimension, int row, variant elem)
 
     Rectangle {
         id: bg
@@ -114,9 +114,9 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 hoverEnabled: true
-                                onClicked: root.elemClicked(parent.row, parent)
-                                onEntered: root.elemEntered(parent.row, parent)
-                                onExited: root.elemExited(parent.row, parent)
+                                onClicked: root.elemClicked(core.dimensions[line.dimension], parent.row, parent)
+                                onEntered: root.elemEntered(core.dimensions[line.dimension], parent.row, parent)
+                                onExited: root.elemExited(core.dimensions[line.dimension], parent.row, parent)
                             }
                         }
                     }
