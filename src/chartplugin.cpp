@@ -22,28 +22,35 @@
 #include <qdeclarative.h>
 #include <QAbstractTableModel>
 
-#include "dimension.h"
 #include "barchartcore.h"
 #include "barchartsegment.h"
+#include "chartforegroundpainter.h"
+#include "chartcore.h"
+#include "chartmodel.h"
+#include "dimension.h"
 #include "linechartcore.h"
 #include "linechartbackgroundpainter.h"
 #include "linechartpainter.h"
 #include "linechartpoint.h"
-#include "chartforegroundpainter.h"
+#include "record.h"
+#include "value.h"
 
 void ChartPlugin::registerTypes(const char *uri)
 {
     Q_ASSERT(uri == QLatin1String("org.kde.charts"));
 
     qmlRegisterType<Dimension>(uri, 0, 1, "Dimension");
-    qmlRegisterType<ChartCore>(uri, 0, 1, "ChartCore");
     qmlRegisterType<BarChartCore>(uri, 0, 1, "BarChartCore");
     qmlRegisterType<BarChartSegment>(uri, 0, 1, "BarChartSegment");
+    qmlRegisterType<ChartCore>(uri, 0, 1, "ChartCore");
+    qmlRegisterType<ChartForegroundPainter>(uri, 0, 1, "ChartForegroundPainter");
     qmlRegisterType<LineChartCore>(uri, 0, 1, "LineChartCore");
     qmlRegisterType<LineChartBackgroundPainter>(uri, 0, 1, "LineChartBackgroundPainter");
     qmlRegisterType<LineChartPainter>(uri, 0, 1, "LineChartPainter");
     qmlRegisterType<LineChartPoint>(uri, 0, 1, "LineChartPoint");
-    qmlRegisterType<ChartForegroundPainter>(uri, 0, 1, "ChartForegroundPainter");
+    qmlRegisterType<ChartModel>(uri, 0, 1, "ChartModel");
+    qmlRegisterType<Record>(uri, 0, 1, "Record");
+    qmlRegisterType<Value>(uri, 0, 1, "Value");
 
     qmlRegisterUncreatableType<QAbstractTableModel>(uri, 0, 1, "QAbstractTableModel", "abstract class");
 }

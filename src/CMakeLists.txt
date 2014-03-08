@@ -9,6 +9,7 @@ set(kqtquickcharts_SRCS
     dimension.cpp
     chartplugin.cpp
     chartcore.cpp
+    chartmodel.cpp
     barchartcore.cpp
     barchartsegment.cpp
     linechartcore.cpp
@@ -16,6 +17,8 @@ set(kqtquickcharts_SRCS
     linechartpainter.cpp
     linechartpoint.cpp
     chartforegroundpainter.cpp
+    record.cpp
+    value.cpp
     )
 
 automoc4_add_library(kqtquickcharts SHARED ${kqtquickcharts_SRCS})
