@@ -20,32 +20,22 @@
 
 #include <QObject>
 
-#include <QDeclarativeListProperty>
-
-class QSignalMapper;
-class Value;
+#include <QVariantList>
 
 class Record : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QDeclarativeListProperty<Value> values READ values CONSTANT)
-    Q_CLASSINFO("DefaultProperty", "values")
+    Q_PROPERTY(QVariantList values READ values WRITE setValues NOTIFY valuesChanged)
 public:
     explicit Record(QObject* parent = 0);
-    QDeclarativeListProperty<Value> values();
+    QVariantList values() const;
+    void setValues(const QVariantList& values);
     Q_INVOKABLE qreal value(int column) const;
     Q_INVOKABLE void setValue(int column, qreal value);
 signals:
-    void valueChanged(Record* record, int column);
-private slots:
-    void onValueChanged(int column);
+    void valuesChanged(Record* record);
 private:
-    static void appendValue(QDeclarativeListProperty<Value>* list, Value* value);
-    static int countValues(QDeclarativeListProperty<Value>* list);
-    static Value* valueAt(QDeclarativeListProperty<Value>* list, int index);
-    static void clearValues(QDeclarativeListProperty<Value>* list);
-    QList<Value*> m_values;
-    QSignalMapper* m_valueSignalMapper;
+    QVariantList m_values;
 };
 
 #endif // RECORD_H

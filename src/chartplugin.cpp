@@ -33,7 +33,6 @@
 #include "linechartpainter.h"
 #include "linechartpoint.h"
 #include "record.h"
-#include "value.h"
 
 void ChartPlugin::registerTypes(const char *uri)
 {
@@ -50,7 +49,6 @@ void ChartPlugin::registerTypes(const char *uri)
     qmlRegisterType<LineChartPoint>(uri, 0, 1, "LineChartPoint");
     qmlRegisterType<ChartModel>(uri, 0, 1, "ChartModel");
     qmlRegisterType<Record>(uri, 0, 1, "Record");
-    qmlRegisterType<Value>(uri, 0, 1, "Value");
 
     qmlRegisterUncreatableType<QAbstractTableModel>(uri, 0, 1, "QAbstractTableModel", "abstract class");
 }

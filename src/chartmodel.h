@@ -48,9 +48,9 @@ public:
 signals:
     void columnsChanged();
     void rowsChanged();
-    void valueChanged(int row, int column);
+    void recordChanged();
 private slots:
-    void onRecordValueChanged(Record* record, int column);
+    void onRecordChanged(Record* record);
 private:
     void insertRecord(int row, Record* record);
     static void appendRecord(QDeclarativeListProperty<Record>* list, Record* record);

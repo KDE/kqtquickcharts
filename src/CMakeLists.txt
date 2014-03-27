@@ -18,7 +18,6 @@ set(kqtquickcharts_SRCS
     linechartpoint.cpp
     chartforegroundpainter.cpp
     record.cpp
-    value.cpp
     )
 
 automoc4_add_library(kqtquickcharts SHARED ${kqtquickcharts_SRCS})

@@ -30,20 +30,16 @@ Rectangle {
         columns: 2
 
         Record {
-            Value {value: 0.1}
-            Value {value: 0.2}
+            values: [0.1, 0.2]
         }
         Record {
-            Value {value: 0.25}
-            Value {value: 0.3}
+            values: [0.25, 0.3]
         }
         Record {
-            Value {value: 0.5}
-            Value {value: 0.5}
+            values: [0.5, 0.5]
         }
         Record {
-            Value {value: 1.0}
-            Value {value: 0.75}
+            values: [1.0, 0.75]
         }
     }
 

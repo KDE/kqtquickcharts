@@ -110,19 +110,18 @@ QVariant ChartModel::data(const QModelIndex& index, int role) const
     return QVariant(value(index.row(), index.column()));
 }
 
-void ChartModel::onRecordValueChanged(Record* record, int column)
+void ChartModel::onRecordChanged(Record* record)
 {
     const int row = m_records.indexOf(record);
-    const QModelIndex changedIndex(index(row, column));
-    emit dataChanged(changedIndex, changedIndex);
-    emit valueChanged(row, column);
+    emit dataChanged(index(row, 0), index(row, columns() - 1));
+    emit recordChanged();
 }
 
 void ChartModel::insertRecord(int row, Record *record)
 {
     beginInsertRows(QModelIndex(), row, row);
     record->setParent(this);
-    connect(record, SIGNAL(valueChanged(Record*,int)), SLOT(onRecordValueChanged(Record*,int)));
+    connect(record, SIGNAL(valuesChanged(Record*)), SLOT(onRecordChanged(Record*)));
     m_records.insert(row, record);
     endInsertRows();
     emit rowsChanged();

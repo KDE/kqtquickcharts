@@ -17,82 +17,37 @@
 
 #include "record.h"
 
-#include <QSignalMapper>
-
-#include "value.h"
-
 Record::Record(QObject* parent) :
-    QObject(parent),
-    m_valueSignalMapper(new QSignalMapper(this))
+    QObject(parent)
 {
-    connect(m_valueSignalMapper, SIGNAL(mapped(int)), SLOT(onValueChanged(int)));
 }
 
-QDeclarativeListProperty<Value> Record::values()
+QVariantList Record::values() const
 {
-    return QDeclarativeListProperty<Value>(this, 0, &Record::appendValue, &Record::countValues, &Record::valueAt, &Record::clearValues);
+    return m_values;
+}
+
+void Record::setValues(const QVariantList& values)
+{
+    if (values != m_values)
+    {
+        m_values = values;
+        emit valuesChanged(this);
+    }
 }
 
 qreal Record::value(int column) const
 {
     if (column >= m_values.count())
         return 0.0;
-    return m_values.at(column)->value();
+    return m_values.at(column).toReal();
 }
 
 void Record::setValue(int column, qreal value)
 {
     while(column >= m_values.count()) {
-        Value* value = new Value(this);
-        m_valueSignalMapper->setMapping(value, m_values.count());
-        connect(value, SIGNAL(valueChanged()), m_valueSignalMapper, SLOT(map()));
-        m_values.append(value);
+        m_values.append(0.0);
     }
-    m_values.at(column)->setValue(value);
-}
-
-void Record::onValueChanged(int column)
-{
-    emit this->valueChanged(this, column);
-}
-
-void Record::appendValue(QDeclarativeListProperty<Value>* list, Value* value)
-{
-    Record* record = qobject_cast<Record*>(list->object);
-    if (record)
-    {
-        value->setParent(record);
-        record->m_valueSignalMapper->setMapping(value, record->m_values.count());
-        connect(value, SIGNAL(valueChanged()), record->m_valueSignalMapper, SLOT(map()));
-        record->m_values.append(value);
-    }
-}
-
-int Record::countValues(QDeclarativeListProperty<Value>* list)
-{
-    Record* record = qobject_cast<Record*>(list->object);
-    if (record)
-    {
-        return record->m_values.count();
-    }
-    return -1;
-}
-
-Value* Record::valueAt(QDeclarativeListProperty<Value>* list, int index)
-{
-    Record* record = qobject_cast<Record*>(list->object);
-    if (record)
-    {
-        return record->m_values.at(index);
-    }
-    return 0;
-}
-
-void Record::clearValues(QDeclarativeListProperty<Value>* list)
-{
-    Record* record = qobject_cast<Record*>(list->object);
-    if (record)
-    {
-        record->m_values.clear();
-    }
+    m_values[column] = value;
+    emit valuesChanged(this);
 }
