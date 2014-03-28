@@ -1,5 +1,5 @@
 kqtquickcharts
-============
+==============
 
 Beautiful and interactive charts for Qt Quick 1.0
 
@@ -34,12 +34,13 @@ At runtime, the following additional libaries have to be present:
 
 ## Try it out
 
-There a few example projects in `demo` folder. They are directly runable
-in **qmlviewer**. Make sure to pass the required import folders to it:
+There are a few example projects in the `demo` folder. They are directly
+runable in **qmlviewer**. Make sure to pass the required import folders
+to it:
 
     $ cd demo/minimal
     $ qmlviewer -I /usr/lib64/kde4/imports/ main.qml
 
-Or on 32-bit systems:
+Replace the last line on 32-bit systems with:
 
     $ qmlviewer -I /usr/lib/kde4/imports/ main.qml
