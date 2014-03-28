@@ -28,11 +28,11 @@ To be usable the components have to be installed:
 
 ### Runtime dependencies
 
-At runtime, the following additional libaries have present:
+At runtime, the following additional libaries have to be present:
 
  * KDE-runtime >= 4.10.0
 
-## Trying it out
+## Try it out
 
 There a few example projects in `demo` folder. They are directly runable
 in **qmlviewer**. Make sure to pass the required import folders to it:
