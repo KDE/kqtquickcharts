@@ -116,7 +116,7 @@ void ChartModel::onRecordChanged(Record* record)
 {
     const int row = m_records.indexOf(record);
     emit dataChanged(index(row, 0), index(row, columns() - 1));
-    emit recordChanged();
+    emit recordChanged(row);
 }
 
 void ChartModel::insertRecord(int row, Record *record)

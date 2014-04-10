@@ -50,7 +50,7 @@ public:
 signals:
     void columnsChanged();
     void rowsChanged();
-    void recordChanged();
+    void recordChanged(int row);
 private slots:
     void onRecordChanged(Record* record);
 private:
