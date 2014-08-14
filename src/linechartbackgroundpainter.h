@@ -20,24 +20,26 @@
 #ifndef LINEGRAPHBACKGROUNDPAINTER_H
 #define LINEGRAPHBACKGROUNDPAINTER_H
 
-#include <QDeclarativeItem>
+#include <QQuickPaintedItem>
+
+#include <QPolygonF>
 
 class LineChartCore;
 
-class LineChartBackgroundPainter : public QDeclarativeItem
+class LineChartBackgroundPainter : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(LineChartCore* lineChartCore READ lineChartCore WRITE setLineChartCore NOTIFY lineChartCoreChanged)
 public:
-    explicit LineChartBackgroundPainter(QDeclarativeItem* parent = 0);
+    explicit LineChartBackgroundPainter(QQuickItem* parent = 0);
     LineChartCore* lineChartCore() const;
     void setLineChartCore(LineChartCore* lineChartCore);
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
+    void paint(QPainter* painter);
     const QList<QPolygonF>& linePolygons() const;
-signals:
+Q_SIGNALS:
     void lineChartCoreChanged();
     void linePolygonsUpdated();
-private slots:
+private Q_SLOTS:
     void triggerUpdate();
 private:
     void updateWidth();

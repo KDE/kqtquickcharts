@@ -20,11 +20,11 @@
 #ifndef BARGRAPHSEGMENT_H
 #define BARGRAPHSEGMENT_H
 
-#include <QDeclarativeItem>
+#include <QQuickItem>
 
 class BarChartCore;
 
-class BarChartSegment : public QDeclarativeItem
+class BarChartSegment : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(BarChartCore* barChartCore READ barChartCore WRITE setBarChartCore NOTIFY barChartCoreChanged)
@@ -33,7 +33,7 @@ class BarChartSegment : public QDeclarativeItem
     Q_PROPERTY(qreal barHeight READ barHeight NOTIFY barHeightChanged)
     Q_PROPERTY(QString text READ text NOTIFY textChanged)
 public:
-    explicit BarChartSegment(QDeclarativeItem* parent = 0);
+    explicit BarChartSegment(QQuickItem* parent = 0);
     BarChartCore* barChartCore() const;
     void setBarChartCore(BarChartCore* barChartCore);
     int dimension() const;
@@ -42,13 +42,13 @@ public:
     void setRow(int row);
     qreal barHeight() const;
     QString text() const;
-signals:
+Q_SIGNALS:
     void barChartCoreChanged();
     void dimensionChanged();
     void rowChanged();
     void barHeightChanged();
     void textChanged();
-private slots:
+private Q_SLOTS:
     void triggerUpdate();
 private:
     bool valid() const;

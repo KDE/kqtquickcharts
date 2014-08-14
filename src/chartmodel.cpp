@@ -27,9 +27,9 @@ ChartModel::ChartModel(QObject* parent) :
 {
 }
 
-QDeclarativeListProperty<Record> ChartModel::records()
+QQmlListProperty<Record> ChartModel::records()
 {
-    return QDeclarativeListProperty<Record>(this, 0, &ChartModel::appendRecord, &ChartModel::countRecords, &ChartModel::recordAt, &ChartModel::clearRecords);
+    return QQmlListProperty<Record>(this, 0, &ChartModel::appendRecord, &ChartModel::countRecords, &ChartModel::recordAt, &ChartModel::clearRecords);
 }
 
 int ChartModel::columns() const
@@ -129,7 +129,7 @@ void ChartModel::insertRecord(int row, Record *record)
     emit rowsChanged();
 }
 
-void ChartModel::appendRecord(QDeclarativeListProperty<Record>* list, Record* record)
+void ChartModel::appendRecord(QQmlListProperty<Record>* list, Record* record)
 {
     ChartModel* chartModel = qobject_cast<ChartModel*>(list->object);
     if (chartModel)
@@ -138,7 +138,7 @@ void ChartModel::appendRecord(QDeclarativeListProperty<Record>* list, Record* re
     }
 }
 
-int ChartModel::countRecords(QDeclarativeListProperty<Record>* list)
+int ChartModel::countRecords(QQmlListProperty<Record>* list)
 {
     ChartModel* chartModel = qobject_cast<ChartModel*>(list->object);
     if (chartModel)
@@ -148,7 +148,7 @@ int ChartModel::countRecords(QDeclarativeListProperty<Record>* list)
     return -1;
 }
 
-Record* ChartModel::recordAt(QDeclarativeListProperty<Record>* list, int index)
+Record* ChartModel::recordAt(QQmlListProperty<Record>* list, int index)
 {
     ChartModel* chartModel = qobject_cast<ChartModel*>(list->object);
     if (chartModel)
@@ -158,7 +158,7 @@ Record* ChartModel::recordAt(QDeclarativeListProperty<Record>* list, int index)
     return 0;
 }
 
-void ChartModel::clearRecords(QDeclarativeListProperty<Record>* list)
+void ChartModel::clearRecords(QQmlListProperty<Record>* list)
 {
     ChartModel* chartModel = qobject_cast<ChartModel*>(list->object);
     if (chartModel)

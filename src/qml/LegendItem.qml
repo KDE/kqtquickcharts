@@ -17,9 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-import QtQuick 1.1
-import org.kde.plasma.components 0.1 as PlasmaComponents
-
+import QtQuick 2.0
+import org.kde.charts 0.1
 
 /**
  * An item to compose the legend for a chart of.
@@ -35,7 +34,7 @@ Item {
     /**
     * The text color for the legend label.
     *
-    * Default value is the theme's text color
+    * Default value is black.
     */
     property alias textColor: label.color
 
@@ -54,13 +53,12 @@ Item {
         radius: 4
     }
 
-    PlasmaComponents.Label {
+    Text {
         id: label
         anchors {
             top: parent.top
             right: parent.right
         }
         text: dimension.label
-        height: paintedHeight
     }
 }

@@ -22,19 +22,19 @@
 
 #include <QAbstractTableModel>
 
-#include <QDeclarativeListProperty>
+#include <QQmlListProperty>
 
 class Record;
 
 class ChartModel : public QAbstractTableModel
 {
     Q_OBJECT
-    Q_PROPERTY(QDeclarativeListProperty<Record> records READ records CONSTANT)
+    Q_PROPERTY(QQmlListProperty<Record> records READ records CONSTANT)
     Q_PROPERTY(int columns READ columns WRITE setColumns NOTIFY columnsChanged)
     Q_PROPERTY(int rows READ rows NOTIFY rowsChanged)
     Q_CLASSINFO("DefaultProperty", "records")
 public:
-    QDeclarativeListProperty<Record> records();
+    QQmlListProperty<Record> records();
     int columns() const;
     void setColumns(int columns);
     int rows() const;
@@ -47,18 +47,18 @@ public:
     int rowCount(const QModelIndex& parent) const;
     int columnCount(const QModelIndex& parent) const;
     QVariant data(const QModelIndex& index, int role) const;
-signals:
+Q_SIGNALS:
     void columnsChanged();
     void rowsChanged();
     void recordChanged(int row);
-private slots:
+private Q_SLOTS:
     void onRecordChanged(Record* record);
 private:
     void insertRecord(int row, Record* record);
-    static void appendRecord(QDeclarativeListProperty<Record>* list, Record* record);
-    static int countRecords(QDeclarativeListProperty<Record>* list);
-    static Record* recordAt(QDeclarativeListProperty<Record>* list, int index);
-    static void clearRecords(QDeclarativeListProperty<Record>* list);
+    static void appendRecord(QQmlListProperty<Record>* list, Record* record);
+    static int countRecords(QQmlListProperty<Record>* list);
+    static Record* recordAt(QQmlListProperty<Record>* list, int index);
+    static void clearRecords(QQmlListProperty<Record>* list);
     QList<Record*> m_records;
     int m_columns;
 };

@@ -20,12 +20,12 @@
 #ifndef LINEGRAPHPOINT_H
 #define LINEGRAPHPOINT_H
 
-#include <QDeclarativeItem>
+#include <QQuickPaintedItem>
 
 class LineChartCore;
 class LineChartBackgroundPainter;
 
-class LineChartPoint : public QDeclarativeItem
+class LineChartPoint : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(LineChartCore* lineChartCore READ lineChartCore WRITE setLineChartCore NOTIFY lineChartCoreChanged)
@@ -34,7 +34,7 @@ class LineChartPoint : public QDeclarativeItem
     Q_PROPERTY(int row READ row WRITE setRow NOTIFY rowChanged)
     Q_PROPERTY(QString text READ text NOTIFY textChanged)
 public:
-    explicit LineChartPoint(QDeclarativeItem* parent = 0);
+    explicit LineChartPoint(QQuickItem* parent = 0);
     LineChartCore* lineChartCore() const;
     void setLineChartCore(LineChartCore* lineChartCore);
     LineChartBackgroundPainter* backgroundPainter() const;
@@ -44,15 +44,15 @@ public:
     int row() const;
     void setRow(int row);
     QString text() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
-signals:
+    void paint(QPainter* painter);
+Q_SIGNALS:
     void lineChartCoreChanged();
     void backgroundPainterChanged();
     void dimensionChanged();
     void rowChanged();
     void textChanged();
     void maxYChanged();
-private slots:
+private Q_SLOTS:
     void triggerUpdate();
 private:
     void updateGeometry();

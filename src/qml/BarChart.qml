@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-import QtQuick 1.1
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.2
+import org.kde.charts 0.1
 
 /**
  * An interactive bar chart.
@@ -74,7 +74,7 @@ Item {
      * @warn colors with an non-zero alpha component aren't supported yet
      * and result in an visual defiencies.
      *
-     * Default value is the theme's background color.
+     * Default value is white.
      */
     property alias backgroundColor: bg.color
 
@@ -84,9 +84,9 @@ Item {
      *
      * Used for pitch line and date element labels.
      *
-     * Default value is the theme's text color.
+     * Default value is black.
      */
-    property color textColor: theme.textColor
+    property color textColor: "#000"
 
     /**
      * The amount of space between the outline of the chart background
@@ -126,7 +126,7 @@ Item {
     Rectangle {
         id: bg
         anchors.fill: parent
-        color: theme.backgroundColor
+        color: "#fff"
     }
 
     BarChartCore {

@@ -22,13 +22,13 @@
 #include <QAbstractTableModel>
 #include <QPainter>
 
-ChartCore::ChartCore(QDeclarativeItem *parent) :
-    QDeclarativeItem(parent),
+ChartCore::ChartCore(QQuickItem *parent) :
+    QQuickPaintedItem(parent),
     m_model(0),
     m_pitch(50.0),
     m_textRole(-1)
 {
-    setFlag(QGraphicsItem::ItemHasNoContents, false);
+    setFlag(QQuickItem::ItemHasContents, true);
 }
 
 QAbstractTableModel* ChartCore::model() const
@@ -62,8 +62,8 @@ void ChartCore::setModel(QAbstractTableModel* model)
     }
 }
 
-QDeclarativeListProperty<Dimension> ChartCore::dimensions() {
-    return QDeclarativeListProperty<Dimension>(this, 0, &ChartCore::appendDimension, &ChartCore::countDimensions, &ChartCore::dimensionAt, &ChartCore::clearDimensions);
+QQmlListProperty<Dimension> ChartCore::dimensions() {
+    return QQmlListProperty<Dimension>(this, 0, &ChartCore::appendDimension, &ChartCore::countDimensions, &ChartCore::dimensionAt, &ChartCore::clearDimensions);
 }
 
 QList<Dimension*> ChartCore::dimensionsList() const
@@ -109,6 +109,10 @@ void ChartCore::triggerUpdate()
     update();
 }
 
+void ChartCore::paint(QPainter*)
+{
+}
+
 void ChartCore::paintAxisAndLines(QPainter* painter, qreal offset)
 {
     const int minY = qRound(offset);
@@ -130,7 +134,7 @@ void ChartCore::paintAxisAndLines(QPainter* painter, qreal offset)
     painter->drawRect(QRectF(QPointF(x1, maxY), QPointF(x2, maxY + 1)));
 }
 
-void ChartCore::appendDimension(QDeclarativeListProperty<Dimension>* list, Dimension *dimension) {
+void ChartCore::appendDimension(QQmlListProperty<Dimension>* list, Dimension *dimension) {
     ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
     if (chartCore) {
         dimension->setParent(chartCore);
@@ -140,7 +144,7 @@ void ChartCore::appendDimension(QDeclarativeListProperty<Dimension>* list, Dimen
     }
 }
 
-int ChartCore::countDimensions(QDeclarativeListProperty<Dimension>* list) {
+int ChartCore::countDimensions(QQmlListProperty<Dimension>* list) {
     ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
     if (chartCore) {
         return chartCore->m_dimensions.count();
@@ -148,7 +152,7 @@ int ChartCore::countDimensions(QDeclarativeListProperty<Dimension>* list) {
     return -1;
 }
 
-Dimension* ChartCore::dimensionAt(QDeclarativeListProperty<Dimension>* list, int index) {
+Dimension* ChartCore::dimensionAt(QQmlListProperty<Dimension>* list, int index) {
     ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
     if (chartCore) {
         return chartCore->m_dimensions.at(index);
@@ -156,7 +160,7 @@ Dimension* ChartCore::dimensionAt(QDeclarativeListProperty<Dimension>* list, int
     return 0;
 }
 
-void ChartCore::clearDimensions(QDeclarativeListProperty<Dimension>* list) {
+void ChartCore::clearDimensions(QQmlListProperty<Dimension>* list) {
     ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
     if (chartCore) {
         foreach (Dimension* dimension, chartCore->m_dimensions)

@@ -34,7 +34,7 @@ public:
     void setValues(const QVariantList& values);
     Q_INVOKABLE qreal value(int column) const;
     Q_INVOKABLE void setValue(int column, qreal value);
-signals:
+Q_SIGNALS:
     void valuesChanged(Record* record);
 private:
     QVariantList m_values;

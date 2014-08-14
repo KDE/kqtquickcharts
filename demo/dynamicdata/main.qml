@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-import QtQuick 1.1
-import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 2.2
+import QtQuick.Controls 1.2
 import org.kde.charts 0.1
 
 Column {
@@ -57,25 +57,25 @@ Column {
         }
     }
 
-    PlasmaComponents.ToolBar {
+    ToolBar {
         id: toolbar
-        tools: Row {
+        Row {
             spacing: 4
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 anchors.verticalCenter: parent.verticalCenter
-                iconSource: "edit-table-insert-row-below"
+                //iconSource: "edit-table-insert-row-below"
                 text: "Append record"
                 onClicked: appendRecord()
             }
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 anchors.verticalCenter: parent.verticalCenter
-                iconSource: "edit-table-insert-row-above"
+                //iconSource: "edit-table-insert-row-above"
                 text: "Insert record"
                 onClicked: insertRecord()
             }
-            PlasmaComponents.ToolButton {
+            ToolButton {
                 anchors.verticalCenter: parent.verticalCenter
-                iconSource: "edit-table-delete-row"
+                //iconSource: "edit-table-delete-row"
                 text: "Remove record"
                 onClicked: removeRecord()
             }
@@ -94,7 +94,7 @@ Column {
 
             spacing: 40
 
-            TableView {
+            ChartTableView {
                 id: tableView
                 height: parent.height
                 chart: chart

@@ -19,7 +19,7 @@
 
 #include "chartplugin.h"
 
-#include <qdeclarative.h>
+#include <QQmlEngine>
 #include <QAbstractTableModel>
 
 #include "barchartcore.h"
@@ -52,5 +52,3 @@ void ChartPlugin::registerTypes(const char *uri)
 
     qmlRegisterUncreatableType<QAbstractTableModel>(uri, 0, 1, "QAbstractTableModel", "abstract class");
 }
-
-Q_EXPORT_PLUGIN2(chartplugin, ChartPlugin)

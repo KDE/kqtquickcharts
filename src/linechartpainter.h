@@ -19,31 +19,31 @@
 #ifndef LINEGRAPHPAINTER_H
 #define LINEGRAPHPAINTER_H
 
-#include <QDeclarativeItem>
+#include <QQuickPaintedItem>
 
 class LineChartCore;
 class LineChartBackgroundPainter;
 
-class LineChartPainter : public QDeclarativeItem
+class LineChartPainter : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(LineChartCore* lineChartCore READ lineChartCore WRITE setLineChartCore NOTIFY lineChartCoreChanged)
     Q_PROPERTY(LineChartBackgroundPainter* backgroundPainter READ backgroundPainter WRITE setBackgroundPainter NOTIFY backgroundPainterChanged)
     Q_PROPERTY(int dimension READ dimension WRITE setDimension NOTIFY dimensionChanged)
 public:
-    explicit LineChartPainter(QDeclarativeItem* parent = 0);
+    explicit LineChartPainter(QQuickItem* parent = 0);
     LineChartCore* lineChartCore() const;
     void setLineChartCore(LineChartCore* lineChartCore);
     LineChartBackgroundPainter* backgroundPainter() const;
     void setBackgroundPainter(LineChartBackgroundPainter* backgroundPainter);
     int dimension() const;
     void setDimension(int dimension);
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
-signals:
+    void paint(QPainter* painter);
+Q_SIGNALS:
     void lineChartCoreChanged();
     void backgroundPainterChanged();
     void dimensionChanged();
-private slots:
+private Q_SLOTS:
     void triggerUpdate();
 private:
     void updateWidth();

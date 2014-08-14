@@ -20,12 +20,11 @@
 #ifndef DIMENSION_H
 #define DIMENSION_H
 
-#include <QDeclarativeItem>
+#include <QObject>
 
 #include <QColor>
-#include <QDeclarativeListProperty>
 
-class Dimension : public QDeclarativeItem
+class Dimension : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
@@ -38,7 +37,7 @@ class Dimension : public QDeclarativeItem
     Q_PROPERTY(qreal unitFactor READ unitFactor WRITE setUnitFactor NOTIFY unitFactorChanged)
 
 public:
-    explicit Dimension(QDeclarativeItem* parent = 0);
+    explicit Dimension(QObject* parent = 0);
     QColor color() const;
     void setColor(const QColor& color);
     int dataColumn() const;
@@ -56,7 +55,7 @@ public:
     qreal unitFactor() const;
     void setUnitFactor(qreal unitFactor);
     Q_INVOKABLE QString formatValue(qreal value);
-signals:
+Q_SIGNALS:
     void colorChanged();
     void dataColumnChanged();
     void minimumValueChanged();

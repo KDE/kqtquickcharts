@@ -25,15 +25,13 @@
 #include "dimension.h"
 #include "linechartbackgroundpainter.h"
 
-#include <KDebug>
-
-LineChartPainter::LineChartPainter(QDeclarativeItem* parent) :
-    QDeclarativeItem(parent),
+LineChartPainter::LineChartPainter(QQuickItem* parent) :
+    QQuickPaintedItem(parent),
     m_lineChartCore(0),
     m_backgroundPainter(0),
     m_dimension(-1)
 {
-    setFlag(QGraphicsItem::ItemHasNoContents, false);
+    setFlag(QQuickItem::ItemHasContents, true);
 }
 
 LineChartCore* LineChartPainter::lineChartCore() const
@@ -92,7 +90,7 @@ void LineChartPainter::setDimension(int dimension)
     }
 }
 
-void LineChartPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void LineChartPainter::paint(QPainter* painter)
 {
     if (!m_lineChartCore || !m_backgroundPainter || m_dimension == -1)
         return;

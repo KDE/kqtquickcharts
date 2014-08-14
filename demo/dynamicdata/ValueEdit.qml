@@ -17,16 +17,15 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-import QtQuick 1.1
-import org.kde.plasma.components 0.1 as PlasmaComponents
-import org.kde.plasma.extras 0.1 as PlasmaExtras
+import QtQuick 2.2
+import QtQuick.Controls 1.2
 
 Rectangle {
     color: "#ddd"
     id: root
     property real value: 0.0
     property bool editing: false
-    property real internalPadding: theme.defaultFont.mSize.height * 0.3
+    property real internalPadding: 3
 
     Text {
         anchors {
@@ -49,35 +48,39 @@ Rectangle {
             if (loader.item) {
                 loader.item.forceActiveFocus()
             }
+            else {
+                loader.sourceComponent = editorComponent
+            }
         }
     }
 
-    PlasmaExtras.ConditionalLoader {
+    Loader {
         id: loader
         anchors.fill: parent
-        when: editing
-        source: Component {
-            PlasmaComponents.TextField {
-                anchors.fill: parent
-                opacity: root.editing? 1: 0
-                text: root.value
-                Component.onCompleted: {
-                    forceActiveFocus()
+    }
+
+    Component {
+        id: editorComponent
+        TextField {
+            anchors.fill: parent
+            opacity: root.editing? 1: 0
+            text: root.value
+            Component.onCompleted: {
+                forceActiveFocus()
+            }
+            onTextChanged: {
+                var value = parseFloat(text)
+                if (!isNaN(value)) {
+                    root.value = value
                 }
-                onTextChanged: {
-                    var value = parseFloat(text)
-                    if (!isNaN(value)) {
-                        root.value = value
-                    }
-                }
-                onActiveFocusChanged: {
-                    if (!activeFocus) {
-                        root.editing = false
-                    }
-                }
-                onAccepted: {
+            }
+            onActiveFocusChanged: {
+                if (!activeFocus) {
                     root.editing = false
                 }
+            }
+            onAccepted: {
+                root.editing = false
             }
         }
     }

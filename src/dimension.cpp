@@ -19,11 +19,10 @@
 
 #include "dimension.h"
 
-#include <KGlobal>
-#include <KLocale>
+#include <QLocale>
 
-Dimension::Dimension(QDeclarativeItem* parent) :
-    QDeclarativeItem(parent),
+Dimension::Dimension(QObject* parent) :
+    QObject(parent),
     m_color(Qt::black),
     m_dataColumn(0),
     m_minimumValue(0),
@@ -155,5 +154,6 @@ void Dimension::setUnitFactor(qreal unitFactor)
 
 QString Dimension::formatValue(qreal value)
 {
-    return KGlobal::locale()->formatNumber(value * m_unitFactor, m_precision) + m_unit;
+    QLocale locale;
+    return locale.toString(value * m_unitFactor, 'f', m_precision);
 }

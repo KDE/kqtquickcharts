@@ -26,14 +26,14 @@
 #include "dimension.h"
 #include "linechartbackgroundpainter.h"
 
-LineChartPoint::LineChartPoint(QDeclarativeItem* parent) :
-    QDeclarativeItem(parent),
+LineChartPoint::LineChartPoint(QQuickItem* parent) :
+    QQuickPaintedItem(parent),
     m_lineChartCore(0),
     m_backgroundPainter(0),
     m_dimension(-1),
     m_row(-1)
 {
-    setFlag(QGraphicsItem::ItemHasNoContents, false);
+    setFlag(QQuickItem::ItemHasContents, true);
 }
 
 LineChartCore* LineChartPoint::lineChartCore() const
@@ -120,6 +120,9 @@ void LineChartPoint::setRow(int row)
 
 QString LineChartPoint::text() const
 {
+    if (!m_lineChartCore)
+        return QString();
+
     const int role = m_lineChartCore->textRole();
 
     if (role == -1)
@@ -132,7 +135,7 @@ QString LineChartPoint::text() const
     return model->data(model->index(m_row, column), role).toString();
 }
 
-void LineChartPoint::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void LineChartPoint::paint(QPainter* painter)
 {
     if (!valid())
         return;
@@ -161,7 +164,8 @@ void LineChartPoint::updateGeometry()
     setHeight(2 * radius);
     QPointF center = m_backgroundPainter->linePolygons().at(m_dimension).at(m_row);
 
-    setPos(center - QPointF(radius, radius));
+    setX(center.x() - radius);
+    setY(center.y() - radius);
 }
 
 bool LineChartPoint::valid() const
