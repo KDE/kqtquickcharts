@@ -18,7 +18,7 @@
  */
 
 #include "chartmodel.h"
-
+#include <limits.h>
 #include "record.h"
 
 ChartModel::ChartModel(QObject* parent) :
@@ -41,8 +41,9 @@ void ChartModel::setColumns(int columns)
 {
     if (columns != m_columns)
     {
+        beginResetModel();
         m_columns = columns;
-        reset();
+        endResetModel();
         emit columnsChanged();
     }
 }
@@ -55,7 +56,7 @@ int ChartModel::rows() const
 qreal ChartModel::value(int row, int column) const
 {
     if (row >= m_records.count())
-        return 0.0;
+        return std::numeric_limits<double>::quiet_NaN();;
     return m_records.at(row)->value(column);
 }
 

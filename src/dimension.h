@@ -26,7 +26,23 @@
 
 class Dimension : public QObject
 {
-    Q_OBJECT
+Q_OBJECT
+public:
+    enum MarkerStyle
+    {
+        MarkerStyleNone,
+        MarkerStyleRound,
+        MarkerStyleCross
+    };
+    Q_ENUMS(MarkerStyle);
+    enum LineStyle
+    {
+        LineStyleNone,
+        LineStyleSolid,
+        LineStyleDash
+    };
+    Q_ENUMS(LineStyle);
+
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
     Q_PROPERTY(int dataColumn READ dataColumn WRITE setDataColumn NOTIFY dataColumnChanged)
     Q_PROPERTY(qreal minimumValue READ minimumValue WRITE setMinimumValue NOTIFY minimumValueChanged)
@@ -35,8 +51,9 @@ class Dimension : public QObject
     Q_PROPERTY(int precision READ precision WRITE setPrecision NOTIFY precisionChanged)
     Q_PROPERTY(QString unit READ unit WRITE setUnit NOTIFY unitChanged)
     Q_PROPERTY(qreal unitFactor READ unitFactor WRITE setUnitFactor NOTIFY unitFactorChanged)
+    Q_PROPERTY(MarkerStyle markerStyle READ markerStyle WRITE setMarkerStyle NOTIFY markerStyleChanged)
+    Q_PROPERTY(LineStyle lineStyle READ lineStyle WRITE setLineStyle NOTIFY lineStyleChanged)
 
-public:
     explicit Dimension(QObject* parent = 0);
     QColor color() const;
     void setColor(const QColor& color);
@@ -54,7 +71,12 @@ public:
     void setUnit(const QString& unit);
     qreal unitFactor() const;
     void setUnitFactor(qreal unitFactor);
+    MarkerStyle markerStyle() const;
+    void setMarkerStyle(MarkerStyle markerstyle);
+    LineStyle lineStyle() const;
+    void setLineStyle(LineStyle lineStyle);
     Q_INVOKABLE QString formatValue(qreal value);
+
 Q_SIGNALS:
     void colorChanged();
     void dataColumnChanged();
@@ -65,6 +87,8 @@ Q_SIGNALS:
     void unitChanged();
     void unitFactorChanged();
     void updated();
+    void markerStyleChanged();
+    void lineStyleChanged();
 private:
     QColor m_color;
     int m_dataColumn;
@@ -74,6 +98,8 @@ private:
     int m_precision;
     QString m_unit;
     qreal m_unitFactor;
+    MarkerStyle m_markerStyle;
+    LineStyle m_lineStyle;
 };
 
 #endif // DIMENSION_H

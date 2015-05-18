@@ -28,7 +28,9 @@ Dimension::Dimension(QObject* parent) :
     m_minimumValue(0),
     m_maximumValue(256),
     m_precision(0),
-    m_unitFactor(1)
+    m_unitFactor(1),
+    m_markerStyle(MarkerStyleRound),
+    m_lineStyle(LineStyleSolid)
 {
 }
 
@@ -156,4 +158,34 @@ QString Dimension::formatValue(qreal value)
 {
     QLocale locale;
     return locale.toString(value * m_unitFactor, 'f', m_precision);
+}
+
+Dimension::MarkerStyle Dimension::markerStyle() const
+{
+    return m_markerStyle;
+}
+
+void Dimension::setMarkerStyle(MarkerStyle markerstyle)
+{
+    if (m_markerStyle != markerstyle)
+    {
+        m_markerStyle = markerstyle;
+        emit updated();
+        emit markerStyleChanged();
+    }
+}
+
+Dimension::LineStyle Dimension::lineStyle() const
+{
+    return m_lineStyle;
+}
+
+void Dimension::setLineStyle(LineStyle lineStyle)
+{
+    if (m_lineStyle != lineStyle)
+    {
+        m_lineStyle = lineStyle;
+        emit updated();
+        emit lineStyleChanged();
+    }
 }

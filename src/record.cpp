@@ -18,6 +18,7 @@
  */
 
 #include "record.h"
+#include <limits>
 
 Record::Record(QObject* parent) :
     QObject(parent)
@@ -41,14 +42,15 @@ void Record::setValues(const QVariantList& values)
 qreal Record::value(int column) const
 {
     if (column >= m_values.count())
-        return 0.0;
+        return std::numeric_limits<double>::quiet_NaN();
+
     return m_values.at(column).toReal();
 }
 
 void Record::setValue(int column, qreal value)
 {
     while(column >= m_values.count()) {
-        m_values.append(0.0);
+        m_values.append(std::numeric_limits<double>::quiet_NaN());
     }
     m_values[column] = value;
     emit valuesChanged(this);

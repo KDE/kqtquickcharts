@@ -2,4 +2,5 @@ module org.kde.charts
 BarChart 0.1 BarChart.qml
 LineChart 0.1 LineChart.qml
 LegendItem 0.1 LegendItem.qml
+XYChart 0.1 XYChart.qml
 plugin kqtquickcharts

@@ -135,6 +135,9 @@ void LineChartBackgroundPainter::updateLinePolygons()
         for (int row = 0; row < model->rowCount(); row++)
         {
             const qreal value = model->data(model->index(row, column)).toReal();
+            if (qIsNaN(value))
+                continue;
+
             const qreal x = (qreal(row) + 0.5) * pitch;
             const qreal y =  maxY - ((maxY - 2 * radius) * (value - minValue) / (maxValue - minValue)) - radius;
             line << QPointF(x, y);

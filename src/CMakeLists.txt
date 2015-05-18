@@ -11,6 +11,10 @@ set(kqtquickcharts_SRCS
     linechartpoint.cpp
     chartforegroundpainter.cpp
     record.cpp
+    xychartcore.cpp
+    xychartbackgroundpainter.cpp
+    xychartpainter.cpp
+    xychartpoint.cpp
     )
 
 add_library(kqtquickcharts SHARED ${kqtquickcharts_SRCS})
@@ -33,6 +37,7 @@ set(kqtquickcharts_files
     qml/LegendItem.qml
     qml/LineLabel.qml
     qml/Label.qml
+    qml/XYChart.qml
 )
 
 install(FILES ${kqtquickcharts_files} DESTINATION ${QML_INSTALL_DIR}/org/kde/charts)
