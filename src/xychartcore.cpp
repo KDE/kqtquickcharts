@@ -21,6 +21,7 @@
 #include <QPainter>
 #include <QAbstractTableModel>
 #include <assert.h>
+#include <cmath>
 
 const qreal divisors[] = { 1, 2, 5};
 const int ndivisors = sizeof(divisors) / sizeof(divisors[0]);
@@ -283,7 +284,7 @@ QList<qreal> XYChartCore::generateAxisLabels(const qreal minValue, const qreal m
     // Distance between labels with preferred number of labels
     qreal div = abs(maxValue - minValue) / m_axisLabelCountGoal;
     // Find power of 10 to scale preferred increments to
-    qreal scale = std::pow(10, floor(log10(div)));
+    qreal scale = std::pow(10, floor(std::log10(div)));
 
     // Find closest increment that has at maximum div distance between labels
     qreal increment = divisors[0] * scale;
