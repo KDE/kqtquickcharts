@@ -282,7 +282,7 @@ QPointF XYChartCore::translatePoint(QPointF point)
 QList<qreal> XYChartCore::generateAxisLabels(const qreal minValue, const qreal maxValue)
 {
     // Distance between labels with preferred number of labels
-    qreal div = abs(maxValue - minValue) / m_axisLabelCountGoal;
+    qreal div = fabs(maxValue - minValue) / m_axisLabelCountGoal;
     // Find power of 10 to scale preferred increments to
     qreal scale = std::pow(10, floor(std::log10(div)));
 
