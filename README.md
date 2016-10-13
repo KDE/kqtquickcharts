@@ -1,7 +1,7 @@
 kqtquickcharts
 ==============
 
-Beautiful and interactive charts for Qt Quick 1.0
+Beautiful and interactive charts for Qt Quick
 
 ## Installation
 
