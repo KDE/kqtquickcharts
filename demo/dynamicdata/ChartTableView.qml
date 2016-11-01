@@ -17,12 +17,12 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-import QtQuick 1.1
+import QtQuick 2.2
 import org.kde.charts 0.1
 
 Rectangle {
     id: root
-    property variant chart
+    property Item chart
 
     width: chart.model.columns * (listView.cellWidth + listView.spacing) + listView.spacing
 
@@ -39,7 +39,7 @@ Rectangle {
         clip: true
         model: root.chart.model.rows
 
-        property real cellHeight: theme.defaultFont.mSize.height * 2
+        property real cellHeight: 30
         property real cellWidth: 4 * cellHeight
         spacing: 3
 

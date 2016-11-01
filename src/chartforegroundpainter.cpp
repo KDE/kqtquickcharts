@@ -23,11 +23,11 @@
 
 #include "chartcore.h"
 
-ChartForegroundPainter::ChartForegroundPainter(QDeclarativeItem *parent) :
-    QDeclarativeItem(parent),
+ChartForegroundPainter::ChartForegroundPainter(QQuickItem *parent) :
+    QQuickPaintedItem(parent),
     m_chartCore(0)
 {
-    setFlag(QGraphicsItem::ItemHasNoContents, false);
+    setFlag(QQuickItem::ItemHasContents, true);
 }
 
 ChartCore* ChartForegroundPainter::chartCore() const
@@ -71,7 +71,7 @@ void ChartForegroundPainter::setBackgroundColor(const QColor& backgroundColor)
     }
 }
 
-void ChartForegroundPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void ChartForegroundPainter::paint(QPainter* painter)
 {
     if (!m_chartCore)
         return;

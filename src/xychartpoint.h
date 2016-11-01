@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014  Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2015  Jesper Hellesø Hansen <jesperhh@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -17,28 +17,28 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHPOINT_H
-#define LINEGRAPHPOINT_H
+#ifndef XYGRAPHPOINT_H
+#define XYGRAPHPOINT_H
 
 #include <QQuickPaintedItem>
 
-class LineChartCore;
-class LineChartBackgroundPainter;
+class XYChartCore;
+class XYChartBackgroundPainter;
 
-class LineChartPoint : public QQuickPaintedItem
+class XYChartPoint : public QQuickPaintedItem
 {
     Q_OBJECT
-    Q_PROPERTY(LineChartCore* lineChartCore READ lineChartCore WRITE setLineChartCore NOTIFY lineChartCoreChanged)
-    Q_PROPERTY(LineChartBackgroundPainter* backgroundPainter READ backgroundPainter WRITE setBackgroundPainter NOTIFY backgroundPainterChanged)
+    Q_PROPERTY(XYChartCore* xyChartCore READ xyChartCore WRITE setXYChartCore NOTIFY xyChartCoreChanged)
+    Q_PROPERTY(XYChartBackgroundPainter* backgroundPainter READ backgroundPainter WRITE setBackgroundPainter NOTIFY backgroundPainterChanged)
     Q_PROPERTY(int dimension READ dimension WRITE setDimension NOTIFY dimensionChanged)
     Q_PROPERTY(int row READ row WRITE setRow NOTIFY rowChanged)
     Q_PROPERTY(QString text READ text NOTIFY textChanged)
 public:
-    explicit LineChartPoint(QQuickItem* parent = 0);
-    LineChartCore* lineChartCore() const;
-    void setLineChartCore(LineChartCore* lineChartCore);
-    LineChartBackgroundPainter* backgroundPainter() const;
-    void setBackgroundPainter(LineChartBackgroundPainter* backgroundPainter);
+    explicit XYChartPoint(QQuickItem* parent = 0);
+    XYChartCore* xyChartCore() const;
+    void setXYChartCore(XYChartCore* xyChartCore);
+    XYChartBackgroundPainter* backgroundPainter() const;
+    void setBackgroundPainter(XYChartBackgroundPainter* backgroundPainter);
     int dimension() const;
     void setDimension(int dimension);
     int row() const;
@@ -46,7 +46,7 @@ public:
     QString text() const;
     void paint(QPainter* painter);
 Q_SIGNALS:
-    void lineChartCoreChanged();
+    void xyChartCoreChanged();
     void backgroundPainterChanged();
     void dimensionChanged();
     void rowChanged();
@@ -57,10 +57,10 @@ private Q_SLOTS:
 private:
     void updateGeometry();
     bool valid() const;
-    LineChartCore* m_lineChartCore;
-    LineChartBackgroundPainter* m_backgroundPainter;
+    XYChartCore* m_xyChartCore;
+    XYChartBackgroundPainter* m_backgroundPainter;
     int m_dimension;
     int m_row;
 };
 
-#endif // LINEGRAPHPOINT_H
+#endif // XYGRAPHPOINT_H

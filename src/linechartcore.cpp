@@ -19,7 +19,7 @@
 
 #include "linechartcore.h"
 
-LineChartCore::LineChartCore(QDeclarativeItem* parent) :
+LineChartCore::LineChartCore(QQuickItem* parent) :
     ChartCore(parent),
     m_pointRadius(5.0)
 {
@@ -40,7 +40,7 @@ void LineChartCore::setPointRadius(qreal pointRadius)
     }
 }
 
-void LineChartCore::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void LineChartCore::paint(QPainter* painter)
 {
     paintAxisAndLines(painter, m_pointRadius);
 }

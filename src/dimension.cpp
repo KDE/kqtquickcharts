@@ -19,17 +19,18 @@
 
 #include "dimension.h"
 
-#include <KGlobal>
-#include <KLocale>
+#include <QLocale>
 
-Dimension::Dimension(QDeclarativeItem* parent) :
-    QDeclarativeItem(parent),
+Dimension::Dimension(QObject* parent) :
+    QObject(parent),
     m_color(Qt::black),
     m_dataColumn(0),
     m_minimumValue(0),
     m_maximumValue(256),
     m_precision(0),
-    m_unitFactor(1)
+    m_unitFactor(1),
+    m_markerStyle(MarkerStyleRound),
+    m_lineStyle(LineStyleSolid)
 {
 }
 
@@ -155,5 +156,36 @@ void Dimension::setUnitFactor(qreal unitFactor)
 
 QString Dimension::formatValue(qreal value)
 {
-    return KGlobal::locale()->formatNumber(value * m_unitFactor, m_precision) + m_unit;
+    QLocale locale;
+    return locale.toString(value * m_unitFactor, 'f', m_precision);
+}
+
+Dimension::MarkerStyle Dimension::markerStyle() const
+{
+    return m_markerStyle;
+}
+
+void Dimension::setMarkerStyle(MarkerStyle markerstyle)
+{
+    if (m_markerStyle != markerstyle)
+    {
+        m_markerStyle = markerstyle;
+        emit updated();
+        emit markerStyleChanged();
+    }
+}
+
+Dimension::LineStyle Dimension::lineStyle() const
+{
+    return m_lineStyle;
+}
+
+void Dimension::setLineStyle(LineStyle lineStyle)
+{
+    if (m_lineStyle != lineStyle)
+    {
+        m_lineStyle = lineStyle;
+        emit updated();
+        emit lineStyleChanged();
+    }
 }

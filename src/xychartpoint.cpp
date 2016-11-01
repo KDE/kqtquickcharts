@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014  Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2015  Jesper Hellesø Hansen <jesperhh@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -17,18 +17,18 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#include "linechartpoint.h"
+#include "xychartpoint.h"
 
 #include <QAbstractTableModel>
 #include <QPainter>
 
-#include "linechartcore.h"
+#include "xychartcore.h"
 #include "dimension.h"
-#include "linechartbackgroundpainter.h"
+#include "xychartbackgroundpainter.h"
 
-LineChartPoint::LineChartPoint(QQuickItem* parent) :
+XYChartPoint::XYChartPoint(QQuickItem* parent) :
     QQuickPaintedItem(parent),
-    m_lineChartCore(0),
+    m_xyChartCore(0),
     m_backgroundPainter(0),
     m_dimension(-1),
     m_row(-1)
@@ -36,38 +36,38 @@ LineChartPoint::LineChartPoint(QQuickItem* parent) :
     setFlag(QQuickItem::ItemHasContents, true);
 }
 
-LineChartCore* LineChartPoint::lineChartCore() const
+XYChartCore* XYChartPoint::xyChartCore() const
 {
-    return m_lineChartCore;
+    return m_xyChartCore;
 }
 
-void LineChartPoint::setLineChartCore(LineChartCore* lineChartCore)
+void XYChartPoint::setXYChartCore(XYChartCore* xyChartCore)
 {
-    if (lineChartCore != m_lineChartCore)
+    if (xyChartCore != m_xyChartCore)
     {
-        if (m_lineChartCore)
+        if (m_xyChartCore)
         {
-            m_lineChartCore->disconnect(this);
+            m_xyChartCore->disconnect(this);
         }
 
-        m_lineChartCore = lineChartCore;
+        m_xyChartCore = xyChartCore;
 
-        if (m_lineChartCore)
+        if (m_xyChartCore)
         {
-            connect(m_lineChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_xyChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
         }
 
         triggerUpdate();
-        emit lineChartCoreChanged();
+        emit xyChartCoreChanged();
     }
 }
 
-LineChartBackgroundPainter* LineChartPoint::backgroundPainter() const
+XYChartBackgroundPainter* XYChartPoint::backgroundPainter() const
 {
     return m_backgroundPainter;
 }
 
-void LineChartPoint::setBackgroundPainter(LineChartBackgroundPainter* backgroundPainter)
+void XYChartPoint::setBackgroundPainter(XYChartBackgroundPainter* backgroundPainter)
 {
     if (backgroundPainter != m_backgroundPainter)
     {
@@ -88,12 +88,12 @@ void LineChartPoint::setBackgroundPainter(LineChartBackgroundPainter* background
     }
 }
 
-int LineChartPoint::dimension() const
+int XYChartPoint::dimension() const
 {
     return m_dimension;
 }
 
-void LineChartPoint::setDimension(int dimension)
+void XYChartPoint::setDimension(int dimension)
 {
     if (dimension != m_dimension)
     {
@@ -103,12 +103,12 @@ void LineChartPoint::setDimension(int dimension)
     }
 }
 
-int LineChartPoint::row() const
+int XYChartPoint::row() const
 {
     return m_row;
 }
 
-void LineChartPoint::setRow(int row)
+void XYChartPoint::setRow(int row)
 {
     if (row != m_row)
     {
@@ -118,38 +118,55 @@ void LineChartPoint::setRow(int row)
     }
 }
 
-QString LineChartPoint::text() const
+QString XYChartPoint::text() const
 {
-    if (!m_lineChartCore)
+    if (!m_xyChartCore)
         return QString();
 
-    const int role = m_lineChartCore->textRole();
+    const int role = m_xyChartCore->textRole();
 
     if (role == -1)
         return QString();
 
-    QAbstractTableModel* model = m_lineChartCore->model();
-    Dimension* dimension = m_lineChartCore->dimensionsList().at(m_dimension);
+    QAbstractTableModel* model = m_xyChartCore->model();
+    Dimension* dimension = m_xyChartCore->dimensionsList().at(m_dimension);
     const int column = dimension->dataColumn();
 
     return model->data(model->index(m_row, column), role).toString();
 }
 
-void LineChartPoint::paint(QPainter* painter)
+void XYChartPoint::paint(QPainter* painter)
 {
     if (!valid())
         return;
 
-    Dimension* dimension = m_lineChartCore->dimensionsList().at(m_dimension);
-
+    const Dimension* dimension = m_xyChartCore->dimensionsList().at(m_dimension);
+    const qreal radius = m_xyChartCore->pointRadius();
     painter->setRenderHints(QPainter::Antialiasing, true);
-    painter->setBrush(QBrush(dimension->color()));
-    painter->setPen(Qt::NoPen);
-    const qreal radius = m_lineChartCore->pointRadius();
-    painter->drawEllipse(QPointF(radius, radius), radius, radius);
+
+
+    switch (dimension->markerStyle())
+    {
+    case Dimension::MarkerStyleNone:
+        // Do nothing
+        break;
+    case Dimension::MarkerStyleRound:
+        painter->setBrush(QBrush(dimension->color()));
+        painter->setPen(Qt::NoPen);
+        painter->drawEllipse(QPointF(radius, radius), radius, radius);
+        break;
+    case Dimension::MarkerStyleCross:
+        painter->setBrush(Qt::NoBrush);
+        QPen pen(dimension->color());
+        pen.setWidthF(m_xyChartCore->lineWidth());
+        painter->setPen(pen);
+        painter->drawLine(0.0, 0.0, radius * 2.0, radius * 2.0);
+        painter->drawLine(0.0, radius * 2.0, radius * 2.0, 0.0);
+        break;
+    }
 }
 
-void LineChartPoint::triggerUpdate()
+void XYChartPoint::triggerUpdate()
 {
     if (!valid())
         return;
@@ -157,9 +174,9 @@ void LineChartPoint::triggerUpdate()
     update();
 }
 
-void LineChartPoint::updateGeometry()
+void XYChartPoint::updateGeometry()
 {
-    const qreal radius = m_lineChartCore->pointRadius();
+    const qreal radius = m_xyChartCore->pointRadius();
     setWidth(2 * radius);
     setHeight(2 * radius);
     QPointF center = m_backgroundPainter->linePolygons().at(m_dimension).at(m_row);
@@ -168,9 +185,11 @@ void LineChartPoint::updateGeometry()
     setY(center.y() - radius);
 }
 
-bool LineChartPoint::valid() const
+bool XYChartPoint::valid() const
 {
-    if (!m_lineChartCore || !m_backgroundPainter || m_row == -1 || m_dimension == -1)
+    if (!m_xyChartCore || !m_backgroundPainter || m_row == -1 || m_dimension == -1)
+        return false;
+    if (m_xyChartCore->dimensionsList().at(m_dimension)->markerStyle() == Dimension::MarkerStyleNone)
         return false;
     if (m_dimension >= m_backgroundPainter->linePolygons().count())
         return false;

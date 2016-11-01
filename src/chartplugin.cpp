@@ -19,7 +19,7 @@
 
 #include "chartplugin.h"
 
-#include <qdeclarative.h>
+#include <QQmlEngine>
 #include <QAbstractTableModel>
 
 #include "barchartcore.h"
@@ -32,6 +32,10 @@
 #include "linechartbackgroundpainter.h"
 #include "linechartpainter.h"
 #include "linechartpoint.h"
+#include "xychartcore.h"
+#include "xychartbackgroundpainter.h"
+#include "xychartpainter.h"
+#include "xychartpoint.h"
 #include "record.h"
 
 void ChartPlugin::registerTypes(const char *uri)
@@ -47,10 +51,12 @@ void ChartPlugin::registerTypes(const char *uri)
     qmlRegisterType<LineChartBackgroundPainter>(uri, 0, 1, "LineChartBackgroundPainter");
     qmlRegisterType<LineChartPainter>(uri, 0, 1, "LineChartPainter");
     qmlRegisterType<LineChartPoint>(uri, 0, 1, "LineChartPoint");
+    qmlRegisterType<XYChartCore>(uri, 0, 1, "XYChartCore");
+    qmlRegisterType<XYChartBackgroundPainter>(uri, 0, 1, "XYChartBackgroundPainter");
+    qmlRegisterType<XYChartPainter>(uri, 0, 1, "XYChartPainter");
+    qmlRegisterType<XYChartPoint>(uri, 0, 1, "XYChartPoint");
     qmlRegisterType<ChartModel>(uri, 0, 1, "ChartModel");
     qmlRegisterType<Record>(uri, 0, 1, "Record");
 
     qmlRegisterUncreatableType<QAbstractTableModel>(uri, 0, 1, "QAbstractTableModel", "abstract class");
 }
-
-Q_EXPORT_PLUGIN2(chartplugin, ChartPlugin)

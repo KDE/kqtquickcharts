@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014  Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2015  Jesper Hellesø Hansen <jesperhh@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -17,24 +17,34 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHCORE_H
-#define LINEGRAPHCORE_H
+#ifndef XYGRAPHBACKGROUNDPAINTER_H
+#define XYGRAPHBACKGROUNDPAINTER_H
 
-#include "chartcore.h"
+#include <QQuickPaintedItem>
 
-class LineChartCore : public ChartCore
+#include <QPolygonF>
+
+class XYChartCore;
+
+class XYChartBackgroundPainter : public QQuickPaintedItem
 {
     Q_OBJECT
-    Q_PROPERTY(qreal pointRadius READ pointRadius WRITE setPointRadius NOTIFY pointRadiusChanged)
+    Q_PROPERTY(XYChartCore* xyChartCore READ xyChartCore WRITE setXYChartCore NOTIFY xyChartCoreChanged)
 public:
-    explicit LineChartCore(QQuickItem* parent = 0);
-    qreal pointRadius() const;
-    void setPointRadius(qreal pointRadius);
+    explicit XYChartBackgroundPainter(QQuickItem* parent = 0);
+    XYChartCore* xyChartCore() const;
+    void setXYChartCore(XYChartCore* lineChartCore);
     void paint(QPainter* painter);
+    const QList<QPolygonF>& linePolygons() const;
 Q_SIGNALS:
-    void pointRadiusChanged();
+    void xyChartCoreChanged();
+    void linePolygonsUpdated();
+private Q_SLOTS:
+    void triggerUpdate();
 private:
-    qreal m_pointRadius;
+    void updateLinePolygons();
+    XYChartCore* m_xyChartCore;
+    QList<QPolygonF> m_linePolygons;
 };
 
-#endif // LINEGRAPHCORE_H
+#endif // XYGRAPHBACKGROUNDPAINTER_H

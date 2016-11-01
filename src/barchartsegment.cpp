@@ -24,10 +24,8 @@
 #include "dimension.h"
 #include "barchartcore.h"
 
-#include <KDebug>
-
-BarChartSegment::BarChartSegment(QDeclarativeItem* parent) :
-    QDeclarativeItem(parent),
+BarChartSegment::BarChartSegment(QQuickItem* parent) :
+    QQuickItem(parent),
     m_barChartCore(0),
     m_dimension(-1),
     m_row(-1)
@@ -108,6 +106,9 @@ qreal BarChartSegment::barHeight() const
 
 QString BarChartSegment::text() const
 {
+    if (!m_barChartCore)
+        return QString();
+
     const int role = m_barChartCore->textRole();
 
     if (role == -1)

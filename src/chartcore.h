@@ -20,44 +20,45 @@
 #ifndef GRAPHCORE_H
 #define GRAPHCORE_H
 
-#include <QDeclarativeItem>
+#include <QQuickPaintedItem>
 
 #include "dimension.h"
 
 class QAbstractTableModel;
 
-class ChartCore : public QDeclarativeItem
+class ChartCore : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(QAbstractTableModel* model READ model WRITE setModel NOTIFY modelChanged)
-    Q_PROPERTY(QDeclarativeListProperty<Dimension> dimensions READ dimensions CONSTANT)
+    Q_PROPERTY(QQmlListProperty<Dimension> dimensions READ dimensions CONSTANT)
     Q_PROPERTY(qreal pitch READ pitch WRITE setPitch NOTIFY pitchChanged)
     Q_PROPERTY(int textRole READ textRole WRITE setTextRole NOTIFY textRoleChanged)
 public:
-    explicit ChartCore(QDeclarativeItem *parent = 0);
+    explicit ChartCore(QQuickItem *parent = 0);
     QAbstractTableModel* model() const;
     void setModel(QAbstractTableModel* model);
-    QDeclarativeListProperty<Dimension> dimensions();
+    QQmlListProperty<Dimension> dimensions();
     QList<Dimension*> dimensionsList() const;
     qreal pitch() const;
     void setPitch(qreal pitch);
     int textRole() const;
     void setTextRole(int textRole);
-signals:
+Q_SIGNALS:
     void modelChanged();
     void chartStyleChanged();
     void pitchChanged();
     void textRoleChanged();
     void updated();
-protected slots:
+protected Q_SLOTS:
     void triggerUpdate();
 protected:
+    void paint(QPainter* painter);
     void paintAxisAndLines(QPainter* painter, qreal offset);
 private:
-    static void appendDimension(QDeclarativeListProperty<Dimension>* list, Dimension* dimension);
-    static int countDimensions(QDeclarativeListProperty<Dimension>* list);
-    static Dimension* dimensionAt(QDeclarativeListProperty<Dimension>* list, int index);
-    static void clearDimensions(QDeclarativeListProperty<Dimension>* list);
+    static void appendDimension(QQmlListProperty<Dimension>* list, Dimension* dimension);
+    static int countDimensions(QQmlListProperty<Dimension>* list);
+    static Dimension* dimensionAt(QQmlListProperty<Dimension>* list, int index);
+    static void clearDimensions(QQmlListProperty<Dimension>* list);
     QAbstractTableModel* m_model;
     QList<Dimension*> m_dimensions;
     qreal m_pitch;

@@ -20,26 +20,26 @@
 #ifndef LINEGRAPHFOREGROUNDPAINTER_H
 #define LINEGRAPHFOREGROUNDPAINTER_H
 
-#include <QDeclarativeItem>
+#include <QQuickPaintedItem>
 
 class ChartCore;
 
-class ChartForegroundPainter : public QDeclarativeItem
+class ChartForegroundPainter : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(ChartCore* chartCore READ chartCore WRITE setChartCore NOTIFY chartCoreChanged)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
 public:
-    explicit ChartForegroundPainter(QDeclarativeItem* parent = 0);
+    explicit ChartForegroundPainter(QQuickItem* parent = 0);
     ChartCore* chartCore() const;
     void setChartCore(ChartCore* chartCore);
     QColor backgroundColor() const;
     void setBackgroundColor(const QColor& backgroundColor);
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*);
-signals:
+    void paint(QPainter* painter);
+Q_SIGNALS:
     void chartCoreChanged();
     void backgroundColorChanged();
-private slots:
+private Q_SLOTS:
     void triggerUpdate();
 private:
     ChartCore* m_chartCore;

@@ -25,13 +25,11 @@
 #include "linechartcore.h"
 #include "dimension.h"
 
-#include <KDebug>
-
-LineChartBackgroundPainter::LineChartBackgroundPainter(QDeclarativeItem* parent) :
-    QDeclarativeItem(parent),
+LineChartBackgroundPainter::LineChartBackgroundPainter(QQuickItem* parent) :
+    QQuickPaintedItem(parent),
     m_lineChartCore(0)
 {
-    setFlag(QGraphicsItem::ItemHasNoContents, false);
+    setFlag(QQuickItem::ItemHasContents, true);
 
     connect(this, SIGNAL(heightChanged()), SLOT(triggerUpdate()));
 }
@@ -67,7 +65,7 @@ const QList<QPolygonF>& LineChartBackgroundPainter::linePolygons() const
     return m_linePolygons;
 }
 
-void LineChartBackgroundPainter::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void LineChartBackgroundPainter::paint(QPainter* painter)
 {
     if (m_lineChartCore->model()->rowCount() == 0)
         return;
@@ -137,6 +135,9 @@ void LineChartBackgroundPainter::updateLinePolygons()
         for (int row = 0; row < model->rowCount(); row++)
         {
             const qreal value = model->data(model->index(row, column)).toReal();
+            if (qIsNaN(value))
+                continue;
+
             const qreal x = (qreal(row) + 0.5) * pitch;
             const qreal y =  maxY - ((maxY - 2 * radius) * (value - minValue) / (maxValue - minValue)) - radius;
             line << QPointF(x, y);

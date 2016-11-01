@@ -17,7 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-import QtQuick 1.1
+import QtQuick 2.2
+import org.kde.charts 0.1
 
 Label {
     property Dimension dimension

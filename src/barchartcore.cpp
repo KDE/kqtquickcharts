@@ -19,7 +19,7 @@
 
 #include "barchartcore.h"
 
-BarChartCore::BarChartCore(QDeclarativeItem* parent) :
+BarChartCore::BarChartCore(QQuickItem* parent) :
     ChartCore(parent)
 {
     connect(this, SIGNAL(pitchChanged()), SIGNAL(barWidthChanged()));
@@ -30,7 +30,7 @@ qreal BarChartCore::barWidth() const
     return qRound(pitch() / (dimensionsList().length() + 1));
 }
 
-void BarChartCore::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+void BarChartCore::paint(QPainter* painter)
 {
     paintAxisAndLines(painter, 0.0);
 }

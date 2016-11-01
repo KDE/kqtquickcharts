@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014  Sebastian Gottfried <sebastiangottfried@web.de>
+ *  Copyright 2015  Jesper Hellesø Hansen <jesperhh@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Lesser General Public
@@ -16,56 +16,56 @@
  *
  *  You should have received a copy of the GNU Lesser General Public
  */
-#include "linechartpainter.h"
+#include "xychartpainter.h"
 
 #include <QAbstractTableModel>
 #include <QPainter>
 
-#include "linechartcore.h"
+#include "xychartcore.h"
 #include "dimension.h"
-#include "linechartbackgroundpainter.h"
+#include "xychartbackgroundpainter.h"
 
-LineChartPainter::LineChartPainter(QQuickItem* parent) :
+XYChartPainter::XYChartPainter(QQuickItem* parent) :
     QQuickPaintedItem(parent),
-    m_lineChartCore(0),
+    m_xyChartCore(0),
     m_backgroundPainter(0),
     m_dimension(-1)
 {
     setFlag(QQuickItem::ItemHasContents, true);
 }
 
-LineChartCore* LineChartPainter::lineChartCore() const
+XYChartCore* XYChartPainter::xyChartCore() const
 {
-    return m_lineChartCore;
+    return m_xyChartCore;
 }
 
-void LineChartPainter::setLineChartCore(LineChartCore* lineChartCore)
+void XYChartPainter::setXYChartCore(XYChartCore* lineChartCore)
 {
-    if (lineChartCore != m_lineChartCore)
+    if (lineChartCore != m_xyChartCore)
     {
-        if (m_lineChartCore)
+        if (m_xyChartCore)
         {
-            m_lineChartCore->disconnect(this);
+            m_xyChartCore->disconnect(this);
         }
 
-        m_lineChartCore = lineChartCore;
+        m_xyChartCore = lineChartCore;
 
-        if (m_lineChartCore)
+        if (m_xyChartCore)
         {
-            connect(m_lineChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_xyChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
         }
 
         update();
-        emit lineChartCoreChanged();
+        emit xyChartCoreChanged();
     }
 }
 
-LineChartBackgroundPainter* LineChartPainter::backgroundPainter() const
+XYChartBackgroundPainter* XYChartPainter::backgroundPainter() const
 {
     return m_backgroundPainter;
 }
 
-void LineChartPainter::setBackgroundPainter(LineChartBackgroundPainter* backgroundPainter)
+void XYChartPainter::setBackgroundPainter(XYChartBackgroundPainter* backgroundPainter)
 {
     if (backgroundPainter != m_backgroundPainter)
     {
@@ -75,12 +75,12 @@ void LineChartPainter::setBackgroundPainter(LineChartBackgroundPainter* backgrou
     }
 }
 
-int LineChartPainter::dimension() const
+int XYChartPainter::dimension() const
 {
     return m_dimension;
 }
 
-void LineChartPainter::setDimension(int dimension)
+void XYChartPainter::setDimension(int dimension)
 {
     if (dimension != m_dimension)
     {
@@ -90,31 +90,37 @@ void LineChartPainter::setDimension(int dimension)
     }
 }
 
-void LineChartPainter::paint(QPainter* painter)
+void XYChartPainter::paint(QPainter* painter)
 {
-    if (!m_lineChartCore || !m_backgroundPainter || m_dimension == -1)
+    if (!m_xyChartCore || !m_backgroundPainter || m_dimension == -1)
         return;
 
     painter->setRenderHints(QPainter::Antialiasing, true);
 
-    Dimension* dimension = m_lineChartCore->dimensionsList().at(m_dimension);
+    Dimension* dimension = m_xyChartCore->dimensionsList().at(m_dimension);
 
     QPolygonF line = m_backgroundPainter->linePolygons().at(m_dimension);
 
-    painter->setPen(QPen(QBrush(dimension->color()), 3));
-    painter->drawPolyline(line);
+    switch (dimension->lineStyle())
+    {
+    case Dimension::LineStyleSolid:
+        painter->setPen(QPen(QBrush(dimension->color()), m_xyChartCore->lineWidth()));
+        painter->drawPolyline(line);
+        break;
+    case Dimension::LineStyleDash:
+        painter->setPen(QPen(QBrush(dimension->color()), m_xyChartCore->lineWidth(), Qt::DashLine));
+        painter->drawPolyline(line);
+        break;
+    case Dimension::LineStyleNone:
+        // do nothing
+        break;
+    }
 }
 
-void LineChartPainter::triggerUpdate()
+void XYChartPainter::triggerUpdate()
 {
-    if (!m_lineChartCore || !m_backgroundPainter || m_dimension == -1)
+    if (!m_xyChartCore || !m_backgroundPainter || m_dimension == -1)
         return;
 
-    updateWidth();
     update();
-}
-
-void LineChartPainter::updateWidth()
-{
-    setWidth(backgroundPainter()->width());
 }
