@@ -38,8 +38,8 @@ Item {
     */
     property alias textColor: label.color
 
-    height: label.height
-    width: box.width + label.width + 5
+    implicitHeight: label.height
+    implicitWidth: box.width + label.width + 5
 
     Rectangle {
         id: box
