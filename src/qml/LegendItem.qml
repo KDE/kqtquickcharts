@@ -38,8 +38,8 @@ Item {
     */
     property alias textColor: label.color
 
-    height: label.height
-    width: box.width + label.width + 5
+    implicitHeight: label.height
+    implicitWidth: box.width + label.width + 5
 
     Rectangle {
         id: box
@@ -47,7 +47,7 @@ Item {
             verticalCenter: parent.verticalCenter
             left: parent.left
         }
-        color: dimension.color
+        color: dimension? dimension.color: "#000000"
         width: height
         height: label.font.pixelSize
         radius: 4
@@ -59,6 +59,6 @@ Item {
             top: parent.top
             right: parent.right
         }
-        text: dimension.label
+        text: dimension? dimension.label: ""
     }
 }
