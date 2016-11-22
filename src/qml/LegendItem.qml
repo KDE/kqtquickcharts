@@ -47,7 +47,7 @@ Item {
             verticalCenter: parent.verticalCenter
             left: parent.left
         }
-        color: dimension.color
+        color: dimension? dimension.color: "#000000"
         width: height
         height: label.font.pixelSize
         radius: 4
@@ -59,6 +59,6 @@ Item {
             top: parent.top
             right: parent.right
         }
-        text: dimension.label
+        text: dimension? dimension.label: ""
     }
 }
