@@ -34,14 +34,14 @@ public:
         MarkerStyleRound,
         MarkerStyleCross
     };
-    Q_ENUMS(MarkerStyle);
+    Q_ENUMS(MarkerStyle)
     enum LineStyle
     {
         LineStyleNone,
         LineStyleSolid,
         LineStyleDash
     };
-    Q_ENUMS(LineStyle);
+    Q_ENUMS(LineStyle)
 
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
     Q_PROPERTY(int dataColumn READ dataColumn WRITE setDataColumn NOTIFY dataColumnChanged)
