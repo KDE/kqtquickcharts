@@ -34,7 +34,7 @@ public:
     explicit XYChartBackgroundPainter(QQuickItem* parent = 0);
     XYChartCore* xyChartCore() const;
     void setXYChartCore(XYChartCore* lineChartCore);
-    void paint(QPainter* painter);
+    void paint(QPainter* painter) override;
     const QList<QPolygonF>& linePolygons() const;
 Q_SIGNALS:
     void xyChartCoreChanged();

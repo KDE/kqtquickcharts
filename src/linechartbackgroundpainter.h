@@ -34,7 +34,7 @@ public:
     explicit LineChartBackgroundPainter(QQuickItem* parent = 0);
     LineChartCore* lineChartCore() const;
     void setLineChartCore(LineChartCore* lineChartCore);
-    void paint(QPainter* painter);
+    void paint(QPainter* painter) override;
     const QList<QPolygonF>& linePolygons() const;
 Q_SIGNALS:
     void lineChartCoreChanged();

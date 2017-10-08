@@ -30,7 +30,7 @@ public:
     explicit LineChartCore(QQuickItem* parent = 0);
     qreal pointRadius() const;
     void setPointRadius(qreal pointRadius);
-    void paint(QPainter* painter);
+    void paint(QPainter* painter) override;
 Q_SIGNALS:
     void pointRadiusChanged();
 private:

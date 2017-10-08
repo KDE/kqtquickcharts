@@ -56,7 +56,7 @@ public:
     unsigned int axisLabelCountGoal() const;
     void setAxisLabelCountGoal(unsigned int axisLabelCountGoal);
     QList<qreal> generateAxisLabels(const qreal minValue, const qreal maxValue);
-    void paint(QPainter* painter);
+    void paint(QPainter* painter) override;
     QPointF translatePoint(QPointF point);
 
 Q_SIGNALS:

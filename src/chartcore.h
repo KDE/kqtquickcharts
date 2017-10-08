@@ -52,7 +52,7 @@ Q_SIGNALS:
 protected Q_SLOTS:
     void triggerUpdate();
 protected:
-    void paint(QPainter* painter);
+    void paint(QPainter* painter) override;
     void paintAxisAndLines(QPainter* painter, qreal offset);
 private:
     static void appendDimension(QQmlListProperty<Dimension>* list, Dimension* dimension);

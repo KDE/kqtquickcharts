@@ -35,7 +35,7 @@ public:
     void setChartCore(ChartCore* chartCore);
     QColor backgroundColor() const;
     void setBackgroundColor(const QColor& backgroundColor);
-    void paint(QPainter* painter);
+    void paint(QPainter* painter) override;
 Q_SIGNALS:
     void chartCoreChanged();
     void backgroundColorChanged();

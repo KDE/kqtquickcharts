@@ -44,7 +44,7 @@ public:
     int row() const;
     void setRow(int row);
     QString text() const;
-    void paint(QPainter* painter);
+    void paint(QPainter* painter) override;
 Q_SIGNALS:
     void lineChartCoreChanged();
     void backgroundPainterChanged();

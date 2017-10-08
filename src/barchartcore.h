@@ -29,7 +29,7 @@ class BarChartCore : public ChartCore
 public:
     explicit BarChartCore(QQuickItem* parent = 0);
     qreal barWidth() const;
-    void paint(QPainter* painter);
+    void paint(QPainter* painter) override;
 Q_SIGNALS:
     void barWidthChanged();
 };

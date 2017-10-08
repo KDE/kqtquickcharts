@@ -38,7 +38,7 @@ public:
     void setBackgroundPainter(XYChartBackgroundPainter* backgroundPainter);
     int dimension() const;
     void setDimension(int dimension);
-    void paint(QPainter* painter);
+    void paint(QPainter* painter) override;
 Q_SIGNALS:
     void xyChartCoreChanged();
     void backgroundPainterChanged();
