@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHPOINT_H
-#define LINEGRAPHPOINT_H
+#ifndef LINECHARTPOINT_H
+#define LINECHARTPOINT_H
 
 #include <QQuickPaintedItem>
 
@@ -63,4 +63,4 @@ private:
     int m_row;
 };
 
-#endif // LINEGRAPHPOINT_H
+#endif // LINECHARTPOINT_H

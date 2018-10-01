@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef BARGRAPHSEGMENT_H
-#define BARGRAPHSEGMENT_H
+#ifndef BARCHARTSEGMENT_H
+#define BARCHARTSEGMENT_H
 
 #include <QQuickItem>
 
@@ -57,4 +57,4 @@ private:
     int m_row;
 };
 
-#endif // BARGRAPHSEGMENT_H
+#endif // BARCHARTSEGMENT_H

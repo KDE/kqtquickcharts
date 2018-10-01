@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHCORE_H
-#define LINEGRAPHCORE_H
+#ifndef LINECHARTCORE_H
+#define LINECHARTCORE_H
 
 #include "chartcore.h"
 
@@ -37,4 +37,4 @@ private:
     qreal m_pointRadius;
 };
 
-#endif // LINEGRAPHCORE_H
+#endif // LINECHARTCORE_H

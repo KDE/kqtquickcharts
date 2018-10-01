@@ -16,8 +16,8 @@
  *
  *  You should have received a copy of the GNU Lesser General Public
  */
-#ifndef XYGRAPHPAINTER_H
-#define XYGRAPHPAINTER_H
+#ifndef XYCHARTPAINTER_H
+#define XYCHARTPAINTER_H
 
 #include <QQuickPaintedItem>
 
@@ -51,4 +51,4 @@ private:
     int m_dimension;
 };
 
-#endif // XYGRAPHPAINTER_H
+#endif // XYCHARTPAINTER_H

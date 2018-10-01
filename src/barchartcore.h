@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef BARGRAPHCORE_H
-#define BARGRAPHCORE_H
+#ifndef BARCHARTCORE_H
+#define BARCHARTCORE_H
 
 #include "chartcore.h"
 
@@ -34,4 +34,4 @@ Q_SIGNALS:
     void barWidthChanged();
 };
 
-#endif // BARGRAPHCORE_H
+#endif // BARCHARTCORE_H

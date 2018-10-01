@@ -84,7 +84,7 @@ Item {
      * The background color used for the chart.
      *
      * @warn colors with an non-zero alpha component aren't supported yet
-     * and result in an visual defiencies.
+     * and result in an visual deficiencies.
      *
      * Default value is white.
      */

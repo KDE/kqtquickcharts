@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef GRAPHPLUGIN_H
-#define GRAPHPLUGIN_H
+#ifndef CHARTPLUGIN_H
+#define CHARTPLUGIN_H
 
 #include <QQmlExtensionPlugin>
 
@@ -30,4 +30,4 @@ public:
     void registerTypes(const char *uri) override;
 };
 
-#endif // GRAPHPLUGIN_H
+#endif // CHARTPLUGIN_H

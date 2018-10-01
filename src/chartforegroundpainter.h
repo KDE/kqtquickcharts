@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHFOREGROUNDPAINTER_H
-#define LINEGRAPHFOREGROUNDPAINTER_H
+#ifndef LINECHARTFOREGROUNDPAINTER_H
+#define LINECHARTFOREGROUNDPAINTER_H
 
 #include <QQuickPaintedItem>
 
@@ -46,4 +46,4 @@ private:
     QColor m_backgroundColor;
 };
 
-#endif // LINEGRAPHFOREGROUNDPAINTER_H
+#endif // LINECHARTFOREGROUNDPAINTER_H

@@ -16,8 +16,8 @@
  *
  *  You should have received a copy of the GNU Lesser General Public
  */
-#ifndef LINEGRAPHPAINTER_H
-#define LINEGRAPHPAINTER_H
+#ifndef LINECHARTPAINTER_H
+#define LINECHARTPAINTER_H
 
 #include <QQuickPaintedItem>
 
@@ -52,4 +52,4 @@ private:
     int m_dimension;
 };
 
-#endif // LINEGRAPHPAINTER_H
+#endif // LINECHARTPAINTER_H

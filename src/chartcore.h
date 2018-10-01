@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef GRAPHCORE_H
-#define GRAPHCORE_H
+#ifndef CHARTCORE_H
+#define CHARTCORE_H
 
 #include <QQuickPaintedItem>
 
@@ -65,4 +65,4 @@ private:
     int m_textRole;
 };
 
-#endif // GRAPHCORE_H
+#endif // CHARTCORE_H

@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef XYGRAPHCORE_H
-#define XYGRAPHCORE_H
+#ifndef XYCHARTCORE_H
+#define XYCHARTCORE_H
 
 #include "chartcore.h"
 #include <QFont>
@@ -101,4 +101,4 @@ private:
     unsigned int m_axisLabelCountGoal;
 };
 
-#endif // XYGRAPHCORE_H
+#endif // XYCHARTCORE_H

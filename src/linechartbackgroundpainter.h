@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef LINEGRAPHBACKGROUNDPAINTER_H
-#define LINEGRAPHBACKGROUNDPAINTER_H
+#ifndef LINECHARTBACKGROUNDPAINTER_H
+#define LINECHARTBACKGROUNDPAINTER_H
 
 #include <QQuickPaintedItem>
 
@@ -48,4 +48,4 @@ private:
     QList<QPolygonF> m_linePolygons;
 };
 
-#endif // LINEGRAPHBACKGROUNDPAINTER_H
+#endif // LINECHARTBACKGROUNDPAINTER_H

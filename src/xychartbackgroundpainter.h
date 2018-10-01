@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef XYGRAPHBACKGROUNDPAINTER_H
-#define XYGRAPHBACKGROUNDPAINTER_H
+#ifndef XYCHARTBACKGROUNDPAINTER_H
+#define XYCHARTBACKGROUNDPAINTER_H
 
 #include <QQuickPaintedItem>
 
@@ -47,4 +47,4 @@ private:
     QList<QPolygonF> m_linePolygons;
 };
 
-#endif // XYGRAPHBACKGROUNDPAINTER_H
+#endif // XYCHARTBACKGROUNDPAINTER_H

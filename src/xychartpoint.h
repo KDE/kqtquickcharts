@@ -17,8 +17,8 @@
  *  You should have received a copy of the GNU Lesser General Public
  */
 
-#ifndef XYGRAPHPOINT_H
-#define XYGRAPHPOINT_H
+#ifndef XYCHARTPOINT_H
+#define XYCHARTPOINT_H
 
 #include <QQuickPaintedItem>
 
@@ -63,4 +63,4 @@ private:
     int m_row;
 };
 
-#endif // XYGRAPHPOINT_H
+#endif // XYCHARTPOINT_H
