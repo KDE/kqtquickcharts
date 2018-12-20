@@ -7,7 +7,7 @@ find_package(ECM 1.1.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 set(REQUIRED_QT_VERSION "5.2.0")
-set(KF5_VERSION "5.1.0") # handled by release scripts
+set(KF5_MIN_VERSION "5.1.0") # handled by release scripts
 set(KF5_DEP_VERSION "5.1.0") # handled by release scripts
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Qml Quick Gui)
@@ -36,7 +36,7 @@ include(ECMPackageConfigHelpers)
 
 # ECM setup
 ecm_setup_version(
-  ${KF5_VERSION}
+  ${KF5_MIN_VERSION}
   VARIABLE_PREFIX KQTQUICKCHARTS
   VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kqtquickcharts_version.h"
   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsVersion.cmake"
