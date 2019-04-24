@@ -29,7 +29,7 @@ ChartModel::ChartModel(QObject* parent) :
 
 QQmlListProperty<Record> ChartModel::records()
 {
-    return QQmlListProperty<Record>(this, 0, &ChartModel::appendRecord, &ChartModel::countRecords, &ChartModel::recordAt, &ChartModel::clearRecords);
+    return QQmlListProperty<Record>(this, nullptr, &ChartModel::appendRecord, &ChartModel::countRecords, &ChartModel::recordAt, &ChartModel::clearRecords);
 }
 
 int ChartModel::columns() const
@@ -124,7 +124,7 @@ void ChartModel::insertRecord(int row, Record *record)
 {
     beginInsertRows(QModelIndex(), row, row);
     record->setParent(this);
-    connect(record, SIGNAL(valuesChanged(Record*)), SLOT(onRecordChanged(Record*)));
+    connect(record, &Record::valuesChanged, this, &ChartModel::onRecordChanged);
     m_records.insert(row, record);
     endInsertRows();
     emit rowsChanged();
@@ -156,7 +156,7 @@ Record* ChartModel::recordAt(QQmlListProperty<Record>* list, int index)
     {
         return chartModel->m_records.at(index);
     }
-    return 0;
+    return nullptr;
 }
 
 void ChartModel::clearRecords(QQmlListProperty<Record>* list)

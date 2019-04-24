@@ -24,7 +24,7 @@
 
 ChartCore::ChartCore(QQuickItem *parent) :
     QQuickPaintedItem(parent),
-    m_model(0),
+    m_model(nullptr),
     m_pitch(50.0),
     m_textRole(-1)
 {
@@ -49,12 +49,12 @@ void ChartCore::setModel(QAbstractTableModel* model)
 
         if (m_model)
         {
-            connect(m_model, SIGNAL(modelReset()), SLOT(triggerUpdate()));
-            connect(m_model, SIGNAL(rowsInserted(QModelIndex,int,int)), SLOT(triggerUpdate()));
-            connect(m_model, SIGNAL(rowsRemoved(QModelIndex,int,int)), SLOT(triggerUpdate()));
-            connect(m_model, SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)), SLOT(triggerUpdate()));
-            connect(m_model, SIGNAL(layoutChanged()), SLOT(triggerUpdate()));
-            connect(m_model, SIGNAL(dataChanged(QModelIndex,QModelIndex)), SLOT(triggerUpdate()));
+            connect(m_model, &QAbstractItemModel::modelReset, this, &ChartCore::triggerUpdate);
+            connect(m_model, &QAbstractItemModel::rowsInserted, this, &ChartCore::triggerUpdate);
+            connect(m_model, &QAbstractItemModel::rowsRemoved, this, &ChartCore::triggerUpdate);
+            connect(m_model, &QAbstractItemModel::rowsMoved, this, &ChartCore::triggerUpdate);
+            connect(m_model, &QAbstractItemModel::layoutChanged, this, &ChartCore::triggerUpdate);
+            connect(m_model, &QAbstractItemModel::dataChanged, this, &ChartCore::triggerUpdate);
         }
 
         triggerUpdate();
@@ -63,7 +63,7 @@ void ChartCore::setModel(QAbstractTableModel* model)
 }
 
 QQmlListProperty<Dimension> ChartCore::dimensions() {
-    return QQmlListProperty<Dimension>(this, 0, &ChartCore::appendDimension, &ChartCore::countDimensions, &ChartCore::dimensionAt, &ChartCore::clearDimensions);
+    return QQmlListProperty<Dimension>(this, nullptr, &ChartCore::appendDimension, &ChartCore::countDimensions, &ChartCore::dimensionAt, &ChartCore::clearDimensions);
 }
 
 QList<Dimension*> ChartCore::dimensionsList() const
@@ -139,7 +139,7 @@ void ChartCore::appendDimension(QQmlListProperty<Dimension>* list, Dimension *di
     if (chartCore) {
         dimension->setParent(chartCore);
         chartCore->m_dimensions.append(dimension);
-        connect(dimension, SIGNAL(updated()), chartCore, SLOT(triggerUpdate()));
+        connect(dimension, &Dimension::updated, chartCore, &ChartCore::triggerUpdate);
         chartCore->triggerUpdate();
     }
 }
@@ -157,7 +157,7 @@ Dimension* ChartCore::dimensionAt(QQmlListProperty<Dimension>* list, int index) 
     if (chartCore) {
         return chartCore->m_dimensions.at(index);
     }
-    return 0;
+    return nullptr;
 }
 
 void ChartCore::clearDimensions(QQmlListProperty<Dimension>* list) {

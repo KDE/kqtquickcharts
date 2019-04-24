@@ -27,12 +27,12 @@
 
 XYChartBackgroundPainter::XYChartBackgroundPainter(QQuickItem* parent) :
     QQuickPaintedItem(parent),
-    m_xyChartCore(0)
+    m_xyChartCore(nullptr)
 {
     setFlag(QQuickItem::ItemHasContents, true);
 
-    connect(this, SIGNAL(widthChanged()), SLOT(triggerUpdate()));
-    connect(this, SIGNAL(heightChanged()), SLOT(triggerUpdate()));
+    connect(this, &QQuickItem::widthChanged, this, &XYChartBackgroundPainter::triggerUpdate);
+    connect(this, &QQuickItem::heightChanged, this, &XYChartBackgroundPainter::triggerUpdate);
 }
 
 XYChartCore* XYChartBackgroundPainter::xyChartCore() const
@@ -53,7 +53,7 @@ void XYChartBackgroundPainter::setXYChartCore(XYChartCore* xyChartCore)
 
         if (m_xyChartCore)
         {
-            connect(m_xyChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_xyChartCore, &ChartCore::updated, this, &XYChartBackgroundPainter::triggerUpdate);
         }
 
         update();

@@ -25,7 +25,7 @@
 
 ChartForegroundPainter::ChartForegroundPainter(QQuickItem *parent) :
     QQuickPaintedItem(parent),
-    m_chartCore(0)
+    m_chartCore(nullptr)
 {
     setFlag(QQuickItem::ItemHasContents, true);
 }
@@ -48,7 +48,7 @@ void ChartForegroundPainter::setChartCore(ChartCore* chartCore)
 
         if (m_chartCore)
         {
-            connect(m_chartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_chartCore, &ChartCore::updated, this, &ChartForegroundPainter::triggerUpdate);
         }
 
         triggerUpdate();

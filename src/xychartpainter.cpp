@@ -27,8 +27,8 @@
 
 XYChartPainter::XYChartPainter(QQuickItem* parent) :
     QQuickPaintedItem(parent),
-    m_xyChartCore(0),
-    m_backgroundPainter(0),
+    m_xyChartCore(nullptr),
+    m_backgroundPainter(nullptr),
     m_dimension(-1)
 {
     setFlag(QQuickItem::ItemHasContents, true);
@@ -52,7 +52,7 @@ void XYChartPainter::setXYChartCore(XYChartCore* lineChartCore)
 
         if (m_xyChartCore)
         {
-            connect(m_xyChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_xyChartCore, &ChartCore::updated, this, &XYChartPainter::triggerUpdate);
         }
 
         update();

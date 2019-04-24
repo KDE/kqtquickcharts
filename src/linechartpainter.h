@@ -31,7 +31,7 @@ class LineChartPainter : public QQuickPaintedItem
     Q_PROPERTY(LineChartBackgroundPainter* backgroundPainter READ backgroundPainter WRITE setBackgroundPainter NOTIFY backgroundPainterChanged)
     Q_PROPERTY(int dimension READ dimension WRITE setDimension NOTIFY dimensionChanged)
 public:
-    explicit LineChartPainter(QQuickItem* parent = 0);
+    explicit LineChartPainter(QQuickItem* parent = nullptr);
     LineChartCore* lineChartCore() const;
     void setLineChartCore(LineChartCore* lineChartCore);
     LineChartBackgroundPainter* backgroundPainter() const;

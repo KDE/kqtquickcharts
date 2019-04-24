@@ -26,11 +26,11 @@
 
 BarChartSegment::BarChartSegment(QQuickItem* parent) :
     QQuickItem(parent),
-    m_barChartCore(0),
+    m_barChartCore(nullptr),
     m_dimension(-1),
     m_row(-1)
 {
-    connect(this, SIGNAL(heightChanged()), SLOT(triggerUpdate()));
+    connect(this, &QQuickItem::heightChanged, this, &BarChartSegment::triggerUpdate);
 }
 
 BarChartCore* BarChartSegment::barChartCore() const
@@ -51,7 +51,7 @@ void BarChartSegment::setBarChartCore(BarChartCore* barChartCore)
 
         if (m_barChartCore)
         {
-            connect(m_barChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_barChartCore, &ChartCore::updated, this, &BarChartSegment::triggerUpdate);
         }
 
         triggerUpdate();

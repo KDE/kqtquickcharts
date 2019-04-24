@@ -29,7 +29,7 @@ class Record : public QObject
     Q_OBJECT
     Q_PROPERTY(QVariantList values READ values WRITE setValues NOTIFY valuesChanged)
 public:
-    explicit Record(QObject* parent = 0);
+    explicit Record(QObject* parent = nullptr);
     QVariantList values() const;
     void setValues(const QVariantList& values);
     Q_INVOKABLE qreal value(int column) const;

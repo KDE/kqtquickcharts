@@ -30,7 +30,7 @@ class ChartForegroundPainter : public QQuickPaintedItem
     Q_PROPERTY(ChartCore* chartCore READ chartCore WRITE setChartCore NOTIFY chartCoreChanged)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
 public:
-    explicit ChartForegroundPainter(QQuickItem* parent = 0);
+    explicit ChartForegroundPainter(QQuickItem* parent = nullptr);
     ChartCore* chartCore() const;
     void setChartCore(ChartCore* chartCore);
     QColor backgroundColor() const;

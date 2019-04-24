@@ -58,5 +58,5 @@ void ChartPlugin::registerTypes(const char *uri)
     qmlRegisterType<ChartModel>(uri, 0, 1, "ChartModel");
     qmlRegisterType<Record>(uri, 0, 1, "Record");
 
-    qmlRegisterUncreatableType<QAbstractTableModel>(uri, 0, 1, "QAbstractTableModel", "abstract class");
+    qmlRegisterUncreatableType<QAbstractTableModel>(uri, 0, 1, "QAbstractTableModel", QStringLiteral("abstract class"));
 }

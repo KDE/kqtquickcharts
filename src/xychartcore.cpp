@@ -30,8 +30,8 @@ XYChartCore::XYChartCore(QQuickItem* parent) :
     ChartCore(parent),
     m_pointRadius(5.0),
     m_lineWidth(2.0),
-    m_xAxis(0),
-    m_yAxis(0),
+    m_xAxis(nullptr),
+    m_yAxis(nullptr),
     m_labelFont(),
     m_labelFontMetrics(m_labelFont),
     m_minorTickSize(2),
@@ -178,7 +178,7 @@ void XYChartCore::paintTicks(QPainter* painter)
 
 void XYChartCore::paintAxisLabels(QPainter* painter)
 {
-    int labelHeight = painter->fontMetrics().tightBoundingRect("0123456789").height();
+    int labelHeight = painter->fontMetrics().tightBoundingRect(QStringLiteral("0123456789")).height();
     foreach(qreal label, m_xAxisLabels)
     {
         QString strLabel = formatLabel(label, xAxis());
@@ -251,8 +251,8 @@ void XYChartCore::updateAxis()
     const int minKeyStringLength = formatLabel(minKey, xAxis()).length();
     const int maxKeyStringLength = formatLabel(maxKey, xAxis()).length();
 
-    int maxYLabelWidth = m_labelFontMetrics.width("W") * std::max(minValueStringLength, maxValueStringLength);
-    int maxXLabelWidth = m_labelFontMetrics.width("W") * std::max(minKeyStringLength, maxKeyStringLength);
+    int maxYLabelWidth = m_labelFontMetrics.width(QStringLiteral("W")) * std::max(minValueStringLength, maxValueStringLength);
+    int maxXLabelWidth = m_labelFontMetrics.width(QStringLiteral("W")) * std::max(minKeyStringLength, maxKeyStringLength);
 
     m_lowerLeftCorner.setX(maxYLabelWidth + m_margin);
     m_lowerLeftCorner.setY(height() - m_labelFontMetrics.height() - m_margin);
@@ -342,7 +342,7 @@ QFont XYChartCore::font() const
     return m_labelFont;
 }
 
-void XYChartCore::setFont(QFont font)
+void XYChartCore::setFont(const QFont &font)
 {
     if (font != m_labelFont)
     {

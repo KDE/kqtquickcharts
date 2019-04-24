@@ -43,7 +43,7 @@ public:
     Q_INVOKABLE void removeRecord(int row);
     Q_INVOKABLE qreal value(int row, int column) const;
     Q_INVOKABLE void setValue(int row, int column, qreal value);
-    explicit ChartModel(QObject* parent = 0);
+    explicit ChartModel(QObject* parent = nullptr);
     int rowCount(const QModelIndex& parent) const override;
     int columnCount(const QModelIndex& parent) const override;
     QVariant data(const QModelIndex& index, int role) const override;

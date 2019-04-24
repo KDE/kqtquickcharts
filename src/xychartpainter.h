@@ -31,7 +31,7 @@ class XYChartPainter : public QQuickPaintedItem
     Q_PROPERTY(XYChartBackgroundPainter* backgroundPainter READ backgroundPainter WRITE setBackgroundPainter NOTIFY backgroundPainterChanged)
     Q_PROPERTY(int dimension READ dimension WRITE setDimension NOTIFY dimensionChanged)
 public:
-    explicit XYChartPainter(QQuickItem* parent = 0);
+    explicit XYChartPainter(QQuickItem* parent = nullptr);
     XYChartCore* xyChartCore() const;
     void setXYChartCore(XYChartCore* xyChartCore);
     XYChartBackgroundPainter* backgroundPainter() const;

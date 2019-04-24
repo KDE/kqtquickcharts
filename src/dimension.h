@@ -54,7 +54,7 @@ public:
     Q_PROPERTY(MarkerStyle markerStyle READ markerStyle WRITE setMarkerStyle NOTIFY markerStyleChanged)
     Q_PROPERTY(LineStyle lineStyle READ lineStyle WRITE setLineStyle NOTIFY lineStyleChanged)
 
-    explicit Dimension(QObject* parent = 0);
+    explicit Dimension(QObject* parent = nullptr);
     QColor color() const;
     void setColor(const QColor& color);
     int dataColumn() const;

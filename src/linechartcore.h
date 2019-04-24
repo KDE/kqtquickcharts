@@ -27,7 +27,7 @@ class LineChartCore : public ChartCore
     Q_OBJECT
     Q_PROPERTY(qreal pointRadius READ pointRadius WRITE setPointRadius NOTIFY pointRadiusChanged)
 public:
-    explicit LineChartCore(QQuickItem* parent = 0);
+    explicit LineChartCore(QQuickItem* parent = nullptr);
     qreal pointRadius() const;
     void setPointRadius(qreal pointRadius);
     void paint(QPainter* painter) override;

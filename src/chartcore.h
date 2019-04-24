@@ -34,7 +34,7 @@ class ChartCore : public QQuickPaintedItem
     Q_PROPERTY(qreal pitch READ pitch WRITE setPitch NOTIFY pitchChanged)
     Q_PROPERTY(int textRole READ textRole WRITE setTextRole NOTIFY textRoleChanged)
 public:
-    explicit ChartCore(QQuickItem *parent = 0);
+    explicit ChartCore(QQuickItem *parent = nullptr);
     QAbstractTableModel* model() const;
     void setModel(QAbstractTableModel* model);
     QQmlListProperty<Dimension> dimensions();

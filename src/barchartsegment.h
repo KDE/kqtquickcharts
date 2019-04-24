@@ -33,7 +33,7 @@ class BarChartSegment : public QQuickItem
     Q_PROPERTY(qreal barHeight READ barHeight NOTIFY barHeightChanged)
     Q_PROPERTY(QString text READ text NOTIFY textChanged)
 public:
-    explicit BarChartSegment(QQuickItem* parent = 0);
+    explicit BarChartSegment(QQuickItem* parent = nullptr);
     BarChartCore* barChartCore() const;
     void setBarChartCore(BarChartCore* barChartCore);
     int dimension() const;

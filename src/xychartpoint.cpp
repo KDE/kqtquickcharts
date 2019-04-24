@@ -28,8 +28,8 @@
 
 XYChartPoint::XYChartPoint(QQuickItem* parent) :
     QQuickPaintedItem(parent),
-    m_xyChartCore(0),
-    m_backgroundPainter(0),
+    m_xyChartCore(nullptr),
+    m_backgroundPainter(nullptr),
     m_dimension(-1),
     m_row(-1)
 {
@@ -54,7 +54,7 @@ void XYChartPoint::setXYChartCore(XYChartCore* xyChartCore)
 
         if (m_xyChartCore)
         {
-            connect(m_xyChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_xyChartCore, &ChartCore::updated, this, &XYChartPoint::triggerUpdate);
         }
 
         triggerUpdate();
@@ -80,7 +80,7 @@ void XYChartPoint::setBackgroundPainter(XYChartBackgroundPainter* backgroundPain
 
         if (m_backgroundPainter)
         {
-            connect(m_backgroundPainter, SIGNAL(linePolygonsUpdated()), SLOT(triggerUpdate()));
+            connect(m_backgroundPainter, &XYChartBackgroundPainter::linePolygonsUpdated, this, &XYChartPoint::triggerUpdate);
         }
 
         triggerUpdate();

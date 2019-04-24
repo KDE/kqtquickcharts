@@ -34,7 +34,7 @@ class XYChartPoint : public QQuickPaintedItem
     Q_PROPERTY(int row READ row WRITE setRow NOTIFY rowChanged)
     Q_PROPERTY(QString text READ text NOTIFY textChanged)
 public:
-    explicit XYChartPoint(QQuickItem* parent = 0);
+    explicit XYChartPoint(QQuickItem* parent = nullptr);
     XYChartCore* xyChartCore() const;
     void setXYChartCore(XYChartCore* xyChartCore);
     XYChartBackgroundPainter* backgroundPainter() const;

@@ -38,7 +38,7 @@ class XYChartCore : public ChartCore
     Q_PROPERTY(bool gridLines READ gridLines WRITE setGridLines NOTIFY gridLinesChanged)
     Q_PROPERTY(unsigned int axisLabelCountGoal READ axisLabelCountGoal WRITE setAxisLabelCountGoal NOTIFY axisLabelCountGoalChanged)
 public:
-    explicit XYChartCore(QQuickItem* parent = 0);
+    explicit XYChartCore(QQuickItem* parent = nullptr);
     qreal pointRadius() const;
     void setPointRadius(qreal pointRadius);
     qreal lineWidth() const;
@@ -50,7 +50,7 @@ public:
     QColor textColor() const;
     void setTextColor(QColor color);
     QFont font() const;
-    void setFont(QFont font);
+    void setFont(const QFont &font);
     bool gridLines() const;
     void setGridLines(bool gridLines);
     unsigned int axisLabelCountGoal() const;

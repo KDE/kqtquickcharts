@@ -31,7 +31,7 @@ class LineChartBackgroundPainter : public QQuickPaintedItem
     Q_OBJECT
     Q_PROPERTY(LineChartCore* lineChartCore READ lineChartCore WRITE setLineChartCore NOTIFY lineChartCoreChanged)
 public:
-    explicit LineChartBackgroundPainter(QQuickItem* parent = 0);
+    explicit LineChartBackgroundPainter(QQuickItem* parent = nullptr);
     LineChartCore* lineChartCore() const;
     void setLineChartCore(LineChartCore* lineChartCore);
     void paint(QPainter* painter) override;

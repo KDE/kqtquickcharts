@@ -22,7 +22,7 @@
 BarChartCore::BarChartCore(QQuickItem* parent) :
     ChartCore(parent)
 {
-    connect(this, SIGNAL(pitchChanged()), SIGNAL(barWidthChanged()));
+    connect(this, &ChartCore::pitchChanged, this, &BarChartCore::barWidthChanged);
 }
 
 qreal BarChartCore::barWidth() const

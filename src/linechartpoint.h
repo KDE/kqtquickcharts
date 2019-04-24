@@ -34,7 +34,7 @@ class LineChartPoint : public QQuickPaintedItem
     Q_PROPERTY(int row READ row WRITE setRow NOTIFY rowChanged)
     Q_PROPERTY(QString text READ text NOTIFY textChanged)
 public:
-    explicit LineChartPoint(QQuickItem* parent = 0);
+    explicit LineChartPoint(QQuickItem* parent = nullptr);
     LineChartCore* lineChartCore() const;
     void setLineChartCore(LineChartCore* lineChartCore);
     LineChartBackgroundPainter* backgroundPainter() const;

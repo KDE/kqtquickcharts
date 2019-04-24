@@ -27,11 +27,11 @@
 
 LineChartBackgroundPainter::LineChartBackgroundPainter(QQuickItem* parent) :
     QQuickPaintedItem(parent),
-    m_lineChartCore(0)
+    m_lineChartCore(nullptr)
 {
     setFlag(QQuickItem::ItemHasContents, true);
 
-    connect(this, SIGNAL(heightChanged()), SLOT(triggerUpdate()));
+    connect(this, &QQuickItem::heightChanged, this, &LineChartBackgroundPainter::triggerUpdate);
 }
 
 LineChartCore* LineChartBackgroundPainter::lineChartCore() const
@@ -52,7 +52,7 @@ void LineChartBackgroundPainter::setLineChartCore(LineChartCore* lineChartCore)
 
         if (m_lineChartCore)
         {
-            connect(m_lineChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_lineChartCore, &ChartCore::updated, this, &LineChartBackgroundPainter::triggerUpdate);
         }
 
         update();

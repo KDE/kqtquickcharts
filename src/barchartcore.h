@@ -27,7 +27,7 @@ class BarChartCore : public ChartCore
     Q_OBJECT
     Q_PROPERTY(qreal barWidth READ barWidth NOTIFY barWidthChanged)
 public:
-    explicit BarChartCore(QQuickItem* parent = 0);
+    explicit BarChartCore(QQuickItem* parent = nullptr);
     qreal barWidth() const;
     void paint(QPainter* painter) override;
 Q_SIGNALS:

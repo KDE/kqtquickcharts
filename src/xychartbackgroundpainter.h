@@ -31,7 +31,7 @@ class XYChartBackgroundPainter : public QQuickPaintedItem
     Q_OBJECT
     Q_PROPERTY(XYChartCore* xyChartCore READ xyChartCore WRITE setXYChartCore NOTIFY xyChartCoreChanged)
 public:
-    explicit XYChartBackgroundPainter(QQuickItem* parent = 0);
+    explicit XYChartBackgroundPainter(QQuickItem* parent = nullptr);
     XYChartCore* xyChartCore() const;
     void setXYChartCore(XYChartCore* lineChartCore);
     void paint(QPainter* painter) override;

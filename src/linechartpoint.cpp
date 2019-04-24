@@ -28,8 +28,8 @@
 
 LineChartPoint::LineChartPoint(QQuickItem* parent) :
     QQuickPaintedItem(parent),
-    m_lineChartCore(0),
-    m_backgroundPainter(0),
+    m_lineChartCore(nullptr),
+    m_backgroundPainter(nullptr),
     m_dimension(-1),
     m_row(-1)
 {
@@ -54,7 +54,7 @@ void LineChartPoint::setLineChartCore(LineChartCore* lineChartCore)
 
         if (m_lineChartCore)
         {
-            connect(m_lineChartCore, SIGNAL(updated()), SLOT(triggerUpdate()));
+            connect(m_lineChartCore, &ChartCore::updated, this, &LineChartPoint::triggerUpdate);
         }
 
         triggerUpdate();
@@ -80,7 +80,7 @@ void LineChartPoint::setBackgroundPainter(LineChartBackgroundPainter* background
 
         if (m_backgroundPainter)
         {
-            connect(m_backgroundPainter, SIGNAL(linePolygonsUpdated()), SLOT(triggerUpdate()));
+            connect(m_backgroundPainter, &LineChartBackgroundPainter::linePolygonsUpdated, this, &LineChartPoint::triggerUpdate);
         }
 
         triggerUpdate();
