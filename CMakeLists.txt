@@ -42,12 +42,6 @@ ecm_setup_version(
   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsVersion.cmake"
   SOVERSION 1)
 
-# Subdirectories
-add_definitions(-DTRANSLATION_DOMAIN=\"kqtquickcharts5\")
-if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
-    ki18n_install(po)
-endif()
-
 #add_subdirectory(autotests)
 
 add_subdirectory(src)
