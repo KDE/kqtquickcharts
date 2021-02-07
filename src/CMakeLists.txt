@@ -27,7 +27,7 @@ target_link_libraries(kqtquickcharts
     Qt5::Gui
 )
 
-install(TARGETS kqtquickcharts DESTINATION ${QML_INSTALL_DIR}/org/kde/charts)
+install(TARGETS kqtquickcharts DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/charts)
 
 set(kqtquickcharts_files
     qml/qmldir
@@ -40,4 +40,4 @@ set(kqtquickcharts_files
     qml/XYChart.qml
 )
 
-install(FILES ${kqtquickcharts_files} DESTINATION ${QML_INSTALL_DIR}/org/kde/charts)
+install(FILES ${kqtquickcharts_files} DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/charts)
