@@ -4,3 +4,4 @@
 /*.txt.user
 /*.kdev4
 .cmake/
+/build*
