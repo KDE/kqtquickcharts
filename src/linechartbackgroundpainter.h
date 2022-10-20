@@ -23,8 +23,7 @@
 #include <QQuickPaintedItem>
 
 #include <QPolygonF>
-
-class LineChartCore;
+#include "linechartcore.h"
 
 class LineChartBackgroundPainter : public QQuickPaintedItem
 {

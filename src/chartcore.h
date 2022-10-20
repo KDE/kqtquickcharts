@@ -23,8 +23,7 @@
 #include <QQuickPaintedItem>
 
 #include "dimension.h"
-
-class QAbstractTableModel;
+#include <QAbstractTableModel>
 
 class ChartCore : public QQuickPaintedItem
 {
@@ -56,8 +55,13 @@ protected:
     void paintAxisAndLines(QPainter* painter, qreal offset);
 private:
     static void appendDimension(QQmlListProperty<Dimension>* list, Dimension* dimension);
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+    static qsizetype countDimensions(QQmlListProperty<Dimension>* list);
+    static Dimension* dimensionAt(QQmlListProperty<Dimension>* list, qsizetype index);
+#else
     static int countDimensions(QQmlListProperty<Dimension>* list);
     static Dimension* dimensionAt(QQmlListProperty<Dimension>* list, int index);
+#endif
     static void clearDimensions(QQmlListProperty<Dimension>* list);
     QAbstractTableModel* m_model;
     QList<Dimension*> m_dimensions;

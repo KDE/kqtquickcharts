@@ -10,10 +10,17 @@ set(REQUIRED_QT_VERSION "5.2.0")
 set(KF5_MIN_VERSION "5.1.0") # handled by release scripts
 set(KF5_DEP_VERSION "5.1.0") # handled by release scripts
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Qml Quick Gui)
+# Includes
+include(FeatureSummary)
+include(GenerateExportHeader)
+include(ECMSetupVersion)
+include(ECMGenerateHeaders)
+include(ECMPackageConfigHelpers)
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
+
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Qml Quick Gui)
 
 #########################################################################
 
@@ -24,15 +31,6 @@ add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
 remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_STRICT_ITERATORS -DQT_NO_CAST_FROM_BYTEARRAY -DQT_NO_KEYWORDS)
-
-
-
-# Includes
-include(FeatureSummary)
-include(GenerateExportHeader)
-include(ECMSetupVersion)
-include(ECMGenerateHeaders)
-include(ECMPackageConfigHelpers)
 
 # ECM setup
 ecm_setup_version(
@@ -76,7 +74,7 @@ install(FILES
 
 install(FILES
   "${CMAKE_CURRENT_BINARY_DIR}/kqtquickcharts_version.h"
-  DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF5}"
+  DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF}"
   COMPONENT Devel
 )
 

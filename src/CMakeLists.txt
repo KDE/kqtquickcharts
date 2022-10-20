@@ -21,10 +21,10 @@ add_library(kqtquickcharts SHARED ${kqtquickcharts_SRCS})
 
 
 target_link_libraries(kqtquickcharts
-    Qt5::Core
-    Qt5::Quick
-    Qt5::Qml
-    Qt5::Gui
+    Qt::Core
+    Qt::Quick
+    Qt::Qml
+    Qt::Gui
 )
 
 install(TARGETS kqtquickcharts DESTINATION ${KDE_INSTALL_QMLDIR}/org/kde/charts)

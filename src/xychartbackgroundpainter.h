@@ -24,8 +24,7 @@
 
 #include <QPolygonF>
 
-class XYChartCore;
-
+#include "xychartcore.h"
 class XYChartBackgroundPainter : public QQuickPaintedItem
 {
     Q_OBJECT

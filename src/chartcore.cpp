@@ -19,7 +19,6 @@
 
 #include "chartcore.h"
 
-#include <QAbstractTableModel>
 #include <QPainter>
 
 ChartCore::ChartCore(QQuickItem *parent) :
@@ -144,7 +143,11 @@ void ChartCore::appendDimension(QQmlListProperty<Dimension>* list, Dimension *di
     }
 }
 
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+qsizetype ChartCore::countDimensions(QQmlListProperty<Dimension>* list) {
+#else
 int ChartCore::countDimensions(QQmlListProperty<Dimension>* list) {
+#endif
     ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
     if (chartCore) {
         return chartCore->m_dimensions.count();
@@ -152,7 +155,11 @@ int ChartCore::countDimensions(QQmlListProperty<Dimension>* list) {
     return -1;
 }
 
+#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
+Dimension* ChartCore::dimensionAt(QQmlListProperty<Dimension>* list, qsizetype index) {
+#else
 Dimension* ChartCore::dimensionAt(QQmlListProperty<Dimension>* list, int index) {
+#endif
     ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
     if (chartCore) {
         return chartCore->m_dimensions.at(index);

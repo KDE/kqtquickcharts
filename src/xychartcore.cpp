@@ -20,6 +20,7 @@
 #include "xychartcore.h"
 #include <QPainter>
 #include <QAbstractTableModel>
+#include <QLocale>
 #include <assert.h>
 #include <cmath>
 
