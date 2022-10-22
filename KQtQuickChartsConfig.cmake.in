@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
+# SPDX-License-Identifier: BSD-3-Clause
+
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+find_dependency(Qt5Gui @REQUIRED_QT_VERSION@)
+find_dependency(Qt5Quick @REQUIRED_QT_VERSION@)
+find_dependency(Qt5Qml @REQUIRED_QT_VERSION@)
