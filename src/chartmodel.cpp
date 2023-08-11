@@ -169,3 +169,5 @@ void ChartModel::clearRecords(QQmlListProperty<Record>* list)
         emit chartModel->rowsChanged();
     }
 }
+
+#include "moc_chartmodel.cpp"

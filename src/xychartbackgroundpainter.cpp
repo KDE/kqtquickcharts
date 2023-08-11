@@ -110,3 +110,5 @@ void XYChartBackgroundPainter::updateLinePolygons()
 
     emit linePolygonsUpdated();
 }
+
+#include "moc_xychartbackgroundpainter.cpp"

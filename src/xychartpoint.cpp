@@ -197,3 +197,5 @@ bool XYChartPoint::valid() const
         return false;
     return true;
 }
+
+#include "moc_xychartpoint.cpp"

@@ -44,3 +44,5 @@ void LineChartCore::paint(QPainter* painter)
 {
     paintAxisAndLines(painter, m_pointRadius);
 }
+
+#include "moc_linechartcore.cpp"

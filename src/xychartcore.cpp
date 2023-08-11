@@ -392,3 +392,5 @@ void XYChartCore::setAxisLabelCountGoal(unsigned int axisLabelCountGoal)
         axisLabelCountGoalChanged();
     }
 }
+
+#include "moc_xychartcore.cpp"

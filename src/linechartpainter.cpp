@@ -118,3 +118,5 @@ void LineChartPainter::updateWidth()
 {
     setWidth(backgroundPainter()->width());
 }
+
+#include "moc_linechartpainter.cpp"

@@ -171,3 +171,5 @@ void ChartCore::clearDimensions(QQmlListProperty<Dimension>* list) {
         chartCore->triggerUpdate();
     }
 }
+
+#include "moc_chartcore.cpp"

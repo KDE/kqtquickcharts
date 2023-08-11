@@ -149,4 +149,5 @@ void LineChartBackgroundPainter::updateLinePolygons()
     emit linePolygonsUpdated();
 }
 
+#include "moc_linechartbackgroundpainter.cpp"
 

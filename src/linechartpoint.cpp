@@ -178,3 +178,5 @@ bool LineChartPoint::valid() const
         return false;
     return true;
 }
+
+#include "moc_linechartpoint.cpp"

@@ -55,3 +55,5 @@ void Record::setValue(int column, qreal value)
     m_values[column] = value;
     emit valuesChanged(this);
 }
+
+#include "moc_record.cpp"
