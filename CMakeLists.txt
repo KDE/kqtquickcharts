@@ -6,11 +6,29 @@ project(KQtQuickCharts)
 find_package(ECM 1.1.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} )
 
-set(REQUIRED_QT_VERSION "5.2.0")
-set(KF5_MIN_VERSION "5.1.0") # handled by release scripts
-set(KF5_DEP_VERSION "5.1.0") # handled by release scripts
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Qml Quick Gui)
+# Includes
+include(FeatureSummary)
+include(GenerateExportHeader)
+include(ECMSetupVersion)
+include(ECMGenerateHeaders)
+include(CMakePackageConfigHelpers)
+include(ECMQueryQt)
+
+set(REQUIRED_QT_VERSION "5.2.0")
+set(KF_MIN_VERSION "5.1.0") # handled by release scripts ### TODO
+set(KF_DEP_VERSION "5.1.0") # handled by release scripts ### TODO
+
+
+if (QT_MAJOR_VERSION STREQUAL "6")
+    set(QT_REQUIRED_VERSION "6.4.0")
+    set(KF_MIN_VERSION "5.240.0")
+    set(KF_MAJOR_VERSION "6")
+else()
+    set(KF_MAJOR_VERSION "5")
+endif()
+
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Qml Quick Gui)
 include(KDEInstallDirs)
 include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
@@ -27,16 +45,10 @@ remove_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_STRICT_ITERATORS -DQT_NO_CAST_FR
 
 
 
-# Includes
-include(FeatureSummary)
-include(GenerateExportHeader)
-include(ECMSetupVersion)
-include(ECMGenerateHeaders)
-include(CMakePackageConfigHelpers)
 
 # ECM setup
 ecm_setup_version(
-  ${KF5_MIN_VERSION}
+  ${KF_MIN_VERSION}
   VARIABLE_PREFIX KQTQUICKCHARTS
   VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kqtquickcharts_version.h"
   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsVersion.cmake"
@@ -46,7 +58,7 @@ ecm_setup_version(
 
 add_subdirectory(src)
 
-# if(KF5Config_FOUND AND KF5I18n_FOUND AND KF5IconThemes_FOUND AND KF5KIO_FOUND)
+# if(KF${KF_MAJOR_VERSION}Config_FOUND AND KF${KF_MAJOR_VERSION}I18n_FOUND AND KF${KF_MAJOR_VERSION}IconThemes_FOUND AND KF${KF_MAJOR_VERSION}KIO_FOUND)
 #     add_subdirectory(tests)
 # endif()
 
@@ -70,15 +82,17 @@ install(FILES
 #   KQtQuickChartsTargets
 #   DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
 #   FILE KQtQuickChartsTargets.cmake
-#   NAMESPACE KF5::
+#   NAMESPACE KF${KF_MAJOR_VERSION}::
 #   COMPONENT Devel
 # )
 
-install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/kqtquickcharts_version.h"
-  DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF5}"
-  COMPONENT Devel
-)
+if (QT_MAJOR_VERSION STREQUAL "5") ### TODO
+  install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/kqtquickcharts_version.h"
+    DESTINATION "${KDE_INSTALL_INCLUDEDIR_KF5}"
+    COMPONENT Devel
+  )
+endif()
 
 if ("${CMAKE_BINARY_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
   feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
