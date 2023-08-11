@@ -189,3 +189,5 @@ void Dimension::setLineStyle(LineStyle lineStyle)
         emit lineStyleChanged();
     }
 }
+
+#include "moc_dimension.cpp"

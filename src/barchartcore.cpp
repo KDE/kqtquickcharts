@@ -34,3 +34,5 @@ void BarChartCore::paint(QPainter* painter)
 {
     paintAxisAndLines(painter, 0.0);
 }
+
+#include "moc_barchartcore.cpp"

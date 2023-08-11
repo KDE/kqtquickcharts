@@ -141,3 +141,5 @@ bool BarChartSegment::valid() const
         return false;
     return true;
 }
+
+#include "moc_barchartsegment.cpp"

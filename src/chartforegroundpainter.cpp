@@ -101,3 +101,5 @@ void ChartForegroundPainter::triggerUpdate()
 
     update();
 }
+
+#include "moc_chartforegroundpainter.cpp"

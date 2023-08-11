@@ -60,3 +60,5 @@ void ChartPlugin::registerTypes(const char *uri)
 
     qmlRegisterUncreatableType<QAbstractTableModel>(uri, 0, 1, "QAbstractTableModel", QStringLiteral("abstract class"));
 }
+
+#include "moc_chartplugin.cpp"

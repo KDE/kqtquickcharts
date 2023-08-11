@@ -124,3 +124,5 @@ void XYChartPainter::triggerUpdate()
 
     update();
 }
+
+#include "moc_xychartpainter.cpp"
