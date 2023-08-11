@@ -55,9 +55,10 @@ protected:
     void paint(QPainter* painter) override;
     void paintAxisAndLines(QPainter* painter, qreal offset);
 private:
+    using size_type = QList<Dimension *>::size_type;
     static void appendDimension(QQmlListProperty<Dimension>* list, Dimension* dimension);
-    static int countDimensions(QQmlListProperty<Dimension>* list);
-    static Dimension* dimensionAt(QQmlListProperty<Dimension>* list, int index);
+    static size_type countDimensions(QQmlListProperty<Dimension>* list);
+    static Dimension* dimensionAt(QQmlListProperty<Dimension>* list, size_type index);
     static void clearDimensions(QQmlListProperty<Dimension>* list);
     QAbstractTableModel* m_model;
     QList<Dimension*> m_dimensions;

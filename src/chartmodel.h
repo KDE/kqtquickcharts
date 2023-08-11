@@ -54,10 +54,11 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onRecordChanged(Record* record);
 private:
+    using size_type = QList<Record*>::size_type;
     void insertRecord(int row, Record* record);
     static void appendRecord(QQmlListProperty<Record>* list, Record* record);
-    static int countRecords(QQmlListProperty<Record>* list);
-    static Record* recordAt(QQmlListProperty<Record>* list, int index);
+    static size_type countRecords(QQmlListProperty<Record>* list);
+    static Record* recordAt(QQmlListProperty<Record>* list, size_type index);
     static void clearRecords(QQmlListProperty<Record>* list);
     QList<Record*> m_records;
     int m_columns;

@@ -139,7 +139,7 @@ void ChartModel::appendRecord(QQmlListProperty<Record>* list, Record* record)
     }
 }
 
-int ChartModel::countRecords(QQmlListProperty<Record>* list)
+ChartModel::size_type ChartModel::countRecords(QQmlListProperty<Record>* list)
 {
     ChartModel* chartModel = qobject_cast<ChartModel*>(list->object);
     if (chartModel)
@@ -149,7 +149,7 @@ int ChartModel::countRecords(QQmlListProperty<Record>* list)
     return -1;
 }
 
-Record* ChartModel::recordAt(QQmlListProperty<Record>* list, int index)
+Record* ChartModel::recordAt(QQmlListProperty<Record>* list, size_type index)
 {
     ChartModel* chartModel = qobject_cast<ChartModel*>(list->object);
     if (chartModel)

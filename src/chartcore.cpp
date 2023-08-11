@@ -144,7 +144,7 @@ void ChartCore::appendDimension(QQmlListProperty<Dimension>* list, Dimension *di
     }
 }
 
-int ChartCore::countDimensions(QQmlListProperty<Dimension>* list) {
+ChartCore::size_type ChartCore::countDimensions(QQmlListProperty<Dimension>* list) {
     ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
     if (chartCore) {
         return chartCore->m_dimensions.count();
@@ -152,7 +152,7 @@ int ChartCore::countDimensions(QQmlListProperty<Dimension>* list) {
     return -1;
 }
 
-Dimension* ChartCore::dimensionAt(QQmlListProperty<Dimension>* list, int index) {
+Dimension* ChartCore::dimensionAt(QQmlListProperty<Dimension>* list, ChartCore::size_type index) {
     ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
     if (chartCore) {
         return chartCore->m_dimensions.at(index);
