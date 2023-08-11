@@ -18,6 +18,7 @@
  */
 
 #include "xychartcore.h"
+#include <QLocale>
 #include <QPainter>
 #include <QAbstractTableModel>
 #include <assert.h>
