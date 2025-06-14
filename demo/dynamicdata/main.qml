@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.2
-import QtQuick.Controls 1.2
+import QtQuick.Controls
 import org.kde.charts 0.1
 
 Column {
