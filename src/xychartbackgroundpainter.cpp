@@ -85,12 +85,12 @@ void XYChartBackgroundPainter::updateLinePolygons()
     m_linePolygons.clear();
 
     Dimension* xAxis = m_xyChartCore->xAxis();
-    QList<Dimension*> dimensions = m_xyChartCore->dimensionsList();
+    const QList<Dimension*> dimensions = m_xyChartCore->dimensionsList();
     QAbstractTableModel* model = m_xyChartCore->model();
 
     const int xAxisColumn = xAxis->dataColumn();
 
-    foreach(Dimension* dimension, dimensions)
+    for (Dimension* dimension : dimensions)
     {
         const int column = dimension->dataColumn();
         QPolygonF line;

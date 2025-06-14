@@ -118,12 +118,12 @@ void LineChartBackgroundPainter::updateLinePolygons()
 {
     m_linePolygons.clear();
 
-    QList<Dimension*> dimensions = m_lineChartCore->dimensionsList();
+    const QList<Dimension*> dimensions = m_lineChartCore->dimensionsList();
     QAbstractTableModel* model = m_lineChartCore->model();
     const qreal pitch = m_lineChartCore->pitch();
     const qreal radius = m_lineChartCore->pointRadius();
 
-    foreach(Dimension* dimension, dimensions)
+    for (Dimension* dimension : dimensions)
     {
         const int column = dimension->dataColumn();
         const qreal minValue = dimension->minimumValue();

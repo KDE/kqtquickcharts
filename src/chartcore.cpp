@@ -171,7 +171,7 @@ Dimension* ChartCore::dimensionAt(QQmlListProperty<Dimension>* list, qsizetype i
 void ChartCore::clearDimensions(QQmlListProperty<Dimension>* list) {
     ChartCore* chartCore = qobject_cast<ChartCore*>(list->object);
     if (chartCore) {
-        foreach (Dimension* dimension, chartCore->m_dimensions)
+        for (Dimension* dimension : std::as_const(chartCore->m_dimensions))
         {
             dimension->disconnect(chartCore);
         }

@@ -129,13 +129,13 @@ void XYChartCore::paintAxis(QPainter* painter)
 
 void XYChartCore::paintGrid(QPainter* painter)
 {
-    foreach(qreal label, m_xAxisLabels)
+    for (qreal label : std::as_const(m_xAxisLabels))
     {
         const qreal x = translatePoint(QPointF(label, 0.0)).x();
         painter->drawLine(x, m_lowerLeftCorner.y(), x, m_lowerLeftCorner.y() - m_graphHeight);
     }
 
-    foreach(qreal label, m_yAxisLabels)
+    for (qreal label : std::as_const(m_yAxisLabels))
     {
         const qreal y = translatePoint(QPointF(0.0, label)).y();
         painter->drawLine(m_lowerLeftCorner.x(), y, m_lowerLeftCorner.x() + m_graphWidth, y);
@@ -180,7 +180,7 @@ void XYChartCore::paintTicks(QPainter* painter)
 void XYChartCore::paintAxisLabels(QPainter* painter)
 {
     int labelHeight = painter->fontMetrics().tightBoundingRect(QStringLiteral("0123456789")).height();
-    foreach(qreal label, m_xAxisLabels)
+    for (qreal label : std::as_const(m_xAxisLabels))
     {
         QString strLabel = formatLabel(label, xAxis());
         int labelWidth = painter->fontMetrics().boundingRect(strLabel).width();
@@ -188,7 +188,7 @@ void XYChartCore::paintAxisLabels(QPainter* painter)
         painter->drawText(point.x() - labelWidth / 2, point.y() + labelHeight + m_margin, strLabel);
     }
 
-    foreach(qreal label, m_yAxisLabels)
+    for (qreal label : std::as_const(m_yAxisLabels))
     {
         QString strLabel = formatLabel(label, yAxis());
         int labelWidth = painter->fontMetrics().boundingRect(strLabel).width();
@@ -206,7 +206,7 @@ void XYChartCore::paintDimensionLabels(QPainter* painter)
 
     const qreal maxKey = model()->data(model()->index(row, xAxis()->dataColumn())).toReal();
     const qreal x = translatePoint(QPointF(maxKey, 0.0)).x();
-    foreach(Dimension* dimension, dimensionsList())
+    for (Dimension* dimension : dimensionsList())
     {
         const QString label = dimension->label();
         if (label.isEmpty())
