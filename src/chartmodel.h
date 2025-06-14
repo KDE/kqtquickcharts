@@ -56,8 +56,13 @@ private Q_SLOTS:
 private:
     void insertRecord(int row, Record* record);
     static void appendRecord(QQmlListProperty<Record>* list, Record* record);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     static int countRecords(QQmlListProperty<Record>* list);
     static Record* recordAt(QQmlListProperty<Record>* list, int index);
+#else
+    static qsizetype countRecords(QQmlListProperty<Record>* list);
+    static Record* recordAt(QQmlListProperty<Record>* list, qsizetype index);
+#endif
     static void clearRecords(QQmlListProperty<Record>* list);
     QList<Record*> m_records;
     int m_columns;

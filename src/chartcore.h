@@ -56,8 +56,13 @@ protected:
     void paintAxisAndLines(QPainter* painter, qreal offset);
 private:
     static void appendDimension(QQmlListProperty<Dimension>* list, Dimension* dimension);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     static int countDimensions(QQmlListProperty<Dimension>* list);
     static Dimension* dimensionAt(QQmlListProperty<Dimension>* list, int index);
+#else
+    static qsizetype countDimensions(QQmlListProperty<Dimension>* list);
+    static Dimension* dimensionAt(QQmlListProperty<Dimension>* list, qsizetype index);
+#endif
     static void clearDimensions(QQmlListProperty<Dimension>* list);
     QAbstractTableModel* m_model;
     QList<Dimension*> m_dimensions;
