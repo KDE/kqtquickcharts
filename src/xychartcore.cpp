@@ -144,7 +144,7 @@ void XYChartCore::paintGrid(QPainter* painter)
 
 void XYChartCore::paintTicks(QPainter* painter)
 {
-    int tick = 2, tock = 4;
+    const int tick = m_minorTickSize, tock = m_majorTickSize;
 
     qreal label;
     QPointF point;
