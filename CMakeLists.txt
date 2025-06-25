@@ -5,18 +5,18 @@ project(KQtQuickCharts)
 # Dependencies
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} )
 
-set(REQUIRED_QT_VERSION "5.15.0")
-set(KF5_MIN_VERSION "5.82.0") # handled by release scripts
+set(REQUIRED_QT_VERSION "6.5.0")
+set(KF_MIN_VERSION "6.0.0") # handled by release scripts
 
-find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
+find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 include(KDEInstallDirs)
-include(KDEFrameworkCompilerSettings)
+include(KDECompilerSettings)
 include(KDECMakeSettings)
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Qml Quick Gui)
+find_package(Qt6 ${REQUIRED_QT_VERSION} NO_MODULE REQUIRED Qml Quick Gui)
 
 #########################################################################
 
@@ -39,7 +39,7 @@ include(CMakePackageConfigHelpers)
 
 # ECM setup
 ecm_setup_version(
-  ${KF5_MIN_VERSION}
+  ${KF_MIN_VERSION}
   VARIABLE_PREFIX KQTQUICKCHARTS
   VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kqtquickcharts_version.h"
   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsVersion.cmake"
