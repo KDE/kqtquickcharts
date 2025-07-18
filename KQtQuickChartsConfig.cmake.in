@@ -4,6 +4,6 @@
 @PACKAGE_INIT@
 
 include(CMakeFindDependencyMacro)
-find_dependency(Qt5Gui @REQUIRED_QT_VERSION@)
-find_dependency(Qt5Quick @REQUIRED_QT_VERSION@)
-find_dependency(Qt5Qml @REQUIRED_QT_VERSION@)
+find_dependency(Qt6Gui @REQUIRED_QT_VERSION@)
+find_dependency(Qt6Quick @REQUIRED_QT_VERSION@)
+find_dependency(Qt6Qml @REQUIRED_QT_VERSION@)
