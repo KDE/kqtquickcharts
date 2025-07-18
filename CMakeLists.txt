@@ -6,7 +6,7 @@ project(KQtQuickCharts)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} )
 
 set(REQUIRED_QT_VERSION "6.5.0")
-set(KF_MIN_VERSION "6.0.0") # handled by release scripts
+set(KF_MIN_VERSION "6.0.0")
 
 find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
@@ -45,13 +45,7 @@ ecm_setup_version(
   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsConfigVersion.cmake"
   SOVERSION 1)
 
-#add_subdirectory(autotests)
-
 add_subdirectory(src)
-
-# if(KF5Config_FOUND AND KF5I18n_FOUND AND KF5IconThemes_FOUND AND KF5KIO_FOUND)
-#     add_subdirectory(tests)
-# endif()
 
 # Create a Config.cmake and a ConfigVersion.cmake file and install them
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KQtQuickCharts")
