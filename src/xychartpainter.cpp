@@ -56,7 +56,7 @@ void XYChartPainter::setXYChartCore(XYChartCore* lineChartCore)
         }
 
         update();
-        emit xyChartCoreChanged();
+        Q_EMIT xyChartCoreChanged();
     }
 }
 
@@ -71,7 +71,7 @@ void XYChartPainter::setBackgroundPainter(XYChartBackgroundPainter* backgroundPa
     {
         m_backgroundPainter = backgroundPainter;
         triggerUpdate();
-        emit backgroundPainterChanged();
+        Q_EMIT backgroundPainterChanged();
     }
 }
 
@@ -86,7 +86,7 @@ void XYChartPainter::setDimension(int dimension)
     {
         m_dimension = dimension;
         triggerUpdate();
-        emit dimensionChanged();
+        Q_EMIT dimensionChanged();
     }
 }
 

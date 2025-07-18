@@ -56,7 +56,7 @@ void LineChartPainter::setLineChartCore(LineChartCore* lineChartCore)
         }
 
         update();
-        emit lineChartCoreChanged();
+        Q_EMIT lineChartCoreChanged();
     }
 }
 
@@ -71,7 +71,7 @@ void LineChartPainter::setBackgroundPainter(LineChartBackgroundPainter* backgrou
     {
         m_backgroundPainter = backgroundPainter;
         triggerUpdate();
-        emit backgroundPainterChanged();
+        Q_EMIT backgroundPainterChanged();
     }
 }
 
@@ -86,7 +86,7 @@ void LineChartPainter::setDimension(int dimension)
     {
         m_dimension = dimension;
         triggerUpdate();
-        emit dimensionChanged();
+        Q_EMIT dimensionChanged();
     }
 }
 

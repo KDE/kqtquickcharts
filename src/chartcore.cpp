@@ -58,7 +58,7 @@ void ChartCore::setModel(QAbstractTableModel* model)
         }
 
         triggerUpdate();
-        emit modelChanged();
+        Q_EMIT modelChanged();
     }
 }
 
@@ -82,7 +82,7 @@ void ChartCore::setPitch(qreal pitch)
     {
         m_pitch = pitch;
         triggerUpdate();
-        emit pitchChanged();
+        Q_EMIT pitchChanged();
     }
 }
 
@@ -99,13 +99,13 @@ void ChartCore::setTextRole(int textRole)
 
         triggerUpdate();
 
-        emit textRoleChanged();
+        Q_EMIT textRoleChanged();
     }
 }
 
 void ChartCore::triggerUpdate()
 {
-    emit updated();
+    Q_EMIT updated();
     update();
 }
 

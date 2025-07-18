@@ -56,7 +56,7 @@ void LineChartBackgroundPainter::setLineChartCore(LineChartCore* lineChartCore)
         }
 
         update();
-        emit lineChartCoreChanged();
+        Q_EMIT lineChartCoreChanged();
     }
 }
 
@@ -146,7 +146,7 @@ void LineChartBackgroundPainter::updateLinePolygons()
         m_linePolygons << line;
     }
 
-    emit linePolygonsUpdated();
+    Q_EMIT linePolygonsUpdated();
 }
 
 #include "moc_linechartbackgroundpainter.cpp"

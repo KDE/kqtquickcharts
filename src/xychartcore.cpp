@@ -66,7 +66,7 @@ void XYChartCore::setPointRadius(qreal pointRadius)
     if (pointRadius != m_pointRadius)
     {
         m_pointRadius = pointRadius;
-        emit pointRadiusChanged();
+        Q_EMIT pointRadiusChanged();
     }
 }
 
@@ -80,7 +80,7 @@ void XYChartCore::setLineWidth(qreal lineWidth)
     if (lineWidth != m_lineWidth)
     {
         m_lineWidth = lineWidth;
-        emit lineWidthChanged();
+        Q_EMIT lineWidthChanged();
     }
 }
 
@@ -334,7 +334,7 @@ void XYChartCore::setTextColor(QColor color)
     if (m_textColor != color)
     {
         m_textColor = color;
-        emit textColorChanged();
+        Q_EMIT textColorChanged();
     }
 }
 
@@ -348,7 +348,7 @@ void XYChartCore::setFont(const QFont &font)
     if (font != m_labelFont)
     {
         m_labelFont = font;
-        emit fontChanged();
+        Q_EMIT fontChanged();
     }
 }
 
@@ -362,7 +362,7 @@ void XYChartCore::setGridLines(bool gridLines)
     if (m_gridLines != gridLines)
     {
         m_gridLines = gridLines;
-        emit gridLinesChanged();
+        Q_EMIT gridLinesChanged();
     }
 }
 

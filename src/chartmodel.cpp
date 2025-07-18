@@ -44,7 +44,7 @@ void ChartModel::setColumns(int columns)
         beginResetModel();
         m_columns = columns;
         endResetModel();
-        emit columnsChanged();
+        Q_EMIT columnsChanged();
     }
 }
 
@@ -78,7 +78,7 @@ void ChartModel::removeRecord(int row)
     m_records.removeAt(row);
     record->deleteLater();
     endRemoveRows();
-    emit rowsChanged();
+    Q_EMIT rowsChanged();
 }
 
 void ChartModel::setValue(int row, int column, qreal value)
@@ -116,8 +116,8 @@ QVariant ChartModel::data(const QModelIndex& index, int role) const
 void ChartModel::onRecordChanged(Record* record)
 {
     const int row = m_records.indexOf(record);
-    emit dataChanged(index(row, 0), index(row, columns() - 1));
-    emit recordChanged(row);
+    Q_EMIT dataChanged(index(row, 0), index(row, columns() - 1));
+    Q_EMIT recordChanged(row);
 }
 
 void ChartModel::insertRecord(int row, Record *record)
@@ -127,7 +127,7 @@ void ChartModel::insertRecord(int row, Record *record)
     connect(record, &Record::valuesChanged, this, &ChartModel::onRecordChanged);
     m_records.insert(row, record);
     endInsertRows();
-    emit rowsChanged();
+    Q_EMIT rowsChanged();
 }
 
 void ChartModel::appendRecord(QQmlListProperty<Record>* list, Record* record)
@@ -166,7 +166,7 @@ void ChartModel::clearRecords(QQmlListProperty<Record>* list)
     {
         qDeleteAll(chartModel->m_records);
         chartModel->m_records.clear();
-        emit chartModel->rowsChanged();
+        Q_EMIT chartModel->rowsChanged();
     }
 }
 

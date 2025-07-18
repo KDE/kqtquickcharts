@@ -35,7 +35,7 @@ void Record::setValues(const QVariantList& values)
     if (values != m_values)
     {
         m_values = values;
-        emit valuesChanged(this);
+        Q_EMIT valuesChanged(this);
     }
 }
 
@@ -53,7 +53,7 @@ void Record::setValue(int column, qreal value)
         m_values.append(std::numeric_limits<double>::quiet_NaN());
     }
     m_values[column] = value;
-    emit valuesChanged(this);
+    Q_EMIT valuesChanged(this);
 }
 
 #include "moc_record.cpp"

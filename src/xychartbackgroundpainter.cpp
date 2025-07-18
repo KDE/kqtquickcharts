@@ -57,7 +57,7 @@ void XYChartBackgroundPainter::setXYChartCore(XYChartCore* xyChartCore)
         }
 
         update();
-        emit xyChartCoreChanged();
+        Q_EMIT xyChartCoreChanged();
     }
 }
 
@@ -108,7 +108,7 @@ void XYChartBackgroundPainter::updateLinePolygons()
         m_linePolygons << line;
     }
 
-    emit linePolygonsUpdated();
+    Q_EMIT linePolygonsUpdated();
 }
 
 #include "moc_xychartbackgroundpainter.cpp"

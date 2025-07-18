@@ -44,8 +44,8 @@ void Dimension::setColor(const QColor &color)
     if (color != m_color)
     {
         m_color = color;
-        emit updated();
-        emit colorChanged();
+        Q_EMIT updated();
+        Q_EMIT colorChanged();
     }
 }
 
@@ -59,8 +59,8 @@ void Dimension::setDataColumn(int dataColumn)
     if (dataColumn != m_dataColumn)
     {
         m_dataColumn = dataColumn;
-        emit updated();
-        emit dataColumnChanged();
+        Q_EMIT updated();
+        Q_EMIT dataColumnChanged();
     }
 }
 
@@ -74,8 +74,8 @@ void Dimension::setMinimumValue(qreal minimumValue)
     if (minimumValue != m_minimumValue)
     {
         m_minimumValue = minimumValue;
-        emit updated();
-        emit minimumValueChanged();
+        Q_EMIT updated();
+        Q_EMIT minimumValueChanged();
     }
 }
 
@@ -89,8 +89,8 @@ void Dimension::setMaximumValue(qreal maximumValue)
     if (maximumValue != m_maximumValue)
     {
         m_maximumValue = maximumValue;
-        emit updated();
-        emit maximumValueChanged();
+        Q_EMIT updated();
+        Q_EMIT maximumValueChanged();
     }
 }
 
@@ -104,8 +104,8 @@ void Dimension::setLabel(const QString& label)
     if (label != m_label)
     {
         m_label = label;
-        emit updated();
-        emit labelChanged();
+        Q_EMIT updated();
+        Q_EMIT labelChanged();
     }
 }
 
@@ -119,8 +119,8 @@ void Dimension::setPrecision(int precision)
     if (precision != m_precision)
     {
         m_precision = precision;
-        emit updated();
-        emit precisionChanged();
+        Q_EMIT updated();
+        Q_EMIT precisionChanged();
     }
 }
 
@@ -134,8 +134,8 @@ void Dimension::setUnit(const QString& unit)
     if (unit != m_unit)
     {
         m_unit = unit;
-        emit updated();
-        emit unitChanged();
+        Q_EMIT updated();
+        Q_EMIT unitChanged();
     }
 }
 
@@ -149,8 +149,8 @@ void Dimension::setUnitFactor(qreal unitFactor)
     if (unitFactor != m_unitFactor)
     {
         m_unitFactor = unitFactor;
-        emit updated();
-        emit unitFactorChanged();
+        Q_EMIT updated();
+        Q_EMIT unitFactorChanged();
     }
 }
 
@@ -170,8 +170,8 @@ void Dimension::setMarkerStyle(MarkerStyle markerstyle)
     if (m_markerStyle != markerstyle)
     {
         m_markerStyle = markerstyle;
-        emit updated();
-        emit markerStyleChanged();
+        Q_EMIT updated();
+        Q_EMIT markerStyleChanged();
     }
 }
 
@@ -185,8 +185,8 @@ void Dimension::setLineStyle(LineStyle lineStyle)
     if (m_lineStyle != lineStyle)
     {
         m_lineStyle = lineStyle;
-        emit updated();
-        emit lineStyleChanged();
+        Q_EMIT updated();
+        Q_EMIT lineStyleChanged();
     }
 }
 

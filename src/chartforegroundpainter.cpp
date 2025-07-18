@@ -52,7 +52,7 @@ void ChartForegroundPainter::setChartCore(ChartCore* chartCore)
         }
 
         triggerUpdate();
-        emit chartCoreChanged();
+        Q_EMIT chartCoreChanged();
     }
 }
 
@@ -67,7 +67,7 @@ void ChartForegroundPainter::setBackgroundColor(const QColor& backgroundColor)
     {
         m_backgroundColor = backgroundColor;
         triggerUpdate();
-        emit backgroundColorChanged();
+        Q_EMIT backgroundColorChanged();
     }
 }
 

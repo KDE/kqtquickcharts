@@ -55,7 +55,7 @@ void BarChartSegment::setBarChartCore(BarChartCore* barChartCore)
         }
 
         triggerUpdate();
-        emit barChartCoreChanged();
+        Q_EMIT barChartCoreChanged();
     }
 }
 
@@ -70,7 +70,7 @@ void BarChartSegment::setDimension(int dimension)
     {
         m_dimension = dimension;
         triggerUpdate();
-        emit dimensionChanged();
+        Q_EMIT dimensionChanged();
     }
 }
 
@@ -85,7 +85,7 @@ void BarChartSegment::setRow(int row)
     {
         m_row = row;
         triggerUpdate();
-        emit rowChanged();
+        Q_EMIT rowChanged();
     }
 }
 
@@ -126,7 +126,7 @@ void BarChartSegment::triggerUpdate()
     if (!valid())
         return;
     update();
-    emit barHeightChanged();
+    Q_EMIT barHeightChanged();
 }
 
 bool BarChartSegment::valid() const

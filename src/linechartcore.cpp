@@ -36,7 +36,7 @@ void LineChartCore::setPointRadius(qreal pointRadius)
     {
         m_pointRadius = pointRadius;
         triggerUpdate();
-        emit pointRadiusChanged();
+        Q_EMIT pointRadiusChanged();
     }
 }
 
