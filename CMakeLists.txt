@@ -42,7 +42,7 @@ ecm_setup_version(
   ${KF_MIN_VERSION}
   VARIABLE_PREFIX KQTQUICKCHARTS
   VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kqtquickcharts_version.h"
-  PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsVersion.cmake"
+  PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsConfigVersion.cmake"
   SOVERSION 1)
 
 #add_subdirectory(autotests)
@@ -63,8 +63,8 @@ configure_package_config_file(
 )
 
 install(FILES
- "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KQtQuickChartsConfigVersion.cmake"
   DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
   COMPONENT Devel
 )
